@@ -1,5 +1,5 @@
 # Import flask and template operators
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, g
 
 # Import SQLAlchemy
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -14,7 +14,7 @@ app.config.from_object('config')
 # by modules and controllers
 db = SQLAlchemy(app)
 
-
+#import pdb;pdb.set_trace()
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', site_title = app.config["SITE_TITLE"])
