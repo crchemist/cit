@@ -1,7 +1,6 @@
 # Import flask and template operators
-from flask import Flask, render_template, request
-
-# Import SQLAlchemy
+from flask import Flask, render_template, request, g
+g
 from flask.ext.sqlalchemy import SQLAlchemy
 
 # Define the WSGI application object
@@ -17,4 +16,4 @@ db = SQLAlchemy(app)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', site_title = app.config["SITE_TITLE"])

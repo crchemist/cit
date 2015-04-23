@@ -24,4 +24,5 @@ THREADS_PER_PAGE = 2
 CSRF_SESSION_KEY = "SEcr$t"
 
 # Secret key for signing cookies
-SECRET_KEY = "5e3r1t"
+SECRET_KEY = "SITE"
+SITE_TITLE = "SMTH"
