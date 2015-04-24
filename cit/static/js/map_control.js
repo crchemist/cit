@@ -6,7 +6,7 @@ L.tileLayer('https://{s}.tiles.mapbox.com/v4/mdemitc.m0cg2hm8/{z}/{x}/{y}.png?ac
 
 //Markers
 var markerIcon = L.icon({
-    iconUrl: '../static/images/marker_img.png',
+    iconUrl: '/static/images/marker_img.png',
     iconSize: [57, 57]
 });
 
