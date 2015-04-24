@@ -11,7 +11,7 @@ var markerIcon = L.icon({
 });
 var markerIcon_2 = L.icon({
     iconUrl: '/static/images/marker_icon.png',
-    iconSize: [25, 41]
+    iconSize: [57, 57]
 });
 
 var marker = L.marker([49.457, 31.465], {icon: markerIcon}).addTo(map),
