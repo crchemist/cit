@@ -21,7 +21,6 @@ db = SQLAlchemy(app)
 def index():
     return render_template('index.html',site_title=app.config["SITE_TITLE"])
 
-
 class AdminPageView(BaseView):
     @expose('/')
     def index(self): 
@@ -29,11 +28,4 @@ class AdminPageView(BaseView):
 # created index2.html alongwith index.html in folder template
 
 admin = Admin(app)
-admin.add_view(AdminPageView(name='Hello'))
-admin.add_view(AdminPageView(name='Hello 1', endpoint='test1', category='Test'))
-admin.add_view(AdminPageView(name='Hello 2', endpoint='test2', category='Test'))
-admin.add_view(AdminPageView(name='Hello 3', endpoint='test3', category='Test'))
-
-
-
 

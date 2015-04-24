@@ -27,5 +27,3 @@ CSRF_SESSION_KEY = "SEcr$t"
 SECRET_KEY = "5e3r1t"
 SITE_TITLE="Hi:)"
 
-
-
