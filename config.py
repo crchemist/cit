@@ -25,7 +25,6 @@ CSRF_SESSION_KEY = "SEcr$t"
 
 # Secret key for signing cookies
 SECRET_KEY = "5e3r1t"
-
 SITE_TITLE="Hi:)"
 
 
