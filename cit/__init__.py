@@ -14,8 +14,6 @@ app.config.from_object('config')
 # by modules and controllers
 db = SQLAlchemy(app)
 
-
-
 @app.route('/')
 def index():
     return render_template('index.html',site_title=app.config["SITE_TITLE"])
