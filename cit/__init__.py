@@ -17,14 +17,16 @@ class AdminPageView(BaseView):
 def index():
     return render_template('index.html')
 
-def setup_authomatic():
+def setup_authomatic(app):
     authomatic = Authomatic(
         {'fb': {'consumer_key': app.config['CONSUMER_KEY'],
                 'consumer_secret': app.config['CONSUMER_SECRET'],
                 'class_': oauth2.Facebook,
                 'scope': [],}},
         '5ecRe$', report_errors=False)
-    g.authomatic = authomatic
+    def func():
+        g.authomatic = authomatic
+    return func
 
 def create_app():
     app = Flask(__name__)
@@ -32,7 +34,7 @@ def create_app():
     app.config.from_object('config')
 
     db.init_app(app)
-    app.before_request(setup_authomatic)
+    app.before_request(setup_authomatic(app))
 
     app.add_url_rule('/', 'index', index)
 
