@@ -1,31 +1,27 @@
-# Import flask and template operators
 from flask import Flask, render_template, request, g
 
-# Import SQLAlchemy
-from flask.ext.sqlalchemy import SQLAlchemy
-
-#Flask-Admin Initialization
 from flask.ext.admin import Admin, BaseView, expose
 
-# Define the WSGI application object
-app = Flask(__name__)
+from .db import db
 
-# Configurations
-app.config.from_object('config')
-
-# Define the database object which is imported
-# by modules and controllers
-db = SQLAlchemy(app)
-
-@app.route('/')
-def index():
-    return render_template('index.html',site_title=app.config["SITE_TITLE"])
+from cit.auth.controllers import auth_bp
 
 class AdminPageView(BaseView):
     @expose('/')
     def index(self): 
         return self.render('index2.html') 
-# created index2.html alongwith index.html in folder template
 
-admin = Admin(app)
+def index():
+    return render_template('index.html')
 
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object('config')
+    db.init_app(app)
+
+    app.add_url_rule('/', 'index', index)
+
+    app.register_blueprint(auth_bp, url_prefix='/auth')
+
+    admin = Admin(app)
+    return app
