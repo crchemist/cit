@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, make_response
+from flask import Flask, render_template, request, make_response, g
 from flask import Blueprint
 
 import authomatic
@@ -12,4 +12,5 @@ auth_bp = Blueprint('auth', __name__)
 @auth_bp.route('/login/fb/', methods=['GET', 'POST'])
 def login():
     response = make_response()
-    result = authomatic.login(WerkzeugAdapter(request, response), 'fb')
+    result = g.authomatic.login(WerkzeugAdapter(request, response), 'fb')
+    return response
