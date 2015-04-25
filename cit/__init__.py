@@ -22,7 +22,7 @@ def setup_authomatic():
         {'fb': {'consumer_key': app.config['CONSUMER_KEY'],
                 'consumer_secret': app.config['CONSUMER_SECRET'],
                 'class_': oauth2.Facebook,
-                'scope': ['user_about_me', 'email'],}},
+                'scope': [],}},
         '5ecRe$', report_errors=False)
     g.authomatic = authomatic
 
@@ -32,7 +32,7 @@ def create_app():
     app.config.from_object('config')
 
     db.init_app(app)
-    app.before_first_request(setup_authomatic)
+    app.before_request(setup_authomatic)
 
     app.add_url_rule('/', 'index', index)
 
