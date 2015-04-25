@@ -13,6 +13,9 @@ auth_bp = Blueprint('auth', __name__)
 def login():
     response = make_response()
     result = g.authomatic.login(WerkzeugAdapter(request, response), 'fb')
-    if result and not result.error:
-        return redirect('/')
+    if result:
+        if result.user:
+            return redirect('/')
+        elif result.error:
+            raise Exception('FB login failed.')
     return response
