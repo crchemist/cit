@@ -4,23 +4,34 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="static/css/bootstrap.min.css" type = "text/css" rel="stylesheet">
-    <script src="static/js/bootstrap.min.js" ></script>
     <title>{{ site_title }}</title>
+    <script src="/static/js/angular.js"></script>
+
+    <!-- CSS files -->
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <link href="/static/css/bootstrap.min.css" type = "text/css" rel="stylesheet">
+    <link href="/static/css/bootstrap-social.css" type = "text/css" rel="stylesheet">
+    <link href="/static/css/font-awesome.min.css" type = "text/css" rel="stylesheet">
+    <link href="/static/css/map.css" type = "text/css" rel="stylesheet">
+    <!-- JS files -->
+    <script src="/static/js/bootstrap.min.js" ></script>
+    <script src="/static/js/leaflet.js"></script>
+   
   </head>
   <body>
+
+ <body ng-app="CITApp">
      <!-- Fixed navbar -->
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
-       <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed "
-		 data-toggle="collapse" data-target="#navbar"
-		 aria-expanded="false" aria-controls="navbar">
-          </button>
-          <a class="navbar-brand" href="#">Vk styled button</a>
+       <div class="navbar-collapse collapse navbar-right">
+          	<a class="btn btn-lg  btn-block btn-social btn-facebook">
+    		<i class="fa fa-facebook"></i> Sign in with Facebook
+  		</a>
+
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav">
             <li><a href="#">Home</a></li>
             <li class="active"><a href=#">Logo</a></li>
           </ul>
@@ -28,7 +39,11 @@
       </div>
     </nav>
 
-    
+    <!-- Map -->
+    <div id="map"></div>
+
+    <!-- JS files -->
+    <script src="/static/js/map_control.js"></script>
 
   </body>
 </html>

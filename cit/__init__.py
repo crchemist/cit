@@ -4,6 +4,9 @@ from flask import Flask, render_template, request, g
 # Import SQLAlchemy
 from flask.ext.sqlalchemy import SQLAlchemy
 
+#Flask-Admin Initialization
+from flask.ext.admin import Admin, BaseView, expose
+
 # Define the WSGI application object
 app = Flask(__name__)
 
@@ -17,3 +20,12 @@ db = SQLAlchemy(app)
 @app.route('/')
 def index():
     return render_template('index.html',site_title=app.config["SITE_TITLE"])
+
+class AdminPageView(BaseView):
+    @expose('/')
+    def index(self): 
+        return self.render('index2.html') 
+# created index2.html alongwith index.html in folder template
+
+admin = Admin(app)
+
