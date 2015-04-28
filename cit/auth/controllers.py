@@ -32,11 +32,4 @@ def login():
 @auth_bp.route("/logout",  methods=['GET'])
 def logout():
     session.pop('authomatic:fb:state', None)
-    #import pdb;pdb.set_trace()
-    
     return jsonify({'status':0})
-
-@auth_bp.route('/user-info/', methods=['GET'])
-def user_info():
-    return jsonify({'id': 10, 'name': 'Vasia', 'surname': 'Pupkin'})
-
