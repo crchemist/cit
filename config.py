@@ -5,14 +5,14 @@ DEBUG = True
 import os
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))  
 
-OPENSHIFT_POSTGRESQL_DB_HOST = os.getenv('127.0.0.1')
-OPENSHIFT_POSTGRESQL_DB_PORT = os.getenv('5432')
-OPENSHIFT_POSTGRESQL_DB_USERNAME = DB_NAME = os.getenv('User')
-OPENSHIFT_POSTGRESQL_DB_PASSWORD = DB_NAME = os.getenv('qwer')
-DB_NAME = os.getenv("DATABASE_NAME", 'citDb')
+#Database connection parameters
+db_host = db_name = os.getenv('OPENSHIFT_POSTGRESQL_DB_HOST','127.0.0.1')
+db_port = db_name = ('OPENSHIFT_POSTGRESQL_DB_PORT','5432')
+db_username = db_name = os.getenv('OPENSHIFT_POSTGRESQL_DB_USERNAME','User')
+db_password = db_name = os.getenv('OPENSHIFT_POSTGRESQL_DB_PASSWORD','qwer')
+db_name = os.getenv("DATABASE_NAME",'citDb')
 
 # Define the database - we are working with
-# Change SQLite for Postgre
 SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://User:qwer@localhost/citDb'
 DATABASE_CONNECT_OPTIONS = {}
 
