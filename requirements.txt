@@ -1,8 +1,0 @@
-Flask==0.10.1
-Flask-Login
--e git+git@github.com:peterhudec/authomatic.git#egg=authomatic
-Flask-Admin
-Flask-SQLAlchemy
-Jinja2
-SQLAlchemy
-nose
