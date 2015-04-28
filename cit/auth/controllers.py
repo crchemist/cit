@@ -28,5 +28,6 @@ def login():
 
 @auth_bp.route("/logout")
 def logout():
-    session.pop(login(), None)
-    return render_template('index.html', login=bool(login()))
+    session.pop('authomatic:fb:state', None)
+    #import pdb;pdb.set_trace()
+    return render_template('index.html', login=bool('authomatic:fb:state'))
