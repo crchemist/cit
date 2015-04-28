@@ -1,4 +1,4 @@
-from flask import redirect, render_template, request, make_response, g
+from flask import redirect, render_template, request, make_response, g, flash
 from flask import Blueprint
 
 import authomatic
@@ -15,7 +15,7 @@ def login():
     result = g.authomatic.login(WerkzeugAdapter(request, response), 'fb')
     if result:
         if result.user:
-            return redirect('/')
+		return redirect('/')
         elif result.error:
-            raise Exception('FB login failed.')
+            	raise Exception('FB login failed.')
     return response
