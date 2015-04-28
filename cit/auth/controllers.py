@@ -1,5 +1,6 @@
-from flask import redirect, render_template, request, make_response, g
+from flask import redirect, render_template, request, make_response, g, flash, url_for
 from flask import Blueprint, session
+from functools import wraps
 
 import authomatic
 from authomatic.adapters import WerkzeugAdapter
@@ -24,3 +25,8 @@ def login():
         elif result.error:
             raise Exception('FB login failed.')
     return response
+
+@auth_bp.route("/logout")
+def logout():
+    session.pop(login(), None)
+    return render_template('index.html', login=bool(login()))
