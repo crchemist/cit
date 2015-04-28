@@ -1,4 +1,4 @@
-Flask
+Flask==0.10.1
 Flask-Login
 -e git+git@github.com:peterhudec/authomatic.git#egg=authomatic
 Flask-Admin
