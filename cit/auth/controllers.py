@@ -15,7 +15,8 @@ def login():
     result = g.authomatic.login(WerkzeugAdapter(request, response), 'fb')
     if result:
         if result.user:
-		return redirect('/')
+		return redirect('#/?msg={}'.format(urlquote('')))
         elif result.error:
-            	raise Exception('FB login failed.')
+		return redirect('#/?msg={}'.format(urlquote('Facebook login failed.')))
+            	#raise Exception('FB login failed.')
     return response
