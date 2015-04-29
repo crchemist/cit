@@ -5,9 +5,15 @@ DEBUG = True
 import os
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))  
 
-# Define the database - we are working with
-# SQLite for this example
-SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'cit.db')
+#Database connection parameters
+db_host = db_name = os.getenv('OPENSHIFT_POSTGRESQL_DB_HOST','127.0.0.1')
+db_port = db_name = ('OPENSHIFT_POSTGRESQL_DB_PORT','5432')
+db_username = db_name = os.getenv('OPENSHIFT_POSTGRESQL_DB_USERNAME','User')
+db_password = db_name = os.getenv('OPENSHIFT_POSTGRESQL_DB_PASSWORD','qwer')
+db_name = os.getenv("DATABASE_NAME",'citDb')
+
+# Define the database - we are working with 
+SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://User:qwer@localhost/citDb'
 DATABASE_CONNECT_OPTIONS = {}
 
 # Application threads. A common general assumption is
