@@ -10,7 +10,7 @@ host = os.getenv('OPENSHIFT_POSTGRESQL_DB_HOST', localhost)
 port = ('OPENSHIFT_POSTGRESQL_DB_PORT', 5432) 
 username = os.getenv('OPENSHIFT_POSTGRESQL_DB_USERNAME', cituser)
 password = os.getenv('OPENSHIFT_POSTGRESQL_DB_PASSWORD', citpasswd)
-db_name = os.getenv('OPENSHIFT_APP_NAME', cit)
+db_name = os.getenv('OPENSHIFT_APP_NAME', cit) 
 
 # Define the database - we are working with 
 SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://{username}:{password}@{host}/{db_name}'. format(**{"db_name":db_name, "host":host, "username":username, "password":password })
