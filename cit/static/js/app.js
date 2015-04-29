@@ -1,2 +1,2 @@
-var app = angular.module("CITApp", ['CITApp.controllers']);
+var app = angular.module("CITApp", []);
 

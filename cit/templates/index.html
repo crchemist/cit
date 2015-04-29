@@ -9,6 +9,7 @@
     <script src="/static/js/angular.js"></script>
     <script src="/static/js/app.js"></script>
     <script src="/static/js/controllers.js"></script>
+    <script src="/static/js/directives.js"></script>
 
     <!-- CSS files -->
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
@@ -31,8 +32,8 @@
      <!-- Fixed navbar -->
  <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
-       <div class="navbar-collapse collapse navbar-right" ng-controller="showNotificationsCtrl">
-          	<a href="/auth/login/fb/" class="btn btn-lg  btn-block btn-social btn-facebook" ng-click="say()">
+       <div class="navbar-collapse collapse navbar-right">
+          	<a href="/auth/login/fb/" class="btn btn-lg  btn-block btn-social btn-facebook" class = 'errorDirective' >
     		<i class="fa fa-facebook"></i> Sign in with Facebook
   		</a>
 

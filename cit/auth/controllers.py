@@ -1,8 +1,5 @@
-from flask import redirect, render_template, request, make_response, g, flash
-from flask import Blueprint
-
 from flask import redirect, render_template, request, make_response, g
-from flask import Blueprint, session
+from flask import Blueprint, session, url_for, redirect_template
 
 import authomatic
 from authomatic.adapters import WerkzeugAdapter
@@ -21,10 +18,14 @@ def login():
     result = g.authomatic.login(WerkzeugAdapter(request, response), 'fb',
                                 session=session,
                                 session_saver=_session_saver)
+    errorMessage = None
     if result:
         if result.user:
-		return redirect('#/?msg={}'.format(urlquote('')))
+            return redirect(url_for('login/fb'))
         elif result.error:
-		return redirect('#/?msg={}'.format(urlquote('Facebook login failed.')))
-            	
+        	errorMessage = 'Facebook login failed.'
+		return redirect_template('/templates/index.html',error = errorMessage)
+    else:
+	errorMessage = 'Facebook login failed.'
+        return redirect_template('/templates/index.html',error = errorMessage)     	
     return response
