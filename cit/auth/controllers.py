@@ -1,6 +1,5 @@
-from flask import redirect, render_template, request, make_response, g
+from flask import redirect, render_template, request, make_response, g, flash, url_for
 from flask import Blueprint, session, jsonify
-
 import authomatic
 from authomatic.adapters import WerkzeugAdapter
 from authomatic import Authomatic
@@ -32,6 +31,7 @@ def login():
             raise Exception('FB login failed.')
     return response
 
-@auth_bp.route('/user-info/', methods=['GET'])
-def user_info():
-    return jsonify({'id': 10, 'name': 'Vasia', 'surname': 'Pupkin'})
+@auth_bp.route("/logout/",  methods=['GET'])
+def logout():
+    session.pop('authomatic:fb:state', None)
+    return jsonify({'status':0})

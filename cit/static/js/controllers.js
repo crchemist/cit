@@ -1,3 +1,10 @@
-app.controller("myCtrl", function($scope) {
-    $scope.clear  = function() {$scope.test = "";};
-});
+function MainCtrl($location) {
+ $http.get('/auth/logout/').
+ 		success(function(data) { 
+            $location = '/#';
+        }).
+ 		error(function(data){
+            alert('error');
+        });
+    }
+app.controller('MainCtrl', ['$scope', '$http', MainCtrl]);
