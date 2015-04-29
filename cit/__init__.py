@@ -7,13 +7,15 @@ from flask.ext.admin.contrib.sqla import ModelView
 from authomatic.providers import oauth2
 from authomatic import Authomatic
 
-from .db import db
+#from .db import db
 
 from cit.auth.controllers import auth_bp
 from cit.auth.models import User
 
+app = Flask(__name__)
+app.config.from_pyfile('flaskapp.cfg')
 
-
+@app.route('/')
 def index():
     return render_template('index.html')
 
@@ -46,3 +48,6 @@ def create_app():
     admin.add_view(ModelView(User, db.session))
 
     return app
+
+if __name__ == '__main__':
+    app.run()
