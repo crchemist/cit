@@ -12,7 +12,7 @@ db_username = db_name = os.getenv('OPENSHIFT_POSTGRESQL_DB_USERNAME','User')
 db_password = db_name = os.getenv('OPENSHIFT_POSTGRESQL_DB_PASSWORD','qwer')
 db_name = os.getenv("DATABASE_NAME",'citDb')
 
-# Define the database - we are working with
+# Define the database - we are working with 
 SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://User:qwer@localhost/citDb'
 DATABASE_CONNECT_OPTIONS = {}
 
