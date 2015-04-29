@@ -5,6 +5,7 @@ from authomatic.adapters import WerkzeugAdapter
 from authomatic import Authomatic
 
 from .models import User
+from ..db import db
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -19,12 +20,18 @@ def login():
                                 session_saver=_session_saver)
     if result:
         if result.user:
+            result.user.update()
+            user = User.query.filter_by(fb_id = result.user.id).first()
+            if not user:
+                db.create_all()
+                db.session.add(User(result.user.first_name, result.user.last_name, result.user.id, result.user.email))
+                db.session.commit()
             return redirect('/')
         elif result.error:
             raise Exception('FB login failed.')
     return response
 
-@auth_bp.route("/logout",  methods=['GET'])
+@auth_bp.route("/logout/",  methods=['GET'])
 def logout():
     session.pop('authomatic:fb:state', None)
     return jsonify({'status':0})
