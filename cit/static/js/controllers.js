@@ -1,11 +1,8 @@
-angular.module('CITApp.controllers', []).
-controller("showNotificationsCtrl", ['$scope','$location', function($scope, $location) 
-{
-		$scope.say = function() {
-			var m = $location.search();
-			if (m !== "") {
-				alert(m.mes);
-			}
-		};
-	  }]);
-
+ app.controller('AppCtrl', ['$scope', 'EzAlert', function($scope, EzAlert) {
+        $scope.addAlert = function(type) {
+	        console.log(type);
+	        var text = "Warning"
+	          EzAlert[type](type + text);
+        };
+      }])
+      ;

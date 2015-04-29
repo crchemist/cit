@@ -1,6 +1,6 @@
 /*Map CSS*/
 #map { 
-    height: 620px;
+    height: 725px;
     margin-top: 51px;
 }
 
@@ -12,12 +12,12 @@
 
 /*General CSS*/
 #general {
-    height: 150px;
+    height: 120px;
 }
 
 /*Location_info CSS*/
 #location_info {
-    height: 150px;
+    height: 120px;
 }
 
 /*Slider CSS*/

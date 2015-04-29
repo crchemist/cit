@@ -1,5 +1,6 @@
 from flask import redirect, render_template, request, make_response, g
-from flask import Blueprint, session, url_for, redirect_template
+from flask import Blueprint, session, jsonify
+from urllib import quote
 
 import authomatic
 from authomatic.adapters import WerkzeugAdapter
@@ -18,14 +19,15 @@ def login():
     result = g.authomatic.login(WerkzeugAdapter(request, response), 'fb',
                                 session=session,
                                 session_saver=_session_saver)
-    errorMessage = None
     if result:
         if result.user:
-            return redirect(url_for('login/fb'))
+            return redirect('/')
         elif result.error:
-        	errorMessage = 'Facebook login failed.'
-		return redirect_template('/templates/index.html',error = errorMessage)
-    else:
-	errorMessage = 'Facebook login failed.'
-        return redirect_template('/templates/index.html',error = errorMessage)     	
+            redirect_path = '#/?msg={}'.format(quote('Facebook login failed.'))
+            return redirect(redirect_path )
+    
     return response
+
+@auth_bp.route('/user-info/', methods=['GET'])
+def user_info():
+    return jsonify({'id': 10, 'name': 'Vasia', 'surname': 'Pupkin'})
