@@ -6,11 +6,11 @@ import os
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))  
 
 #Define database connection
-host = os.getenv('OPENSHIFT_POSTGRESQL_DB_HOST', localhost)
-port = ('OPENSHIFT_POSTGRESQL_DB_PORT', 5432) 
-username = os.getenv('OPENSHIFT_POSTGRESQL_DB_USERNAME', cituser)
-password = os.getenv('OPENSHIFT_POSTGRESQL_DB_PASSWORD', citpasswd)
-db_name = os.getenv('OPENSHIFT_APP_NAME', cit) 
+host = os.getenv('OPENSHIFT_POSTGRESQL_DB_HOST', 'localhost')
+port = os.getenv('OPENSHIFT_POSTGRESQL_DB_PORT', '5432') 
+username = os.getenv('OPENSHIFT_POSTGRESQL_DB_USERNAME', "cituser") 
+password = os.getenv('OPENSHIFT_POSTGRESQL_DB_PASSWORD', "citpasswd") 
+db_name = os.getenv('OPENSHIFT_APP_NAME', 'cit') 
 
 # Define the database - we are working with 
 SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://{username}:{password}@{host}/{db_name}'. format(**{"db_name":db_name, "host":host, "username":username, "password":password })
