@@ -26,13 +26,13 @@ except IOError:
 # IMPORTANT: Put any additional includes below this line.  If placed above this
 # line, it's possible required libraries won't be in your searchable path
 #
-
+sys.path.append('cit')
 
 #
 #  main():
 #
 if __name__ == '__main__':
-  application = imp.load_source('app', 'flaskapp.py')
+  application = imp.load_source('app', 'cit/__init__.py')
   port = application.app.config['PORT']
   ip = application.app.config['IP']
   app_name = application.app.config['APP_NAME']
