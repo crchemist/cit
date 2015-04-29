@@ -4,10 +4,16 @@ DEBUG = True
 # Define the application directory
 import os
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))  
+#identify variable db_name and user pass
+
+db_username = os.getenv("READER_USERNAME")
+db_password = os.getenv("READER_PASSWORD")
+db_name = os.getenv("DATABASE_NAME") or 'cit'
 
 # Define the database - we are working with
-# SQLite for this example
-SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'cit.db')
+# SQLite change for postpreSQL
+from sqlalchemy import create_engine
+engine = create_engine('postgresql+psycopg2://localhost/cit', isolation_level="AUTOCOMMIT")
 DATABASE_CONNECT_OPTIONS = {}
 
 # Application threads. A common general assumption is
