@@ -40,5 +40,5 @@ CONSUMER_SECRET = 'c0e023b09461c502cd3cd7121d205735'
 
 try:
 	from config_local.py import *
-exept ImportError:
+except ImportError:
 	pass
