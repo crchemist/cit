@@ -1,19 +1,48 @@
-# Import flask and template operators
+# Main init file.
 from flask import Flask, render_template, request, g
 
-# Import SQLAlchemy
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.admin import Admin, BaseView
+from flask.ext.admin.contrib.sqla import ModelView
 
-# Define the WSGI application object
-app = Flask(__name__)
+from authomatic.providers import oauth2
+from authomatic import Authomatic
 
-# Configurations
-app.config.from_object('config')
+from .db import db
 
-# Define the database object which is imported
-# by modules and controllers
-db = SQLAlchemy(app)
+from cit.auth.controllers import auth_bp
+from cit.auth.models import User
 
-@app.route('/')
+
+
 def index():
-    return render_template('index.html',site_title=app.config["SITE_TITLE"])
+    return render_template('index.html')
+
+def setup_authomatic(app):
+    authomatic = Authomatic(
+        {'fb': {'consumer_key': app.config['CONSUMER_KEY'],
+                'consumer_secret': app.config['CONSUMER_SECRET'],
+                'class_': oauth2.Facebook,
+                'scope': [],}},
+        '5ecRe$', report_errors=False)
+    def func():
+        g.authomatic = authomatic
+    return func
+
+
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object('config')
+
+    db.init_app(app)
+    app.before_request(setup_authomatic(app))
+
+    app.add_url_rule('/', 'index', index)
+
+    app.register_blueprint(auth_bp, url_prefix='/auth')
+
+    admin = Admin(app)
+
+    # add admin views.
+    admin.add_view(ModelView(User, db.session))
+
+    return app
