@@ -35,3 +35,4 @@ def login():
 @auth_bp.route('/user-info/', methods=['GET'])
 def user_info():
     return jsonify({'id': 10, 'name': 'Vasia', 'surname': 'Pupkin'})
+#

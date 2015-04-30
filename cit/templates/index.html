@@ -19,20 +19,19 @@
     <script src="/static/js/bootstrap.min.js" ></script>
     <script src="/static/js/jquery.js" ></script>
     <script src="/static/js/leaflet.js"></script>
+    <script src="/static/js/user_directive.js"></script>
    
   </head>
   <body>
 
- <body ng-app="CITApp">
+ <body ng-app="myApp">
      <!-- Fixed navbar -->
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
-       <div class="navbar-collapse collapse navbar-right">
-          	<a href="/auth/login/fb/"
-               class="btn btn-lg  btn-block btn-social btn-facebook">
-    		<i class="fa fa-facebook"></i> Sign in with Facebook
-  		</a>
-
+       <div class="navbar-collapse collapse navbar-right" ng-controller="UserNS">
+            		
+            <my-customer></my-customer>
+          		
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
