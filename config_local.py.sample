@@ -1,0 +1,10 @@
+#Define database connection
+host = os.getenv('OPENSHIFT_POSTGRESQL_DB_HOST', 'localhost')
+port = os.getenv('OPENSHIFT_POSTGRESQL_DB_PORT', '5432')
+#set your user name
+username = os.getenv('OPENSHIFT_POSTGRESQL_DB_USERNAME', "yuorUserName")
+#set your user password 
+password = os.getenv('OPENSHIFT_POSTGRESQL_DB_PASSWORD', "yuorUserPassword") 
+#set your database name
+db_name = os.getenv('OPENSHIFT_APP_NAME', 'yuorUserDbName') 
+
