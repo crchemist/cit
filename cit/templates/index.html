@@ -36,10 +36,12 @@
     <nav class="navbar navbar-default navbar-fixed-top" >
       <div class="container errorDirective" >
 
-<div class="alert alert-warning alert-dismissible" role="alert"  ng-hide="myVar">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  <strong>Warning!</strong> Better check yourself, you're not looking too good.
-</div>
+	<div class="alert alert-warning alert-dismissible" role="alert"  ng-hide="myVar">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="closeAlert()">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		  <strong>Warning!</strong>  <span ></span>
+		</div>
 
       <div class="navbar-collapse collapse navbar-right" >
             <a href="/auth/login/fb/"

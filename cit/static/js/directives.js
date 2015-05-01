@@ -6,17 +6,25 @@ directive('errorDirective',['$rootScope', '$location',function($rootScope, $loca
         	
         	var termKey = "msg";
         	$scope.myVar = true;
+
+		$scope.closeAlert = function(){
+			$scope.myVar = true;
+		}
+
         	$scope.$watch(function () { return $location.search(); }, function() {
 				if ($location.search()[termKey]) 
 					$scope.msg = $location.search()[termKey] ;
-      			     			
-      			//alert ("hello")
-      		
+
     		});
      
 		    $scope.$watch('msg', function(msg) {
 		       $location.search(termKey, msg);
-		       if(msg) alert(msg); //scope.$apply("fun.addAlert(msg)");//alert(msg);
+		       if(msg){ 
+				//alert(msg); 
+				//element.next().next().next().next().text( attrs.messages);
+				$scope.myVar =false;
+			}
+
 		    });
 }
 
