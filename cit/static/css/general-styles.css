@@ -1,3 +1,13 @@
+/* HEADER */
+.userFb {
+    padding: 4px 18px;
+    background-color: #2D4373;
+    color: #fff;
+    font-size: 16px;
+    margin: 10px;
+
+}
+
 /*Map CSS*/
 #map { 
     height: 725px;
