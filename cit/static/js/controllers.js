@@ -1,10 +1,9 @@
-function MainCtrl($location) {
- $http.get('/auth/logout/').
- 		success(function(data) { 
-            $location = '/#';
-        }).
- 		error(function(data){
-            alert('error');
-        });
-    }
-app.controller('MainCtrl', ['$scope', '$http', MainCtrl]);
+app.controller('LogoutCtrl', ['$scope', '$http', '$location', changeLocation]);
+	function changeLocation($scope, $http, $location) {
+			$scope.redirect = function(path){
+				$http.get('/auth/logout/').
+				success(function(data) { 
+					$location.path('/');
+  				});
+			}
+	}

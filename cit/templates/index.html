@@ -37,12 +37,11 @@
              </a>
         </div>
                        
-        <div class="navbar-collapse collapse navbar-right" ng-controller="MainCtrl" >
-            <a href="/auth/logout/"
+        <div class="navbar-collapse collapse navbar-right" ng-controller="LogoutCtrl" >
+            <a href="#/auth/logout/" ng-click="redirect()"
                class="btn btn-lg  btn-block btn-social btn-facebook"  >
                <i class="fa fa-facebook"></i> Logout
              </a>
-             <p ng-repeat="resp in response">{{resp}}zdgfv sgfs</p>
         </div>
              
         <div id="navbar" class="navbar-collapse collapse">
