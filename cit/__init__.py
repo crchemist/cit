@@ -42,3 +42,5 @@ def create_app():
 
     admin = Admin(app)
     return app
+    
+app = create_app()
