@@ -1,6 +1,5 @@
 from flask import redirect, render_template, request, make_response, g
 from flask import Blueprint, session, jsonify
-
 from urllib import quote
 
 import authomatic
@@ -33,7 +32,6 @@ def login():
         elif result.error:
             redirect_path = '#/?msg={}'.format(quote('Facebook login failed.'))
             return redirect(redirect_path )
-    
     return response
 
 @auth_bp.route('/user-info/', methods=['GET'])
