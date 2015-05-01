@@ -1,1 +1,1 @@
-var app = angular.module("CITApp", ['ez.alert']);
+var app = angular.module("CITApp", []);

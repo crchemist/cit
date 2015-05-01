@@ -27,31 +27,26 @@
     <script src="/static/js/ui-bootstrap-custom-tpls-0.12.1.js"></script>
    
 
-   
-   <link href="/static/css/ez-alert.min.css" rel="stylesheet">
 
-  <script src="/static/js/ez-alert.js"></script>
-  <script src="/static/js/ez-alert-tpl.js"></script>
--->
   </head>
 
  <body ng-app="CITApp">
      <!-- Fixed navbar -->
 
     <nav class="navbar navbar-default navbar-fixed-top" >
-      <div class="container" >
-      <ez-alert></ez-alert>
-      <div class="navbar-collapse collapse navbar-right" ng-controller="AppCtrl">
+      <div class="container errorDirective" >
+
+<div class="alert alert-warning alert-dismissible" role="alert"  ng-hide="myVar">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong>Warning!</strong> Better check yourself, you're not looking too good.
+</div>
+
+      <div class="navbar-collapse collapse navbar-right" >
             <a href="/auth/login/fb/"
-              class="btn btn-lg  btn-block btn-social btn-facebook errorDirective" ng-click="addAlert('warning')">
+              class="btn btn-lg  btn-block btn-social btn-facebook " >
     		     <i class="fa fa-facebook"></i> Sign in with Facebook
           </a>
-
-    <div >
-      <a class="btn btn-success" ng-click="addAlert('success')">Add Alert</a>
-      <a class="btn btn-warning" ng-click="addAlert('warning')">Add Alert</a>
-      <a class="btn btn-danger" ng-click="addAlert('error')">Add Alert</a>
-    </div>
+   
         </div>
      
 
@@ -63,7 +58,7 @@
         </div><!--/.nav-collapse -->
 
       </div>
-
+    
     </nav>
 
     <!-- Map -->

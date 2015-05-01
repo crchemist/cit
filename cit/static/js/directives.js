@@ -2,10 +2,10 @@ app.
 directive('errorDirective',['$rootScope', '$location',function($rootScope, $location){
 	return {
         restrict: 'AEC',
-        controller:['$scope','$location', function($scope,$location){
+        link: function($scope, element, attrs){
         	
         	var termKey = "msg";
-        	
+        	$scope.myVar = true;
         	$scope.$watch(function () { return $location.search(); }, function() {
 				if ($location.search()[termKey]) 
 					$scope.msg = $location.search()[termKey] ;
@@ -18,7 +18,8 @@ directive('errorDirective',['$rootScope', '$location',function($rootScope, $loca
 		       $location.search(termKey, msg);
 		       if(msg) alert(msg); //scope.$apply("fun.addAlert(msg)");//alert(msg);
 		    });
-        }] 
+}
+
        
 	
 }}]);
