@@ -2,20 +2,18 @@ app.
 directive('errorDirective',['$rootScope', '$location',function($rootScope, $location){
 	return {
         restrict: 'AEC',
-        template: "<div ng-transclude><h3>Heading</h3></div>",
+        template: "<div ng-transclude>></div>",
         transclude:true,
         link: function($scope, element, attrs){
         	
         	var termKey = "msg";
-        	$scope.myVar = true;
+        	$scope.showMessage = true;
 
     		$scope.closeAlert = function(){
-    			$scope.myVar = true;
+    			$scope.showMessage = true;
     		}
 
-            $scope.change = function() {
-                element.text();
-            };
+
 
         	$scope.$watch(function () { return $location.search(); }, function() {
 				if ($location.search()[termKey]) 
@@ -26,7 +24,7 @@ directive('errorDirective',['$rootScope', '$location',function($rootScope, $loca
 		    $scope.$watch('msg', function(msg) {
 		       $location.search(termKey, msg);
 		       if(msg){ 
-				    $scope.myVar =false;
+				    $scope.showMessage =false;
 			     }
             })
         }
