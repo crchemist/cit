@@ -27,11 +27,15 @@ def login():
                 db.create_all()
                 db.session.add(User(result.user.first_name, result.user.last_name, result.user.id, result.user.email))
                 db.session.commit()
+                user = User.query.filter_by(fb_id = result.user.id).first()
+            session['user_id'] = user.id
             return redirect('/')
+
         elif result.error:
             raise Exception('FB login failed.')
     return response
 
 @auth_bp.route('/user-info/', methods=['GET'])
 def user_info():
+#    return jsonify({'id': g.user.id, 'name': g.user.fb_first_name})
     return jsonify({'id': 10, 'name': 'Vasia', 'surname': 'Pupkin'})

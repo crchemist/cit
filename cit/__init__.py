@@ -1,5 +1,5 @@
 # Main init file.
-from flask import Flask, render_template, request, g
+from flask import Flask, render_template, request, g, session
 
 from flask.ext.admin import Admin, BaseView
 from flask.ext.admin.contrib.sqla import ModelView
@@ -11,7 +11,6 @@ from .db import db
 
 from cit.auth.controllers import auth_bp
 from cit.auth.models import User
-
 
 
 def index():
@@ -28,6 +27,10 @@ def setup_authomatic(app):
         g.authomatic = authomatic
     return func
 
+def load_user():
+    if 'user_id' not in session.keys():
+        session['user_id'] = 1  # We can create in db an 'Guest' User with id = 1
+    g.user = User.query.filter_by(id = session['user_id']).first()
 
 def create_app():
     app = Flask(__name__)
@@ -35,6 +38,7 @@ def create_app():
 
     db.init_app(app)
     app.before_request(setup_authomatic(app))
+    app.before_request(load_user)
 
     app.add_url_rule('/', 'index', index)
 
