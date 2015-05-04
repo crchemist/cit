@@ -8,7 +8,7 @@ function getDecimals(n) {
 }
 
 function getVF(n, opt_precision) {
-  var v = opt_precision;
+  var v = opt_precision;                                                           
 
   if (undefined === v) {
     v = Math.min(getDecimals(n), 3);

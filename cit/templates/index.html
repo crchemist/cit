@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Civic Issue Tracker</title>
+    <title translate="TITLE">Civic Issue Tracker</title>
 
     <!-- CSS files -->
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
@@ -19,6 +19,7 @@
     <script src="/static/js/app.js"></script>
     <script src="/static/js/controllers.js"></script>
     <script src="/static/js/angular-route.min.js"></script>
+    <script src="/static/js/angular-route.min.js.map"></script>
     <script src="/static/js/angular-translate.js"></script>
     <script src="/static/js/i18n.js"></script>
     <script src="/static/js/angular-locale_uk-ua.js"></script>
@@ -45,10 +46,10 @@
         </div>
                        
         <div class="navbar-collapse collapse navbar-right" ng-controller="LogoutCtrl" >
-           <a href="#/auth/logout/" 
-               class="btn btn-lg  btn-block btn-social btn-facebook" >
-               <i class="fa fa-facebook" ></i> <span translate="LOGOUT">Logout</span>
-             </a>
+           <button ng-click="logout()" 
+                  class="btn btn-lg  btn-block btn-social btn-facebook" >  
+              <i class="fa fa-facebook" ></i> <span translate="LOGOUT">Logout</span>
+            </button>
         </div>
              
         <div id="navbar" class="navbar-collapse collapse">
@@ -90,13 +91,9 @@
         </div>
     </div>
 
-    <div ng-view=""></div>
     <!-- JS files -->
     <script src="/static/js/map_control.js"></script>
     <script type="text/javascript" src="/static/js/slick.min.js"></script>
     <script type="text/javascript" src="/static/js/gallery.js"></script>
     </body>
 </html>
-
-
-
