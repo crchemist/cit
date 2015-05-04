@@ -37,5 +37,7 @@ def login():
 
 @auth_bp.route('/user-info/', methods=['GET'])
 def user_info():
-#    return jsonify({'id': g.user.id, 'name': g.user.fb_first_name})
-    return jsonify({'id': 10, 'name': 'Vasia', 'surname': 'Pupkin'})
+    res = {}
+    if g.user:
+        res = ({'id': g.user.id, 'first_name': g.user.fb_first_name, 'last_name': g.user.fb_last_name, 'fb_id': g.user.fb_id, 'email': g.user.email})
+    return jsonify(res)

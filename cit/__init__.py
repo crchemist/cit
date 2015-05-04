@@ -16,21 +16,27 @@ from cit.auth.models import User
 def index():
     return render_template('index.html')
 
+
 def setup_authomatic(app):
     authomatic = Authomatic(
         {'fb': {'consumer_key': app.config['CONSUMER_KEY'],
                 'consumer_secret': app.config['CONSUMER_SECRET'],
                 'class_': oauth2.Facebook,
-                'scope': [],}},
+                'scope': [], }},
         '5ecRe$', report_errors=False)
+
     def func():
         g.authomatic = authomatic
+
     return func
+
 
 def load_user():
     if 'user_id' not in session.keys():
-        session['user_id'] = 1  # We can create in db an 'Guest' User with id = 1
-    g.user = User.query.filter_by(id = session['user_id']).first()
+        g.user = None
+    else:
+        g.user = User.query.filter_by(id=session['user_id']).first()
+
 
 def create_app():
     app = Flask(__name__)
