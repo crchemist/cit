@@ -12,7 +12,7 @@ from .db import db
 from cit.auth.controllers import auth_bp
 from cit.auth.models import User
 
-
+from flask.ext.triangle import Triangle
 
 def index():
     return render_template('index.html')
