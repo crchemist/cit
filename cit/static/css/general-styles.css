@@ -31,7 +31,6 @@
 }
 
 /*Slider CSS*/
-
 #slider .slider-nav {
 	height: 140px;
 }
@@ -45,3 +44,11 @@
 	width: 100%;
 	height: 100%;
 }
+
+/*Modal window*/
+div #modalWindow {
+    display:block;
+    opacity:1;
+    z-index: 0;
+}
+
