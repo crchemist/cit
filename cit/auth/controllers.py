@@ -36,7 +36,6 @@ def login():
 def logout():
     session.pop('authomatic:fb:state', None)
     session.pop('user_id', None)
-    #return redirect('/')
     return jsonify({'status':0})
 
 @auth_bp.route('/user-info/', methods=['GET'])
