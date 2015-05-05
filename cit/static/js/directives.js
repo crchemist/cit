@@ -22,17 +22,3 @@ directive('errorDirective',['$rootScope', '$location',function($rootScope, $loca
      }
  }]);
 
-=======
-        	$scope.$watch(function () { return $location.search().msg; }, function() {
-			$scope.msg = $location.search().msg ;
-    		});
-     
-		$scope.$watch('msg', function(msg) {
-			if(msg){
-				$scope.showMessage =false;
-			     }
-            })
-        }
-    }
-}]);
->>>>>>> origin/master
