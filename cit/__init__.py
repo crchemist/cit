@@ -1,5 +1,4 @@
 # Main init file.
-import os
 from flask import Flask, render_template, request, g, session
 
 from flask.ext.admin import Admin, BaseView
