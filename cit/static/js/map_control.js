@@ -25,7 +25,7 @@ window.addEventListener("load", function () {
 		
 			new L.Control.GeoSearch({
 				provider: new L.GeoSearch.Provider.OpenStreetMap(),
-				showMarker: true,
+				showMarker: markerIcon
 			}).addTo(map);
 
 			//Markers
