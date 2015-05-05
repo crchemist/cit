@@ -11,6 +11,7 @@ from .db import db
 
 from cit.auth.controllers import auth_bp
 from cit.auth.models import User
+from mixer.backend.flask import mixer
 
 
 def index():
@@ -43,6 +44,9 @@ def create_app():
     app.config.from_object('config')
 
     db.init_app(app)
+
+    mixer.init_app(app)
+
     app.before_request(setup_authomatic(app))
     app.before_request(load_user)
 
