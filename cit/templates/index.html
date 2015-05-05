@@ -34,7 +34,8 @@
   </head>
   <body ng-app="CITApp">
      <!-- Fixed navbar -->
- <div class="container" error-Directive >
+
+ <div class="container" error-directive >
 
      <div ng-hide="showMessage" class="ng-hide">
          <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"  id="modalWindow" >
@@ -56,13 +57,22 @@
       </div>
     </div>
 
+
   <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
-          <div class="navbar-collapse collapse navbar-right" >
-            <a href="/auth/login/fb/"
-               class="btn btn-lg  btn-block btn-social btn-facebook">
-              <i class="fa fa-facebook"></i><span translate="SIGN_IN_WITH_FACEBOOK">Sign in with Facebook</span>  
-             </a>
+          <div class="navbar-collapse collapse navbar-right" ng-controller="UserNS" >
+            <!--/Angular-user (login/unlogin) -->
+              <div>
+                <div ng-if="user_data.fullNS == ''">
+                  <a href="/auth/login/fb/" class="btn btn-lg  btn-block btn-social btn-facebook">
+                    <i class="fa fa-facebook"></i> Sign in with Facebook
+                  </a>
+                </div>
+                <div ng-if="user_data.fullNS != ''">
+                  <div class="userFb" user-namesurname></div>
+                </div>
+              </div>
+            <!--/End angular-user (login/unlogin) -->
         </div>                     
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -106,6 +116,8 @@
     <script src="/static/js/map_control.js"></script>
     <script type="text/javascript" src="/static/js/slick.min.js"></script>
     <script type="text/javascript" src="/static/js/gallery.js"></script>
+    <!-- AngularJS files -->
+    <script src="/static/js/user_directive.js"></script>
 
   </body>
 </html>

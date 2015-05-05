@@ -1,5 +1,4 @@
-app.
-directive('errorDirective',['$rootScope', '$location',function($rootScope, $location){
+app.directive('errorDirective',['$rootScope', '$location',function($rootScope, $location){
 	return {
         restrict: 'AEC',
         template: "<div ng-transclude>></div>",
