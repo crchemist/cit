@@ -28,7 +28,10 @@ def login():
                 db.create_all()
                 db.session.add(User(result.user.first_name, result.user.last_name, result.user.id, result.user.email))
                 db.session.commit()
+                user = User.query.filter_by(fb_id = result.user.id).first()
+            session['user_id'] = user.id
             return redirect('/')
+
         elif result.error:
             redirect_path = '#/?msg={}'.format(quote('Facebook login failed.'))
             return redirect(redirect_path )
@@ -36,4 +39,7 @@ def login():
 
 @auth_bp.route('/user-info/', methods=['GET'])
 def user_info():
-    return jsonify({'id': 10, 'name': 'Vasia', 'surname': 'Pupkin'})
+    res = {}
+    if g.user:
+        res = ({'id': g.user.id, 'first_name': g.user.fb_first_name, 'last_name': g.user.fb_last_name, 'fb_id': g.user.fb_id, 'email': g.user.email})
+    return jsonify(res)

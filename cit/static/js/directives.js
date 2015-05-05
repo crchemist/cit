@@ -14,19 +14,14 @@ directive('errorDirective',['$rootScope', '$location',function($rootScope, $loca
     		}
 
 
-
-        	$scope.$watch(function () { return $location.search(); }, function() {
-				if ($location.search()[termKey]) 
-					$scope.msg = $location.search()[termKey] ;
-
-    		});
+        	$scope.$watch(function () { return $location.absUrl(); }, function() {
+                if($location.search().msg){
+                    $scope.msg = $location.search().msg;
+                    $scope.showMessage =false;
+                }              
+     		});
      
-		    $scope.$watch('msg', function(msg) {
-		       $location.search(termKey, msg);
-		       if(msg){ 
-				    $scope.showMessage =false;
-			     }
-            })
-        }
-    }
-}]);
+            }
+     }
+ }]);
+
