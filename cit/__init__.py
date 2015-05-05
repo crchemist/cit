@@ -1,4 +1,5 @@
 # Main init file.
+import os
 from flask import Flask, render_template, request, g, session
 
 from flask.ext.admin import Admin, BaseView
@@ -13,10 +14,14 @@ from cit.auth.controllers import auth_bp
 from cit.auth.models import User
 from mixer.backend.flask import mixer
 
+from cit.file_mode.upload import upload_file as upload
+
+def upload_file():
+    upload(app)
+    return render_template('file_upload.html')
 
 def index():
     return render_template('index.html')
-
 
 def setup_authomatic(app):
     authomatic = Authomatic(
@@ -31,13 +36,11 @@ def setup_authomatic(app):
 
     return func
 
-
 def load_user():
     if 'user_id' not in session.keys():
         g.user = None
     else:
         g.user = User.query.filter_by(id=session['user_id']).first()
-
 
 def create_app():
     app = Flask(__name__)
@@ -51,6 +54,7 @@ def create_app():
     app.before_request(load_user)
 
     app.add_url_rule('/', 'index', index)
+    app.add_url_rule('/upload/', 'upload_file', upload_file, methods=['GET', 'POST'])
 
     app.register_blueprint(auth_bp, url_prefix='/auth')
 
@@ -60,3 +64,6 @@ def create_app():
     admin.add_view(ModelView(User, db.session))
 
     return app
+
+app = create_app()
+ 
