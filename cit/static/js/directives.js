@@ -1,4 +1,4 @@
-app.directive('errorDirective',['$rootScope', '$location',function($rootScope, $location){
+app.directive('errorDirective',['$location',function($location) {
 	return {
         restrict: 'AEC',
         template: "<div ng-transclude>></div>",
@@ -10,12 +10,14 @@ app.directive('errorDirective',['$rootScope', '$location',function($rootScope, $
     			$scope.showMessage = true;
     		}
 
-        	$scope.$watch(function () { return $location.absUrl(); }, function() {
-                if($location.search().msg){
-                    $scope.msg = $location.search().msg;
-                    $scope.showMessage =false;
-                }              
-     		});
+        	$scope.$watch(function () { 
+				return $location.absUrl(); }, 
+			function() {
+				if($location.search().msg) {
+				    $scope.msg = $location.search().msg;
+				    $scope.showMessage =false;
+				}              
+     			});
      
             }
      }
