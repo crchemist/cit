@@ -48,5 +48,10 @@
 div #modalWindow {
     display:block;
     opacity:0.9;
+
+}
+
+.ng-hide:not(.ng-hide-animate) {
+  display: none !important;
 }
 

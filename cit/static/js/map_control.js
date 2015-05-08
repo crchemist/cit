@@ -22,6 +22,11 @@ window.addEventListener("load", function () {
 		L.tileLayer('https://{s}.tiles.mapbox.com/v4/mdemitc.m0cg2hm8/{z}/{x}/{y}.png?access_token={id}', {
 				id: 'pk.eyJ1IjoibWRlbWl0YyIsImEiOiJNR2thSnB3In0.IzaWDdO6nh0lGHnCO0V4Mw'
 			}).addTo(map);
+		
+			new L.Control.GeoSearch({
+				provider: new L.GeoSearch.Provider.OpenStreetMap(),
+				showMarker: markerIcon
+			}).addTo(map);
 
 			//Markers
 			var markerIcon = L.icon({
