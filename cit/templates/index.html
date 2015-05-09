@@ -17,9 +17,13 @@
     <!-- JS files -->
     <script src="/static/js/angular.js"></script>
     <script src="/static/js/app.js"></script>
-    <script src="/static/js/angular-translate.js"></script>      
+    <script src="/static/js/angular-translate.js"></script>
+    <script src="/static/js/app.config.js"></script>
+          
     <script src="/static/js/controllers.js"></script>
-    <script src="/static/js/directives.js"></script>  
+    <script src="/static/js/directives.js"></script> 
+    <script src="/static/js/angular-route.min.js"></script>
+    <script src="/static/js/angular-route.min.js.map"></script> 
 
     <script src="/static/js/bootstrap.min.js" ></script>
     <script src="/static/js/jquery.js" ></script>
@@ -31,35 +35,43 @@
   </head>
   <body ng-app="CITApp">
      <!-- Fixed navbar -->
-  <nav class="navbar navbar-default navbar-fixed-top">
+  <nav class="navbar navbar-default navbar-fixed-top" ng-cloak >
         <div class="container">
-          <div class="navbar-collapse collapse navbar-right" ng-controller="UserNS" >
+          <div class="navbar-collapse collapse navbar-right float-left" ng-controller="UserNS" >
             <!--/Angular-user (login/unlogin) -->
-              <div>
-                <div ng-if="user_data.fullNS == ''">
+              <div class="pull-left">
+                <div ng-if="user_data.fullUserName == null ">
                   <a href="/auth/login/fb/" class="btn btn-lg  btn-block btn-social btn-facebook">
-                    <i class="fa fa-facebook"></i> Sign in with Facebook
+                    <i class="fa fa-facebook" ></i><span translate="SIGN_IN_WITH_FACEBOOK">Sign in with Facebook</span>
                   </a>
                 </div>
-                <div ng-if="user_data.fullNS != ''">
+               
+                <div ng-if="user_data.fullUserName != null ">
                   <div class="userFb" user-namesurname></div>
                 </div>
               </div>
+               
             <!--/End angular-user (login/unlogin) -->
-        </div>                     
+        
+                <div ng-controller="LogoutCtrl" class="pull-right" ng-if="user_data.fullUserName != null " > 
+                    <a href="#/auth/logout/" ng-click="logout()" class="btn btn-lg  btn-block btn-social btn-facebook" >  
+                      <i class="fa fa-facebook" ></i> <span translate="LOGOUT">Logout</span>
+                    </a>
+                </div>
+          </div>                    
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
 
-            <li><a href="#">Home</a></li>
-            <li class="active"><a href="#">Logo</a></li>
+            <li><a href="#" translate="HOME">Home</a></li>
+            <li class="active"><a href="#" translate="LOGO">Logo</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
 
-          <div class="container" error-directive>
+           <!-- <div class="container" error-directive>
 
-              <div ng-show="showMessage" >
+              <div ng-hide="showMessage" >
                
                 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"  id="modalWindow" >
                   <div class="modal-dialog modal-sm">
@@ -69,7 +81,7 @@
                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="closeAlert()">
                             <span aria-hidden="true">&times;</span>
                           </button>
-                        <strong>Warning!  </strong>
+                            <strong ><span translate="WARNING">Warning!</span></strong>
                       </div>
                       <div class="modal-body">
                         <span ng-bind="msg"></span> 
@@ -79,9 +91,8 @@
                 </div>
               </div>
 
-            </div>
-        </div>  
-  </nav>
+            </div> -->
+    
  <!--/.nav-collapse -->     
  
     <!-- Map -->
@@ -117,7 +128,6 @@
     <script type="text/javascript" src="/static/js/slick.min.js"></script>
     <script type="text/javascript" src="/static/js/gallery.js"></script>
     <!-- AngularJS files -->
-    <script src="/static/js/app.js"></script>
     <script src="/static/js/user_directive.js"></script>
 
   </body>
