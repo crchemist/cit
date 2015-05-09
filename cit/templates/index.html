@@ -25,12 +25,40 @@
     <script src="/static/js/jquery.js" ></script>
     <script src="/static/js/leaflet.js"></script>
     <script src="/static/js/jquery.js"></script>
-    <script src="/static/js/ui-bootstrap-custom-0.12.1.js"></script>
-    <script src="/static/js/ui-bootstrap-custom-tpls-0.12.1.js"></script>
-   
+    <!--Search location on a map -->
+    <script src="/static/js/l.control.geosearch.js"></script>
+    <script src="/static/js/l.geosearch.provider.openstreetmap.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/l.geosearch.css" />
+
+
+
   </head>
   <body ng-app="CITApp">
      <!-- Fixed navbar -->
+
+ <div class="container" error-directive ng-cloak>
+
+     <div ng-hide="hideMessage" class="ng-hide" >
+         <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"  id="modalWindow" >
+          <div class="modal-dialog modal-sm">
+
+            <div class="modal-content">
+              <div class="modal-header">
+               <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="closeAlert()">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                <strong>Warning!  </strong>
+              </div>
+              <div class="modal-body">
+                <span ng-bind="msg"></span> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
   <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
           <div class="navbar-collapse collapse navbar-right" ng-controller="UserNS" >
@@ -49,42 +77,15 @@
         </div>                     
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
+              <li><a href="#" translate="HOME">Home</a></li>
+              <li class="active"><a href="#" translate="LOGO">Logo</a></li>
+            </ul>
+         </div>
+</nav>
 
-            <li><a href="#">Home</a></li>
-            <li class="active"><a href="#">Logo</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
 
-          <div class="container" error-directive>
-
-              <div ng-show="showMessage" >
-               
-                <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"  id="modalWindow" >
-                  <div class="modal-dialog modal-sm">
-
-                    <div class="modal-content">
-                      <div class="modal-header">
-                       <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="closeAlert()">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        <strong>Warning!  </strong>
-                      </div>
-                      <div class="modal-body">
-                        <span ng-bind="msg"></span> 
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-        </div>  
-  </nav>
  <!--/.nav-collapse -->     
- 
-    <!-- Map -->
+     <!-- Map -->
     <div class="col-lg-12">
         <div class="col-lg-7">
             <div id="map"></div>
@@ -117,7 +118,6 @@
     <script type="text/javascript" src="/static/js/slick.min.js"></script>
     <script type="text/javascript" src="/static/js/gallery.js"></script>
     <!-- AngularJS files -->
-    <script src="/static/js/app.js"></script>
     <script src="/static/js/user_directive.js"></script>
 
   </body>
