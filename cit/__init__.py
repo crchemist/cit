@@ -61,4 +61,7 @@ def create_app():
     # add admin views.
     admin.add_view(ModelView(User, db.session))
 
+
     return app
+    
+
