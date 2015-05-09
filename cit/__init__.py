@@ -10,6 +10,7 @@ from authomatic import Authomatic
 from .db import db
 
 from cit.auth.controllers import auth_bp
+from cit.issues.controllers import issues_bp
 from cit.auth.models import User
 from mixer.backend.flask import mixer
 
@@ -53,6 +54,7 @@ def create_app():
     app.add_url_rule('/', 'index', index)
 
     app.register_blueprint(auth_bp, url_prefix='/auth')
+    app.register_blueprint(issues_bp, url_prefix='/issues')
 
     admin = Admin(app)
 

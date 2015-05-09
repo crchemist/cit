@@ -23,18 +23,18 @@ def login():
     if result:
         if result.user:
             result.user.update()
-            user = User.query.filter_by(fb_id = result.user.id).first()
+            user = User.query.filter_by(fb_id=result.user.id).first()
             if not user:
                 db.create_all()
                 db.session.add(User(result.user.first_name, result.user.last_name, result.user.id, result.user.email))
                 db.session.commit()
-                user = User.query.filter_by(fb_id = result.user.id).first()
+                user = User.query.filter_by(fb_id=result.user.id).first()
             session['user_id'] = user.id
             return redirect('/')
 
         elif result.error:
             redirect_path = '#/?msg={}'.format(quote('Facebook login failed.'))
-            return redirect(redirect_path )
+            return redirect(redirect_path)
     return response
 
 @auth_bp.route('/user-info/', methods=['GET'])

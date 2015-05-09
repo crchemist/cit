@@ -37,3 +37,8 @@ SITE_TITLE="Hi:)"
 # Facebook settings
 CONSUMER_KEY = '597071850435446'
 CONSUMER_SECRET = 'c0e023b09461c502cd3cd7121d205735'
+
+try:
+	from config_log.py import *
+except ImportError:
+	pass
