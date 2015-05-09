@@ -2,7 +2,6 @@ app.controller('UserNS', ['$scope', '$http', function($scope, $http) {
 
         $http.get('/auth/user-info/').success(function(data) {
             $scope.user_data = data;
-            console.log($scope.user_data);
             if (Object.keys($scope.user_data).length > 0) {
                 $scope.user_data.fullUserName = $scope.user_data.first_name + ' ' + $scope.user_data.last_name;
             } else {

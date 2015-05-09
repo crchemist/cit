@@ -3,8 +3,7 @@ app.controller('LogoutCtrl', ['$scope', '$http', '$location', LogoutController])
 			  $scope.logout = function(path){
 				$http.get('/auth/logout/').
 				success(function(data) { 
-					$location.path('');
-					console.log(data);					
+					$location.path('');						
 					window.location.reload();													
   				});
 			};			
