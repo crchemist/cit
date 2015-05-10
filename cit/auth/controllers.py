@@ -43,3 +43,9 @@ def user_info():
     if g.user:
         res = ({'id': g.user.id, 'first_name': g.user.fb_first_name, 'last_name': g.user.fb_last_name, 'fb_id': g.user.fb_id, 'email': g.user.email})
     return jsonify(res)
+    
+@auth_bp.route('/logout/',  methods=['GET'])
+def logout():
+    session.pop('authomatic:fb:state', None)
+    session.pop('user_id', None)
+    return jsonify({'status':0})
