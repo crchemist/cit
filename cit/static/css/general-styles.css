@@ -1,10 +1,10 @@
 /* HEADER */
-.userFb {
-    padding: 4px 18px;
-    background-color: #2D4373;
-    color: #fff;
-    font-size: 16px;
-    margin: 10px;
+.user-box {
+    padding: 15px 18px;
+    background-color: #E7E7E7;
+    color: #5B5B5B;
+    font-size: 14px;
+    margin: 0px;
 }
 
 /*Map CSS*/
