@@ -12,6 +12,7 @@ from .db import db
 from cit.auth.controllers import auth_bp
 from cit.issues.controllers import issues_bp
 from cit.auth.models import User
+from cit.issues.models import Issues
 from mixer.backend.flask import mixer
 
 
