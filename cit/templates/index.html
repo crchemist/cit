@@ -25,10 +25,9 @@
     <script src="/static/js/angular-route.min.js"></script>
     <script src="/static/js/angular-route.min.js.map"></script> 
 
-    <script src="/static/js/bootstrap.min.js" ></script>
     <script src="/static/js/jquery.js" ></script>
+    <script src="/static/js/bootstrap.min.js" ></script>    
     <script src="/static/js/leaflet.js"></script>
-    <script src="/static/js/jquery.js"></script>
     <!--Search location on a map -->
     <script src="/static/js/l.control.geosearch.js"></script>
     <script src="/static/js/l.geosearch.provider.openstreetmap.js"></script>
@@ -63,27 +62,24 @@
     </div>
     <div class="container">
           <div class="navbar-collapse collapse navbar-right float-left" ng-controller="UserNS" >
-            <!--/Angular-user (login/unlogin) -->
-              <div class="pull-left">
+            <!--Angular-user (login/unlogin) -->
                 <div ng-if="user_data.fullUserName == null ">
                   <a href="/auth/login/fb/" class="btn btn-lg  btn-block btn-social btn-facebook">
                     <i class="fa fa-facebook" ></i><span translate="SIGN_IN_WITH_FACEBOOK">Sign in with Facebook</span>
                   </a>
+                </div>                        
+                             
+                <div ng-controller="LogoutCtrl" ng-if="user_data.fullUserName != null" class="dropdown user-box">
+                  <span user-namesurname class="dropdown-toggle" data-toggle="dropdown"></span>                  
+                  <span class="caret" data-toggle="dropdown"></span>  
+                    <ul class="dropdown-menu">
+                      <li><a href="#/auth/logout/" ng-click="logout()">
+                        <span translate="LOGOUT">Logout</span></a>
+                      </li>
+                    </ul> 
                 </div>
-               
-                <div ng-if="user_data.fullUserName != null ">
-                  <div class="userFb" user-namesurname></div>
-                </div>
-              </div>
-               
-            <!--/End angular-user (login/unlogin) -->
-        
-                <div ng-controller="LogoutCtrl" class="pull-right" ng-if="user_data.fullUserName != null " > 
-                    <a href="#/auth/logout/" ng-click="logout()" class="btn btn-lg  btn-block btn-social btn-facebook" >  
-                      <i class="fa fa-facebook" ></i> <span translate="LOGOUT">Logout</span>
-                    </a>
-                </div>
-          </div>                    
+          </div>   
+            <!--/Angular-user (login/unlogin) end -->
           <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
                 <li><a href="#" translate="HOME">Home</a></li>
@@ -120,6 +116,9 @@
           </div>
         </div>
     </div>
+
+
+  
     <!-- JS files -->
     <script src="/static/js/map_control.js"></script>
     <script type="text/javascript" src="/static/js/slick.min.js"></script>
