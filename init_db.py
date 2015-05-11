@@ -45,15 +45,21 @@ def generate_test_data():
         db.session.add(user)
         db.session.commit()
  
- 
+def make_user_as_admin(user_id):
+	with app.app_context():
+		admin = User.query.filter_by(fb_id=user_id).first()
+		admin.is_superuser = True
+		db.session.commit()
+
+
 if __name__ == "__main__":
     parser = createParser()
     namespace = parser.parse_args(sys.argv[1:])
  
-    print (namespace)
+    print (namespace.make_admin)
  
     if namespace.init_data:
         generate_test_data()
 
     if namespace.make_admin:
-        generate_test_data()
+    	make_user_as_admin(namespace.make_admin)
