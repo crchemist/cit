@@ -5,7 +5,10 @@ from werkzeug.datastructures import FileStorage
 
 issues_bp = Blueprint('issues', __name__)
 
-UPLOAD_FOLDER = os.path.join('BASE_DIR', 'media')
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+UPLOAD_FOLDER = os.path.join(BASE_DIR, 'media')
+print "base dir path", BASE_DIR
+print "base dir path", UPLOAD_FOLDER
 
 @issues_bp.route('/file-upload/', methods=['GET', 'POST'])
 def upload_file():
