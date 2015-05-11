@@ -7,6 +7,7 @@ from mixer.backend.flask import mixer
 from cit.auth.models import User
 import sys
 import argparse
+from sqlalchemy import update
  
  
 app = create_app()
@@ -29,10 +30,10 @@ mixer = MyOwnMixer()
 def createParser():
     parser = argparse.ArgumentParser()
     parser.add_argument('--init-data', action='store_true')
+    parser.add_argument('--make-admin', action='store', default='')
     args = parser.parse_args()
  
     return parser
- 
  
 def generate_test_data():
     with app.app_context():
@@ -52,4 +53,7 @@ if __name__ == "__main__":
     print (namespace)
  
     if namespace.init_data:
+        generate_test_data()
+
+    if namespace.make_admin:
         generate_test_data()
