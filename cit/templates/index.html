@@ -15,6 +15,9 @@
     <link rel="stylesheet" type="text/css" href="/static/css/slick.css"/>
 
     <!-- JS files -->
+    <script>
+      var settings = {{ settings|tojson|safe }};
+    </script>
     <script src="/static/js/angular.js"></script>
     <script src="/static/js/app.js"></script>
     <script src="/static/js/angular-translate.js"></script>
@@ -64,7 +67,9 @@
           <div class="navbar-collapse collapse navbar-right float-left" ng-controller="UserNS" >
             <!--Angular-user (login/unlogin) -->
                 <div ng-if="user_data.fullUserName == null ">
-                  <a href="/auth/login/fb/" class="btn btn-lg  btn-block btn-social btn-facebook">
+                  <a ng-controller="settingsController"
+                     ng-href="{{ '{{' }}'/' + settings.url.auth_bp + settings.url.login_fb{{ '}}' }}"
+                     class="btn btn-lg  btn-block btn-social btn-facebook">
                     <i class="fa fa-facebook" ></i><span translate="SIGN_IN_WITH_FACEBOOK">Sign in with Facebook</span>
                   </a>
                 </div>                        
@@ -73,8 +78,12 @@
                   <span user-namesurname class="dropdown-toggle" data-toggle="dropdown"></span>                  
                   <span class="caret" data-toggle="dropdown"></span>  
                     <ul class="dropdown-menu">
-                      <li><a href="#/auth/logout/" ng-click="logout()">
-                        <span translate="LOGOUT">Logout</span></a>
+                      <li>
+                        <a ng-controller="settingsController"
+                           ng-href="{{ '{{' }}'#/' + settings.url.auth_bp + settings.url.logout{{ '}}' }}"
+                           ng-click="logout()">
+                          <span translate="LOGOUT">Logout</span>
+                        </a>
                       </li>
                     </ul> 
                 </div>
@@ -86,6 +95,7 @@
                 <li class="active"><a href="#" translate="LOGO">Logo</a></li>
               </ul>
           </div>
+      </div>
   </nav>
 <!--/.nav-collapse -->     
      <!-- Map -->
@@ -125,6 +135,12 @@
     <script type="text/javascript" src="/static/js/gallery.js"></script>
     <!-- AngularJS files -->
     <script src="/static/js/user_directive.js"></script>
+    <script>
+      function settingsController($scope) {
+        $scope.settings = settings;
+      }
+      app.controller('settingsController', ['$scope', settingsController])
+    </script>
 
   </body>
 </html>
