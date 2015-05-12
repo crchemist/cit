@@ -5,14 +5,12 @@ from werkzeug.datastructures import FileStorage
 
 issues_bp = Blueprint('issues', __name__)
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-UPLOAD_FOLDER = os.path.join(BASE_DIR, 'media')
-
 @issues_bp.route('/file-upload/', methods=['POST'])
 def upload_file():
-    file = request.files['file']
-    if file:
-    	filename = secure_filename(file.filename)
-    	file.save(os.path.join(UPLOAD_FOLDER, filename))
+	#print "current_app: " + current_app.name
+	file = request.files['file']
+	if file:
+		filename = secure_filename(file.filename)
+		file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
 
 	return jsonify({'filename': filename})
