@@ -8,7 +8,7 @@ issues_bp = Blueprint('issues', __name__)
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 UPLOAD_FOLDER = os.path.join(BASE_DIR, 'media')
 
-@issues_bp.route('/file-upload/', methods=['GET', 'POST'])
+@issues_bp.route('/file-upload/', methods=['POST'])
 def upload_file():
 	if request.method == 'POST':
 		file = request.files['file']
