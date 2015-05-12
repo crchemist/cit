@@ -7,9 +7,9 @@ issues_bp = Blueprint('issues', __name__)
 
 @issues_bp.route('/file-upload/', methods=['POST'])
 def upload_file():
-	file = request.files['file']
-	if file:
-		filename = secure_filename(file.filename)
-		file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
+    file = request.files['file']
+    if file:
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
 
-	return jsonify({'filename': filename})
+    return jsonify({'filename': filename})
