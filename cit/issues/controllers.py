@@ -1,5 +1,5 @@
 import os
-from flask import Blueprint, request, redirect, url_for
+from flask import Blueprint, request, redirect, url_for, jsonify, current_app
 from werkzeug import secure_filename
 from werkzeug.datastructures import FileStorage
 
@@ -14,5 +14,5 @@ def upload_file():
     if file:
     	filename = secure_filename(file.filename)
     	file.save(os.path.join(UPLOAD_FOLDER, filename))
-    
+
 	return jsonify({'filename': filename})
