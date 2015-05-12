@@ -7,7 +7,6 @@ issues_bp = Blueprint('issues', __name__)
 
 @issues_bp.route('/file-upload/', methods=['POST'])
 def upload_file():
-	#print "current_app: " + current_app.name
 	file = request.files['file']
 	if file:
 		filename = secure_filename(file.filename)
