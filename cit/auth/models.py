@@ -1,5 +1,3 @@
-from flask import g
-
 from ..db import db
 
 class User(db.Model):

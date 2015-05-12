@@ -14,10 +14,11 @@ from cit.issues.controllers import issues_bp
 from cit.comments.controllers import comments_bp
 from cit.auth.models import User
 from mixer.backend.flask import mixer
+from .settings import settings
 
 
 def index():
-    return render_template('index.html')
+    return render_template('index.html', settings=settings)
 
 
 def setup_authomatic(app):
@@ -52,11 +53,11 @@ def create_app():
     app.before_request(setup_authomatic(app))
     app.before_request(load_user)
 
-    app.add_url_rule('/', 'index', index)
+    app.add_url_rule('/', 'index', index)     # may be 'settings' should be applied here too.
 
-    app.register_blueprint(auth_bp, url_prefix='/auth')
-    app.register_blueprint(issues_bp, url_prefix='/issues')
-    app.register_blueprint(comments_bp, url_prefix='/comments')
+    app.register_blueprint(auth_bp, url_prefix='/' + settings['url']['auth_bp'])
+    app.register_blueprint(issues_bp, url_prefix='/' + settings['url']['issues_bp'])
+    app.register_blueprint(comments_bp, url_prefix='/' + settings['url']['comments_bp'])
 
     admin = Admin(app)
 
