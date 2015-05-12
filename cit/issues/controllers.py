@@ -15,4 +15,4 @@ def upload_file():
     	filename = secure_filename(file.filename)
     	file.save(os.path.join(UPLOAD_FOLDER, filename))
     
-	return redirect('/')
+	return jsonify({'filename': filename})
