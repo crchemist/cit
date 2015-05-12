@@ -43,8 +43,6 @@ def load_user():
 
 
 def load_issues():
-    #g.issues = Issues.query.join(User.fb_first_name).first()
-    #g.issues = db.session.query(Issues).join(User).first() 
     g.issues = Issues.query.join(User).first()  
 
 def create_app():

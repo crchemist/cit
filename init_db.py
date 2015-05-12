@@ -6,6 +6,7 @@ from mixer.backend.sqlalchemy import Mixer
 from mixer.backend.flask import mixer
 from cit.auth.models import User
 from cit.issues.models import Issues
+from random import randint
 import sys
 import argparse
  
@@ -43,6 +44,8 @@ def generate_test_data():
                            fb_id=mixer.RANDOM,
                            email=mixer.RANDOM)
         db.session.add(user)
+        issues = mixer.blend(Issues, reporter="1", description=mixer.RANDOM, coordinates='POINT(49 22)')
+        db.session.add(issues)
         db.session.commit()
  
  
