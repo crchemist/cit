@@ -1,7 +1,7 @@
 # Main init file.
 from flask import Flask, render_template, request, g, session
 
-from flask.ext.admin import Admin, BaseView
+from flask.ext.admin import Admin, BaseView, expose
 from flask.ext.admin.contrib.sqla import ModelView
 
 from authomatic.providers import oauth2
@@ -13,7 +13,17 @@ from cit.auth.controllers import auth_bp
 from cit.issues.controllers import issues_bp
 from cit.comments.controllers import comments_bp
 from cit.auth.models import User
+
+
 from mixer.backend.flask import mixer
+
+
+class AdminView(ModelView):
+    @expose('/admin/')
+    def is_visible(self):
+        if g.user and g.user.is_superuser:
+            return True
+        return False
 
 
 def index():
@@ -61,9 +71,6 @@ def create_app():
     admin = Admin(app)
 
     # add admin views.
-    admin.add_view(ModelView(User, db.session))
-
+    admin.add_view(AdminView(User, db.session))
 
     return app
-    
-
