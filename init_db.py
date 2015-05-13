@@ -56,7 +56,7 @@ if __name__ == "__main__":
     namespace = parser.parse_args(sys.argv[1:])
 
     if namespace.init_data:
-    	generate_test_data()
+        generate_test_data()
     
     if namespace.make_admin:
     	make_user_as_admin(namespace.make_admin)
