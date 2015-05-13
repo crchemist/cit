@@ -2,14 +2,28 @@ from flask import g
 from flask import Blueprint, session, jsonify
 
 from ..db import db
+from .models import Issue
+from ..auth.models import User
 
-issues_bp = Blueprint('issues-path', __name__)
+issues_bp = Blueprint('issues', __name__)
 
-@issues_bp.route('/issues-info/', methods=['GET'])
+
+@issues_bp.route('/issues-info/', methods=['GET', 'POST'])
 def issues_info():
-	if g.issues:
-		reporter_result = {}
-		if g.user:
-			reporter_result = {'fb_id': g.user.fb_id, 'name': g.user.fb_first_name, 'surname': g.user.fb_last_name}
-		result = {'id': g.issues.id, 'reporter': reporter_result, 'description': g.issues.description, 'coordinates': str(g.issues.coordinates)}
-	return jsonify(result)
+    sql_table = db.session.query(Issue, User).join(User)
+    execute_table = db.engine.execute(str(sql_table))
+    table_dict = []
+    for column in execute_table:
+        list_row = {}
+        list_row.update({
+            'id': column.issue_id,
+            'reporter': {
+                'name': column.user_fb_first_name,
+                'surname': column.user_fb_last_name,
+                'fb_id': column.user_fb_id
+            },
+            'description': column.issue_description,
+            'coordinates': str(column.issue_coordinates).decode('cp1252')
+        })
+        table_dict.append(list_row)
+    return jsonify(result=table_dict)

@@ -13,7 +13,7 @@ from cit.auth.controllers import auth_bp
 from cit.issues.controllers import issues_bp
 from cit.comments.controllers import comments_bp
 from cit.auth.models import User
-from cit.issues.models import Issues
+from cit.issues.models import Issue
 from mixer.backend.flask import mixer
 
 
@@ -42,9 +42,6 @@ def load_user():
         g.user = User.query.filter_by(id=session['user_id']).first()
 
 
-def load_issues():
-    g.issues = Issues.query.join(User).first()  
-
 def create_app():
     app = Flask(__name__)
     app.config.from_object('config')
@@ -55,19 +52,18 @@ def create_app():
 
     app.before_request(setup_authomatic(app))
     app.before_request(load_user)
-    app.before_request(load_issues)
 
     app.add_url_rule('/', 'index', index)
 
     app.register_blueprint(auth_bp, url_prefix='/auth')
-    app.register_blueprint(issues_bp, url_prefix='/issues-path')
+    app.register_blueprint(issues_bp, url_prefix='/issues')
     app.register_blueprint(comments_bp, url_prefix='/comments')
 
     admin = Admin(app)
 
     # add admin views.
     admin.add_view(ModelView(User, db.session))
-    admin.add_view(ModelView(Issues, db.session))
+    admin.add_view(ModelView(Issue, db.session))
 
 
     return app
