@@ -23,8 +23,7 @@ class AdminView(ModelView):
     def is_visible(self):
         if g.user and g.user.is_superuser:
             return True
-        else:
-            return False
+        return False
 
 def index():
     return render_template('index.html')
@@ -49,6 +48,7 @@ def load_user():
         g.user = None
     else:
         g.user = User.query.filter_by(id=session['user_id']).first()
+
 
 def create_app():
     app = Flask(__name__)
