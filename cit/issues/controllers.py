@@ -8,7 +8,7 @@ from ..auth.models import User
 issues_bp = Blueprint('issues', __name__)
 
 
-@issues_bp.route('/issues-info/', methods=['GET', 'POST'])
+@issues_bp.route('/', methods=['GET', 'POST'])
 def issues_info():
     issues_user_query = db.session.query(Issue, User).join(User).all()
     table_dict = []
