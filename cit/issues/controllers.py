@@ -10,20 +10,19 @@ issues_bp = Blueprint('issues', __name__)
 
 @issues_bp.route('/issues-info/', methods=['GET', 'POST'])
 def issues_info():
-    sql_table = db.session.query(Issue, User).join(User)
-    execute_table = db.engine.execute(str(sql_table))
+    issues_user_query = db.session.query(Issue, User).join(User).all()
     table_dict = []
-    for column in execute_table:
+    for issue, user in issues_user_query:
         list_row = {}
         list_row.update({
-            'id': column.issue_id,
+            'id': issue.id,
             'reporter': {
-                'name': column.user_fb_first_name,
-                'surname': column.user_fb_last_name,
-                'fb_id': column.user_fb_id
+                'name': user.fb_first_name,
+                'surname': user.fb_last_name,
+                'fb_id': user.fb_id
             },
-            'description': column.issue_description,
-            'coordinates': str(column.issue_coordinates).decode('cp1252')
+            'description': issue.description,
+            'coordinates': str(issue.coordinates)
         })
         table_dict.append(list_row)
     return jsonify(result=table_dict)
