@@ -25,6 +25,7 @@ class AdminView(ModelView):
             return True
         return False
 
+
 def index():
     return render_template('index.html')
 
