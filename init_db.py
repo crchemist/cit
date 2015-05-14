@@ -1,4 +1,5 @@
 # Initialize database.
+from sqlalchemy import update
 from cit import create_app
 from cit.db import db
 from mixer.backend.sqlalchemy import Mixer
@@ -8,7 +9,6 @@ from cit.issues.models import Issue
 from random import randint
 import sys
 import argparse
-
 
 app = create_app()
 with app.app_context():
@@ -30,6 +30,7 @@ mixer = MyOwnMixer()
 def createParser():
     parser = argparse.ArgumentParser()
     parser.add_argument('--init-data', action='store_true')
+    parser.add_argument('--make-admin', action='store', default='')
     args = parser.parse_args()
 
     return parser
@@ -51,11 +52,18 @@ def generate_test_data():
         db.session.commit()
 
 
+def make_user_as_admin(user_id):
+    with app.app_context():
+        db.session.query(User).filter(User.fb_id == user_id).update({"is_superuser": True})
+        db.session.commit()
+
+
 if __name__ == "__main__":
     parser = createParser()
     namespace = parser.parse_args(sys.argv[1:])
 
-    print (namespace)
-
     if namespace.init_data:
         generate_test_data()
+    if namespace.make_admin:
+        make_user_as_admin(namespace.make_admin)
+        
