@@ -1,7 +1,5 @@
 from flask import redirect, render_template, request, make_response, g
-
 from flask import Blueprint, session, jsonify
-
 from urllib import quote
 
 import authomatic
