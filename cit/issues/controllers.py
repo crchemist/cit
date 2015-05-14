@@ -3,6 +3,7 @@ from ..db import db
 from .models import Issue
 from ..auth.models import User
 from shapely.geos import WKBReader, lgeos
+from shapely.geometry import Point
 
 issues_bp = Blueprint('issues', __name__)
 
@@ -13,6 +14,7 @@ def issues_info():
     table_dict = []
     for issue, user in issues_user_query:
         list_row = {}
+        point = WKBReader(lgeos).read_hex(str(issue.coordinates))
         list_row.update({
             'id': issue.id,
             'reporter': {
@@ -21,7 +23,7 @@ def issues_info():
                 'fb_id': user.fb_id
             },
             'description': issue.description,
-            'coordinates': str(WKBReader(lgeos).read_hex(str(issue.coordinates)))
+            'coordinates': [point.x, point.y]
         })
         table_dict.append(list_row)
     return jsonify(result=table_dict)
