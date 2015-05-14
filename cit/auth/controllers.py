@@ -1,5 +1,7 @@
 from flask import redirect, render_template, request, make_response, g
-from flask import Blueprint, session, jsonify, Response
+
+from flask import Blueprint, session, jsonify
+
 from urllib import quote
 
 import authomatic
@@ -11,8 +13,10 @@ from ..db import db
 
 auth_bp = Blueprint('auth', __name__)
 
+
 def _session_saver():
     session.modified = True
+
 
 @auth_bp.route('/login/fb/', methods=['GET', 'POST'])
 def login():
@@ -37,28 +41,32 @@ def login():
             return redirect(redirect_path)
     return response
 
+
 @auth_bp.route('/user-info/', methods=['GET'])
 def user_info():
     res = {}
     if g.user:
-        res = ({'id': g.user.id, 'first_name': g.user.fb_first_name, 'last_name': g.user.fb_last_name, 'fb_id': g.user.fb_id, 'email': g.user.email})
+        res = (
+            {'id': g.user.id, 'first_name': g.user.fb_first_name, 'last_name': g.user.fb_last_name,
+             'fb_id': g.user.fb_id,
+             'email': g.user.email})
     return jsonify(res)
-    
-@auth_bp.route('/logout/',  methods=['GET'])
+
+
+@auth_bp.route('/logout/', methods=['GET'])
 def logout():
     session.pop('authomatic:fb:state', None)
     session.pop('user_id', None)
-    return jsonify({'status':0})
+    return jsonify({'status': 0})
 
-@auth_bp.route('/user/profile/',  methods=['POST'])
+
+@auth_bp.route('/user/profile/', methods=['POST'])
 def change_data():
     json_req = request.get_json()
-    if not request.get_json():
+    if not json_req:
         return jsonify({'message': 'No input data provided'}), 400
-    db.engine.execute('UPDATE "user" SET fb_first_name = (%s),'
-                      ' fb_last_name = (%s) WHERE id = (%s) ',
-                      (json_req.get('name'), json_req.get('last name'),
-                       json_req.get('id')))
+    user_query = db.session.query(User)
+    user_filtered = user_query.filter(User.id == json_req.get('id'))
+    u = user_filtered.update({"fb_first_name": json_req.get('name'), "fb_last_name": json_req.get('surname')})
     db.session.commit()
-    resp = Response("Updated", status=201, mimetype='application/json')
-    return resp
+    return jsonify({'u': u}), 201
