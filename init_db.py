@@ -66,4 +66,4 @@ if __name__ == "__main__":
         generate_test_data()
     if namespace.make_admin:
         make_user_as_admin(namespace.make_admin)
-        print namespace.make_admin
+        
