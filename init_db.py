@@ -54,8 +54,7 @@ def generate_test_data():
 
 def make_user_as_admin(user_id):
     with app.app_context():
-        admin = User.query.filter_by(fb_id=user_id).first()
-        admin.is_superuser = True
+        db.session.query(User).filter(User.fb_id == user_id).update({"is_superuser": True})
         db.session.commit()
 
 
@@ -67,3 +66,4 @@ if __name__ == "__main__":
         generate_test_data()
     if namespace.make_admin:
         make_user_as_admin(namespace.make_admin)
+        print namespace.make_admin
