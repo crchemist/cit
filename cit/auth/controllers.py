@@ -61,12 +61,12 @@ def logout():
 
 
 @auth_bp.route('/user/profile/', methods=['POST'])
-def change_data():
+def profile_update():
     json_req = request.get_json()
     if not json_req:
         return jsonify({'message': 'No input data provided'}), 400
     user_query = db.session.query(User)
     user_filtered = user_query.filter(User.id == json_req.get('id'))
-    u = user_filtered.update({"fb_first_name": json_req.get('name'), "fb_last_name": json_req.get('surname')})
+    user_filtered.update({'fb_first_name': json_req.get('name'), 'fb_last_name': json_req.get('surname')})
     db.session.commit()
-    return jsonify({'u': u}), 201
+    return jsonify({}), 201
