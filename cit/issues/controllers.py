@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, session, jsonify
 from ..db import db
 from .models import Issue
 from ..auth.models import User
