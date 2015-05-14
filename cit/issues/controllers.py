@@ -16,14 +16,21 @@ def issues_info():
         list_row = {}
         point = WKBReader(lgeos).read_hex(str(issue.coordinates))
         list_row.update({
-            'id': issue.id,
-            'reporter': {
-                'name': user.fb_first_name,
-                'surname': user.fb_last_name,
-                'fb_id': user.fb_id
+            'type': 'Feature',
+            'properties': {
+                'id': issue.id,
+                'reporter': {
+                    'name': user.fb_first_name,
+                    'surname': user.fb_last_name,
+                    'fb_id': user.fb_id
+                },
+                'description': issue.description
             },
-            'description': issue.description,
-            'coordinates': [point.x, point.y]
+            "geometry": {
+                'coordinates': [point.x, point.y],
+                'type': 'Point'
+            }
         })
         table_dict.append(list_row)
-    return jsonify(result=table_dict)
+
+    return jsonify(type='FeatureCollection', features=table_dict, name='Points', keyField='GPSUserName')
