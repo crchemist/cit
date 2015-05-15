@@ -100,6 +100,12 @@ angular.module("leaflet-directive", []).directive('leaflet',
             var map = new L.Map(element[0], leafletMapDefaults.getMapCreationDefaults(attrs.id));
             _leafletMap.resolve(map);
 
+            new L.Control.GeoSearch ({
+                provider : new L.GeoSearch.Provider.OpenStreetMap(),
+                position : 'topcenter',
+                showMarker : false
+            }).addTo(map);
+
             if (!isDefined(attrs.center)) {
                 map.setView([defaults.center.lat, defaults.center.lng], defaults.center.zoom);
             }
