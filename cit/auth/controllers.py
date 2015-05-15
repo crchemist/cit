@@ -11,8 +11,10 @@ from ..db import db
 
 auth_bp = Blueprint('auth', __name__)
 
+
 def _session_saver():
     session.modified = True
+
 
 @auth_bp.route('/login/fb/', methods=['GET', 'POST'])
 def login():
@@ -37,15 +39,32 @@ def login():
             return redirect(redirect_path)
     return response
 
+
 @auth_bp.route('/user-info/', methods=['GET'])
 def user_info():
     res = {}
     if g.user:
-        res = ({'id': g.user.id, 'first_name': g.user.fb_first_name, 'last_name': g.user.fb_last_name, 'fb_id': g.user.fb_id, 'email': g.user.email})
+        res = (
+            {'id': g.user.id, 'first_name': g.user.fb_first_name, 'last_name': g.user.fb_last_name,
+             'fb_id': g.user.fb_id,
+             'email': g.user.email})
     return jsonify(res)
-    
-@auth_bp.route('/logout/',  methods=['GET'])
+
+
+@auth_bp.route('/logout/', methods=['GET'])
 def logout():
     session.pop('authomatic:fb:state', None)
     session.pop('user_id', None)
-    return jsonify({'status':0})
+    return jsonify({'status': 0})
+
+
+@auth_bp.route('/user/profile/', methods=['POST'])
+def profile_update():
+    json_req = request.get_json()
+    if not json_req:
+        return jsonify({'message': 'No input data provided'}), 400
+    user_query = db.session.query(User)
+    user_filtered = user_query.filter(User.id == json_req.get('id'))
+    user_filtered.update({'fb_first_name': json_req.get('name'), 'fb_last_name': json_req.get('surname')})
+    db.session.commit()
+    return jsonify({}), 201
