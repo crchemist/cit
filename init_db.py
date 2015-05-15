@@ -6,6 +6,7 @@ from mixer.backend.sqlalchemy import Mixer
 from mixer.backend.flask import mixer
 from cit.auth.models import User
 from cit.issues.models import Issue
+from cit.comments.models import Comment
 from random import randint
 import sys
 import argparse
@@ -49,6 +50,11 @@ def generate_test_data():
                             description=mixer.RANDOM,
                             coordinates='POINT(49 22)')
         db.session.add(issue)
+        comment = mixer.blend(Comment,
+                              author_id='1',
+                              issue_id='1',
+                              message=mixer.RANDOM)
+        db.session.add(comment)
         db.session.commit()
 
 
