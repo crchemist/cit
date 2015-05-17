@@ -1,7 +1,6 @@
-app.config(['$translateProvider', 
-	function ( $translateProvider) {
+app.config(function ($translateProvider) {
 
-	var language = (window.navigator.languages)[0];
+    var language = (window.navigator.languages)[0];
     var userLanguage;
 
         if (language.length >2) {
@@ -30,5 +29,5 @@ app.config(['$translateProvider',
     WARNING: 'Внимание'
   });
   $translateProvider.preferredLanguage(userLanguage);
- }]);
+ });
 
