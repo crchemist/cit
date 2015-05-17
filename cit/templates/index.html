@@ -24,7 +24,7 @@
     <script src="/static/js/directives.js"></script>
     <script src="/static/js/angular-route.min.js"></script>
     <script src="/static/js/angular-route.min.js.map"></script> 
-
+	<script src="/static/js/config.js"></script>
     <script src="/static/js/jquery.js" ></script>
     <script src="/static/js/bootstrap.min.js" ></script>    
     <script src="/static/js/leaflet.js"></script>
@@ -32,7 +32,8 @@
     <script src="/static/js/l.control.geosearch.js"></script>
     <script src="/static/js/l.geosearch.provider.openstreetmap.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/css/l.geosearch.css" />
-
+    <script type="text/javascript" src="/static/js/slick.min.js"></script>
+    <script type="text/javascript" src="/static/js/gallery.js"></script>
 
 
   </head>
@@ -76,6 +77,10 @@
                       <li><a href="#/auth/logout/" ng-click="logout()">
                         <span translate="LOGOUT">Logout</span></a>
                       </li>
+
+					  <li><a href="#/profile">
+                        <span>Profile</span></a>
+                      </li>
                     </ul> 
                 </div>
           </div>   
@@ -87,8 +92,13 @@
               </ul>
           </div>
   </nav>
-<!--/.nav-collapse -->     
+<!--/.nav-collapse -->   
+
+<div ng-view> </div>
+
+    
      <!-- Map -->
+<script type="text/ng-template" id="main">
     <div class="col-lg-12">
         <div class="col-lg-7">
             <div id="map"></div>
@@ -116,13 +126,13 @@
           </div>
         </div>
     </div>
+</script>
+    
 
 
-  
     <!-- JS files -->
     <script src="/static/js/map_control.js"></script>
-    <script type="text/javascript" src="/static/js/slick.min.js"></script>
-    <script type="text/javascript" src="/static/js/gallery.js"></script>
+
     <!-- AngularJS files -->
     <script src="/static/js/user_directive.js"></script>
 
