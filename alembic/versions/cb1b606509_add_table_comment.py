@@ -1,4 +1,4 @@
-"""xxx
+"""add table comment
 
 Revision ID: cb1b606509
 Revises: 1a391246b1e5
