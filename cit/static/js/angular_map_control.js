@@ -7,18 +7,20 @@ app.controller("MarkerController", [ '$scope', '$http', function($scope, $http) 
     });
 
     $http.get("/issues/").success(function(data, status) {
+        var leafIcon = {
+            iconUrl: 'static/images/marker-icon.png',
+            shadowUrl: 'static/images/marker-shadow.png'
+        };
+
         angular.extend($scope, {
             geojson: {
                 data: data,
-                style: {
-                    fillColor: "green",
-                    weight: 2,
-                    opacity: 1,
-                    color: 'white',
-                    dashArray: '3',
-                    fillOpacity: 0.7
+                pointToLayer: function(feature, latlng) {
+                    marker = new L.marker(latlng, {icon: L.icon(leafIcon)});
+                    return marker;
                 }
             }
+            
         });
     });
 }]);
