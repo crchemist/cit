@@ -42,7 +42,8 @@ def generate_test_data():
                            fb_first_name=mixer.RANDOM,
                            fb_last_name=mixer.RANDOM,
                            fb_id=mixer.RANDOM,
-                           email=mixer.RANDOM)
+                           email=mixer.RANDOM,
+                           about_me=mixer.RANDOM)
         db.session.add(user)
         issue = mixer.blend(Issue,
                             reporter='1',
