@@ -12,21 +12,24 @@ app.config(function ($translateProvider) {
     LOGOUT: 'Вийти',
     HOME: 'Головна',
     LOGO: 'Логотип',
-    WARNING: 'Увага'
+    WARNING: 'Увага',
+	PROFILE: 'Профіль'
   });
    $translateProvider.translations('en', {
     SIGN_IN_WITH_FACEBOOK: 'Sign in with Facebook',
     LOGOUT: 'Logout',
     HOME: 'Home',
     LOGO: 'Logo',
-    WARNING: 'Warning'
+    WARNING: 'Warning',
+	PROFILE: 'Profile'
   });
   $translateProvider.translations('ru', {
     SIGN_IN_WITH_FACEBOOK: 'Ввойти через Facebook',
     LOGOUT: 'Выйти',
     HOME: 'Главная',
     LOGO: 'Логотип',
-    WARNING: 'Внимание'
+    WARNING: 'Внимание',
+	PROFILE: 'Профиль'
   });
   $translateProvider.preferredLanguage(userLanguage);
  });
