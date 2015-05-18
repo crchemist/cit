@@ -14,7 +14,6 @@ app.controller('UserNS', ['$scope', '$http', '$window', function($scope, $http, 
 				'name' : $scope.user_data.first_name,
 				'surname' : $scope.user_data.last_name
 			};
-
 				
 			$http.post('/auth/user/profile/',dataObj).
 				success(function(data, status) {
