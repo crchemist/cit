@@ -8,7 +8,7 @@ app.config(
 			.when('/', {
 				templateUrl: 'main'
 			})
-			.when('/report-issue', {
+			.when('/report-issue/', {
 				templateUrl: 'static/templates/report_issue.html',
 				controller: 'UserNS'
 			});			
