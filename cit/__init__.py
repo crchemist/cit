@@ -72,5 +72,6 @@ def create_app():
     # add admin views.
     admin.add_view(ModelView(User, db.session))
     admin.add_view(ModelView(Issue, db.session))
+    admin.add_view(ModelView(Organization, db.session))
 
     return app
