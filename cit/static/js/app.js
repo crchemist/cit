@@ -1,1 +1,1 @@
-var app = angular.module('CITApp', ['ngRoute','ngLocale','pascalprecht.translate']);
+var app = angular.module('CITApp', ['ngRoute','ngLocale','pascalprecht.translate', 'leaflet-directive']);

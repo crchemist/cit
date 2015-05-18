@@ -21,3 +21,4 @@ six==1.9.0
 wsgiref==0.1.2
 alembic==0.6.5
 GeoAlchemy2==0.2.4
+Shapely==1.5.8
