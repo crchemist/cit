@@ -1,0 +1,29 @@
+<div  ng-if="user_data.fullUserName != null">
+<!--Script for map starts -->
+	<script type="text/ng-template" id="map">
+		<div>
+			<div class="col-lg-7" ng-controller="MarkerController">
+	            <leaflet id="map" center="center" geojson="geojson"></leaflet>
+	        </div>
+	    </div>
+	</script>
+
+	<div ng-include="'map'" id="map_report_issue"></div>
+	<!--Script for map ends -->
+
+	<!--Form to report issue starts -->
+	<div id="report-issue" class="col-lg-5">
+		<form>
+			<div class="form-group">
+			    <label for="subject" translate="SUBJECT">Subject</label>
+			    <input type="text" class="form-control" id="subject" placeholder="{{'WRITE_SUBJECT' | translate}}">
+			</div>
+			<div class="form-group">
+			    <label for="comment" translate="COMMENT">Comment</label>
+			    <textarea class="form-control" rows="4" id="comment" placeholder="{{'WRITE_COMMENT' | translate}}"></textarea>
+			</div>
+		    <button type="submit" class="btn btn-default">{{'SUBMIT' | translate }}</button>
+		</form>
+	</div>
+<!--Form to report issue ends -->
+</div>
