@@ -4,6 +4,7 @@ from ..db import db
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    organization = db.Column(db.Integer, db.ForeignKey("organization.id"))
     fb_first_name = db.Column(db.String(120))
     fb_last_name = db.Column(db.String(120))
     fb_id = db.Column(db.String(40), unique=True)
