@@ -9,6 +9,8 @@ app.controller('UserNS', ['$scope', '$http', function($scope, $http) {
             }
         });
 
+		
+
     }]);
 
 app.directive('userNamesurname', function(){
