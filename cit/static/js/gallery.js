@@ -1,4 +1,5 @@
- $('.slider-for').slick({
+document.addEventListener('DOMContentLoaded', function() {
+$('.slider-for').slick({
   slidesToShow: 1,
   slidesToScroll: 1,
   arrows: false,
@@ -13,3 +14,4 @@ $('.slider-nav').slick({
   centerMode: true,
   focusOnSelect: true
 });
+})
