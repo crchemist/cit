@@ -1,16 +1,9 @@
-<div  ng-if="user_data.fullUserName != null">
+<div ng-if="user_data.fullUserName != null">
 	<!--Script for map starts -->
-	<script type="text/ng-template" id="map">
-		<div>
-			<div class="col-lg-7" ng-controller="MarkerController">
-	            <leaflet id="map" center="center" geojson="geojson"></leaflet>
-	        </div>
-	    </div>
-	</script>
-
-	<div ng-include="'map'" id="map_report_issue"></div>
+	<div class="col-lg-7" ng-controller="MarkerController">
+        <leaflet id="map" center="center" geojson="geojson"></leaflet>
+    </div>
 	<!--Script for map ends -->
-
 	<!--Form to report issue starts -->
 	<div id="report-issue" class="col-lg-5">
 		<form>
