@@ -1,6 +1,7 @@
 from flask import Blueprint, session, jsonify
 
 from .models import Comment
+from ..auth.models import User
 from ..db import db
 
 comments_bp = Blueprint('comments', __name__)
@@ -9,7 +10,9 @@ comments_bp = Blueprint('comments', __name__)
 class DeleteRequest:
     def delete_comment(self, id):
         comment = Comment.query.get_or_404(int(id))
-        db.session.delete(comment)
+        permission = User.is_superuser or User.id == Comment.id
+        if permission:
+            db.session.delete(comment)
         db.session.commit()
 
     def get_comment(self, id):
