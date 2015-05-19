@@ -1,4 +1,12 @@
 <div id ="profile" ng-controller="UserNS">
+	<div class="alert alert-success" role="alert" ng-hide="hideSuccessMessage">
+		<strong>Success! </strong> Changes saved successfully!
+	</div>
+
+	<div class="alert alert-danger" role="alert" ng-hide="hideErrorMessage">
+		<strong>Error! </strong> Please try again!
+	</div>
+
 	<form class="form-horizontal" ng-submit="pushData()" >
 	  <div class="form-group">
 	    <label for="formGroupInputLarge" class="col-sm-2 control-label">Name</label>

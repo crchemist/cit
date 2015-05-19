@@ -8,7 +8,10 @@ app.controller('UserNS', ['$scope', '$http', '$window', function($scope, $http, 
                 $scope.user_data.fullUserName = null;
             }
         });
-		
+
+		$scope.hideSuccessMessage = true;
+		$scope.hideErrorMessage = true;
+
 		$scope.pushData = function() {
 			var dataObj = {
 				'name' : $scope.user_data.first_name,
@@ -17,10 +20,12 @@ app.controller('UserNS', ['$scope', '$http', '$window', function($scope, $http, 
 				
 			$http.post('/auth/user/profile/',dataObj).
 				success(function(data, status) {
-					$window.alert("Chanches saved successfully.");
+					$scope.hideSuccessMessage = false;
+					$scope.hideErrorMessage = true;
 				}).
 				error(function(data, status) {
-					$window.alert('Error.' + status);
+					$scope.hideErrorMessage = false;
+					$scope.hideSuccessMessage = true;
 				});
 		};
 
