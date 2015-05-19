@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Civic Issue Tracker</title>
-
+ 
     <!-- CSS files -->
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
     <link href="/static/css/bootstrap.min.css" type = "text/css" rel="stylesheet">
@@ -24,7 +24,7 @@
     <script src="/static/js/angular-route.min.js"></script>
 
     <script src="/static/js/angular-route.min.js.map"></script> 
-	<script src="/static/js/config.js"></script>
+  <script src="/static/js/config.js"></script>
 
     <script src="/static/js/jquery.js" ></script>
     <script src="/static/js/bootstrap.min.js" ></script>    
@@ -47,7 +47,7 @@
   </head>
   <body ng-app="CITApp">
      <!-- Fixed navbar -->
- <nav class="navbar navbar-default navbar-fixed-top" ng-cloak >
+  <nav class="navbar navbar-default navbar-fixed-top" ng-cloak >
     <div class="container" error-directive ng-cloak>
 
      <div ng-hide="hideMessage" class="ng-hide" >
@@ -59,7 +59,7 @@
                <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="closeAlert()">
                       <span aria-hidden="true">&times;</span>
                   </button>
-                <strong>Warning!  </strong>
+                <strong>Warning!</strong>
               </div>
               <div class="modal-body">
                 <span ng-bind="msg"></span> 
@@ -82,12 +82,14 @@
                  <span user-namesurname class="dropdown-toggle" data-toggle="dropdown"></span>                 
                   <span class="caret" data-toggle="dropdown"></span>  
                     <ul class="dropdown-menu">
+                      <li><a href="#/report-issue/">
+                        <span translate="REPRT_ISSUE">Report about issue</span></a>
+                      </li>
+                      <li><a href="#/profile">
+                        <span translate="PROFILE">Profile</span></a>
+                      </li>
                       <li><a href="#/auth/logout/" ng-click="logout()">
                         <span translate="LOGOUT">Logout</span></a>
-                      </li>
-
-					  <li><a href="#/profile">
-                        <span translate="PROFILE">Profile</span></a>
                       </li>
                     </ul> 
                 </div>
@@ -99,7 +101,6 @@
                 <li class="active"><a href="#" translate="LOGO">Logo</a></li>
               </ul>
           </div>
-	
   </nav>
 <!--/.nav-collapse -->   
 
@@ -138,7 +139,5 @@
     <!-- JS files -->
  
     <!-- AngularJS files -->
-
-
   </body>
 </html>
