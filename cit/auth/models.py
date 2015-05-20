@@ -31,4 +31,4 @@ class Organization(db.Model):
 
     def __init__(self, name="", address=""):
         self.name = name
-        self.address = adress
+        self.address = address

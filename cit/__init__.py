@@ -12,8 +12,10 @@ from .db import db
 from cit.auth.controllers import auth_bp
 from cit.issues.controllers import issues_bp
 from cit.comments.controllers import comments_bp
-from cit.auth.models import User
+from cit.auth.models import User, Organization
 from cit.issues.models import Issue
+from cit.comments.models import Comment
+
 from mixer.backend.flask import mixer
 
 
@@ -70,8 +72,9 @@ def create_app():
     admin = Admin(app)
 
     # add admin views.
-    admin.add_view(ModelView(User, db.session))
-    admin.add_view(ModelView(Issue, db.session))
-    admin.add_view(ModelView(Organization, db.session))
+    admin.add_view(AdminView(User, db.session))
+    admin.add_view(AdminView(Issue, db.session))
+    admin.add_view(AdminView(Comment, db.session))
+    admin.add_view(AdminView(Organization, db.session))
 
     return app
