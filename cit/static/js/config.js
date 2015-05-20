@@ -6,7 +6,7 @@ app.config(
 			})
 			
 			.when('/', {
-				templateUrl: 'main'
+				templateUrl: 'static/templates/context.html'
 			})
 			.when('/report-issue/', {
 				templateUrl: 'static/templates/report_issue.html',

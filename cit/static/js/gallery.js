@@ -1,4 +1,4 @@
-$(window).load(function(){
+$(document).ready(function() {
 	 $('.slider-for').slick({
 	  slidesToShow: 1,
 	  slidesToScroll: 1,
@@ -14,4 +14,5 @@ $(window).load(function(){
 	  centerMode: true,
 	  focusOnSelect: true
 	});
+	 console.log($('.slider-for'));
 });
