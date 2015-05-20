@@ -9,7 +9,7 @@ from authomatic import Authomatic
 
 from .db import db
 
-from cit.auth.controllers import auth_bp
+from cit.auth.controllers import auth_bp, organization_bp
 from cit.issues.controllers import issues_bp
 from cit.comments.controllers import comments_bp
 from cit.auth.models import User, Organization
@@ -68,6 +68,7 @@ def create_app():
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(issues_bp, url_prefix='/issues')
     app.register_blueprint(comments_bp, url_prefix='/comments')
+    app.register_blueprint(organization_bp, url_prefix='/organization')
 
     admin = Admin(app)
 
