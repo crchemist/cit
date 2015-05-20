@@ -11,7 +11,6 @@ def comments_add():
     error = 400
     json_req = request.get_json()
     if json_req:
-        db.create_all()
         comment = Comment(json_req.get('msg'))
         db.session.add(comment)
         db.session.commit()

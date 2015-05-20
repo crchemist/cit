@@ -2,6 +2,7 @@ from flask import g
 from geoalchemy2 import Geography
 from ..db import db
 
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     organization = db.Column(db.Integer, db.ForeignKey("organization.id"))
