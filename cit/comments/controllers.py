@@ -5,7 +5,7 @@ from ..db import db
 comments_bp = Blueprint('comments', __name__)
 
 
-@comments_bp.route('/comments/post/', methods=['POST'])
+@comments_bp.route('/', methods=['POST'])
 def comments_add():
     comment_id = 0
     error = 400
