@@ -14,5 +14,4 @@ $(document).ready(function() {
 	  centerMode: true,
 	  focusOnSelect: true
 	});
-	 console.log($('.slider-for'));
 });
