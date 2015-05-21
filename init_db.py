@@ -41,7 +41,7 @@ def createParser():
 def generate_test_data():
     with app.app_context():
         user = mixer.blend(User,
-                           #organization='1',
+                           organization='1',
                            fb_first_name=mixer.RANDOM,
                            fb_last_name=mixer.RANDOM,
                            fb_id=mixer.RANDOM,
