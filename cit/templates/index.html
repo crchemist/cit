@@ -72,7 +72,7 @@
     <div class="container" >
           <div class="navbar-collapse collapse navbar-right float-left" ng-controller="UserNS" >
             <!--Angular-user (login/unlogin) -->
-                <div ng-if="user_data.fullUserName == null ">
+                <div id="facebookbtn" ng-if="user_data.fullUserName == null ">
                   <a href="/auth/login/fb/" class="btn btn-lg  btn-block btn-social btn-facebook">
                     <i class="fa fa-facebook" ></i><span translate="SIGN_IN_WITH_FACEBOOK">Sign in with Facebook</span>
                   </a>
