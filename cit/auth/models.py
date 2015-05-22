@@ -11,7 +11,7 @@ class User(db.Model):
     fb_id = db.Column(db.String(40), unique=True)
     email = db.Column(db.String(120), unique=True)
     about_me = db.Column(db.String(120))
-    is_superuser = db.Column(db.Boolean,default=False)
+    is_superuser = db.Column(db.Boolean, default=False)
 
     def __init__(self, fb_first_name="", fb_last_name="", fb_id="", email="", about_me="", is_superuser=False):
         self.fb_first_name = fb_first_name
