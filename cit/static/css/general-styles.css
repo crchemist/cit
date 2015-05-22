@@ -1,16 +1,42 @@
 /* HEADER */
 .user-box {
-    padding: 15px 18px;
+    padding: 30px 25px;
     background-color: #E7E7E7;
     color: #5B5B5B;
-    font-size: 14px;
-    margin: 0px;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0px;    
+}
+.user-box ul li a{
+    font-size: 18px;
+}
+/*Header Logo*/
+#logo a img{
+    width: 80px;
+    height: auto;
+    padding: 10px 0;
+
+}
+#logo{
+    float: left;
+
+}
+#navbar ul {    
+    margin-top: 18px;
+    margin-left: 15px;
+
+}
+#navbar ul a{
+    font-size: 18px;
+}
+#facebookbtn {
+    margin-top: 17px;
 }
 
 /*Map CSS*/
 #map { 
     height: 725px;
-    margin-top: 51px;
+    margin-top: 88px;
 }
 
 /*Full_right_map CSS*/

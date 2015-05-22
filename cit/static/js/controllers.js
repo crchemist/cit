@@ -7,3 +7,18 @@ app.controller('LogoutCtrl', ['$scope', '$http', '$location', LogoutController])
   				});
 			};			
 		}
+app.controller('GalleryCtrl',['$scope','$location',function($scope, $location) {
+	$scope.showContext = true;
+	$scope.$watch(function() { 
+					return $location.url(); 
+			}, 
+			function() {
+				if($location.url() != '/') {
+					 $scope.showContext = false;
+				}
+				else
+					 $scope.showContext = true;
+     		});
+	
+}]);
+

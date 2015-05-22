@@ -33,16 +33,12 @@
     <script src="/static/js/user_directive.js"></script>
     <script src="/static/js/angular_map_control.js"></script>
     <script src="/static/js/slick.min.js"></script>
-    <script src="/static/js/gallery.js"></script>
+
     <!--Search location on a map -->
     <script src="/static/js/l.control.geosearch.js"></script>
     <script src="/static/js/l.geosearch.provider.openstreetmap.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/css/l.geosearch.css" />
-
-    <script type="text/javascript" src="/static/js/slick.min.js"></script>
-    <script type="text/javascript" src="/static/js/gallery.js"></script>
-
-
+    <script src="/static/js/gallery.js"></script>
 
   </head>
   <body ng-app="CITApp">
@@ -72,7 +68,7 @@
     <div class="container" >
           <div class="navbar-collapse collapse navbar-right float-left" ng-controller="UserNS" >
             <!--Angular-user (login/unlogin) -->
-                <div ng-if="user_data.fullUserName == null ">
+                <div id="facebookbtn" ng-if="user_data.fullUserName == null ">
                   <a href="/auth/login/fb/" class="btn btn-lg  btn-block btn-social btn-facebook">
                     <i class="fa fa-facebook" ></i><span translate="SIGN_IN_WITH_FACEBOOK">Sign in with Facebook</span>
                   </a>
@@ -96,18 +92,26 @@
           </div>   
             <!--/Angular-user (login/unlogin) end -->
           <div id="navbar" class="navbar-collapse collapse">
-              <ul class="nav navbar-nav">
-                <li><a href="#" translate="HOME">Home</a></li>
-                <li class="active"><a href="#" translate="LOGO">Logo</a></li>
+              <div class="" id="logo">
+                  <a href="#" >
+                    <img src="./static/images/logo.png" alt="logo" >
+                  </a>
+              </div>
+              <ul class="nav navbar-nav">                
+                <li>
+                  <a href="#" translate="HOME">Home
+                  </a>
+                </li>              
               </ul>
           </div>
+      </div>  
   </nav>
 <!--/.nav-collapse -->   
+<div ng-controller="GalleryCtrl">
 
-<div ng-view> </div>
+	<div ng-view> </div>
 
-<script type="text/ng-template" id="main">
-    <div class="col-lg-12">
+	<div class="col-lg-12" ng-show="showContext">
         <div class="col-lg-7" ng-controller="MarkerController">
             <leaflet id="map" center="center" geojson="geojson"></leaflet>
         </div>
@@ -134,8 +138,9 @@
           </div>
         </div>
     </div> 
-</script>
-    
+</div>
+
+
     <!-- JS files -->
  
     <!-- AngularJS files -->
