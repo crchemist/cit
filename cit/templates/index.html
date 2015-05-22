@@ -72,7 +72,7 @@
     <div class="container" >
           <div class="navbar-collapse collapse navbar-right float-left" ng-controller="UserNS" >
             <!--Angular-user (login/unlogin) -->
-                <div ng-if="user_data.fullUserName == null ">
+                <div id="facebookbtn" ng-if="user_data.fullUserName == null ">
                   <a href="/auth/login/fb/" class="btn btn-lg  btn-block btn-social btn-facebook">
                     <i class="fa fa-facebook" ></i><span translate="SIGN_IN_WITH_FACEBOOK">Sign in with Facebook</span>
                   </a>
@@ -96,11 +96,19 @@
           </div>   
             <!--/Angular-user (login/unlogin) end -->
           <div id="navbar" class="navbar-collapse collapse">
-              <ul class="nav navbar-nav">
-                <li><a href="#" translate="HOME">Home</a></li>
-                <li class="active"><a href="#" translate="LOGO">Logo</a></li>
+              <div class="" id="logo">
+                  <a href="#" >
+                    <img src="./static/images/logo.png" alt="logo" >
+                  </a>
+              </div>
+              <ul class="nav navbar-nav">                
+                <li>
+                  <a href="#" translate="HOME">Home
+                  </a>
+                </li>              
               </ul>
           </div>
+      </div>  
   </nav>
 <!--/.nav-collapse -->   
 
