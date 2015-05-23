@@ -56,11 +56,17 @@ def upload_file():
 
 @issues_bp.route('/make-issue/', methods=['POST'])
 def save_issues():
-	issue_description = request.form['key1']
-	issue_coordinates = request.form['key2']
-	new_issue = Issue(issue_description, issue_coordinates, 1)
-	db.session.add(new_issue)
-	db.session.commit()
-	issues_id = new_issue.id
+    issue_description = request.form['key1']
+    issue_coordinates = request.form['key2']
+
+    if g.user:
+        reporter_id = g.user.id
+    else:
+        reporter_id = None
+
+    new_issue = Issue(issue_description, issue_coordinates, reporter_id)
+    db.session.add(new_issue)
+    db.session.commit()
+    issue_id = new_issue.id
 		
-	return jsonify({'id' : issues_id})
+    return jsonify({'id' : issue_id})
