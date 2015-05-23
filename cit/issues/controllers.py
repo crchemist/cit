@@ -58,7 +58,9 @@ def upload_file():
 def save_issues():
 	issue_description = request.form['key1']
 	issue_coordinates = request.form['key2']
-	db.session.add(Issue(issue_description, issue_coordinates, 1))
+	new_issue = Issue(issue_description, issue_coordinates, 1)
+	db.session.add(new_issue)
 	db.session.commit()
-	
-	return jsonify({'description' : issue_description, 'coordinates': issue_coordinates, 'id_user': g.user.id})
+	issues_id = new_issue.id
+		
+	return jsonify({'id' : issues_id})
