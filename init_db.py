@@ -5,6 +5,7 @@ from cit.db import db
 from mixer.backend.sqlalchemy import Mixer
 from mixer.backend.flask import mixer
 from cit.auth.models import User
+from cit.auth.models import Organization
 from cit.issues.models import Issue
 from cit.comments.models import Comment
 from random import randint
@@ -40,6 +41,7 @@ def createParser():
 def generate_test_data():
     with app.app_context():
         user = mixer.blend(User,
+                           organization='1',
                            fb_first_name=mixer.RANDOM,
                            fb_last_name=mixer.RANDOM,
                            fb_id=mixer.RANDOM,
@@ -56,6 +58,10 @@ def generate_test_data():
                               issue_id='1',
                               message=mixer.RANDOM)
         db.session.add(comment)
+        organization = mixer.blend(Organization,
+                            name=mixer.RANDOM,
+                            address='POINT(77 77)')
+        db.session.add(organization)
         db.session.commit()
 
 

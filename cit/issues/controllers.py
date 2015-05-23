@@ -4,7 +4,7 @@ from ..db import db
 from .models import Issue
 from ..auth.models import User
 from flask import Blueprint, request, redirect, url_for, jsonify, current_app, session, jsonify
-from werkzeug import secure_filename
+from werkzeug.utils import secure_filename
 from werkzeug.datastructures import FileStorage
 from shapely.geos import WKBReader, lgeos
 from shapely.geometry import Point

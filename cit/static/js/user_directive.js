@@ -1,4 +1,4 @@
-app.controller('UserNS', ['$scope', '$http', function($scope, $http) {
+app.controller('UserNS', ['$scope', '$http', '$window', function($scope, $http, $window) {
 
         $http.get('/auth/user-info/').success(function(data) {
             $scope.user_data = data;
@@ -8,6 +8,26 @@ app.controller('UserNS', ['$scope', '$http', function($scope, $http) {
                 $scope.user_data.fullUserName = null;
             }
         });
+
+		$scope.hideSuccessMessage = true;
+		$scope.hideErrorMessage = true;
+
+		$scope.pushData = function() {
+			var dataObj = {
+				'name' : $scope.user_data.first_name,
+				'surname' : $scope.user_data.last_name
+			};
+				
+			$http.post('/auth/user/profile/',dataObj).
+				success(function(data, status) {
+					$scope.hideSuccessMessage = false;
+					$scope.hideErrorMessage = true;
+				}).
+				error(function(data, status) {
+					$scope.hideErrorMessage = false;
+					$scope.hideSuccessMessage = true;
+				});
+		};
 
     }]);
 
