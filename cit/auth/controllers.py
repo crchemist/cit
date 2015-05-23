@@ -5,7 +5,7 @@ from urllib import quote
 import authomatic
 from authomatic.adapters import WerkzeugAdapter
 from authomatic import Authomatic
-
+from .models import Organization
 from .models import User
 from ..db import db
 
@@ -68,3 +68,16 @@ def profile_update():
     user_filtered.update({'fb_first_name': json_req.get('name'), 'fb_last_name': json_req.get('surname')})
     db.session.commit()
     return jsonify({}), 201
+
+@auth_bp.route('/user/organization/', methods=['GET'])
+def get_organization():
+    organization_query = db.session.query(Organization).all()
+    organization_dict = {}
+    organization_names = []
+    if organization_query:
+        for org in organization_query:
+            organization_names.append(org.name)
+            organization_dict['name'] = sorted(organization_names)
+        return jsonify(organization_dict)
+    else:
+        return jsonify({})
