@@ -86,7 +86,10 @@ div #modalWindow {
 }
 
 #profile { 
-    margin-top: 61px;
+    margin-top: 120px;
+}
+#profile .select{
+    width: 170px;
 }
 
 #report-issue{
