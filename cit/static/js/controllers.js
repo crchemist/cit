@@ -27,6 +27,6 @@ app.controller('OrganizationCtrl', ['$scope', '$http', '$location', getOrganizat
 function getOrganization($scope, $http) {
 				$http.get('/auth/user/organization/').
 				success(function(data) {
-                        $scope.ogranization = data
-       				});
+					$scope.ogranization = data
+       			});
 		}
