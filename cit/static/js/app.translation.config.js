@@ -13,11 +13,14 @@ app.config(function ($translateProvider) {
     HOME: 'Головна',
     LOGO: 'Логотип',
     WARNING: 'Увага',
+    NAME: "Ім'я",
+    SURNAME: 'Прізвище',
+    ORGANIZATION: 'Організація',
     PROFILE: 'Профіль',
     REPRT_ISSUE: 'Повідомити про забруднення',
     SUBJECT: 'Тема',
     COMMENT: 'Коментар',
-    SUBMIT: 'Повідомити'
+    SUBMIT: 'Повідомити',
   });
    $translateProvider.translations('en', {
     SIGN_IN_WITH_FACEBOOK: 'Sign in with Facebook',
@@ -25,10 +28,13 @@ app.config(function ($translateProvider) {
     HOME: 'Home',
     LOGO: 'Logo',
     WARNING: 'Warning',
+    NAME: 'Name',
+    SURNAME: 'Surname',
+    ORGANIZATION: 'Organization',
     PROFILE: 'Profile',
     REPRT_ISSUE: 'Report about issue',
     SUBJECT: 'Subject',
-    COMMENT: 'Comment'    
+    COMMENT: 'Comment'   
   });
   
   $translateProvider.preferredLanguage(userLanguage);
@@ -43,8 +49,8 @@ app.filter('translate', ['$rootScope', function($rootScope) {
             userLanguage = language.slice(0,2)
         } else {userLanguage = language}
   
- var translations = {
-    'uk': { 'SUBMIT': 'Повідомити',
+  var translations = {
+    'uk': { 'SUBMIT': 'Підтвердити',
             'WRITE_SUBJECT': 'Задайте тему тут...',
             'WRITE_COMMENT': 'Залиште коментар тут...'
 
