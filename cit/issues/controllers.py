@@ -54,7 +54,7 @@ def upload_file():
     return jsonify({'filename': filename, 'error': error})
 
 
-@issues_bp.route('/make-issue/', methods=['POST'])
+@issues_bp.route('/', methods=['POST'])
 def save_issues():
     issue_description = request.form['key1']
     issue_coordinates = request.form['key2']
