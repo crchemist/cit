@@ -10,7 +10,7 @@ from .models import User, Organization
 from ..db import db
 
 auth_bp = Blueprint('auth', __name__)
-organization_bp = Blueprint('organization', __name__)
+
 
 
 def _session_saver():
@@ -71,18 +71,19 @@ def profile_update():
     return jsonify({}), 201
 
 
-@organization_bp.route('/auth/organization/', methods=['POST'])
+@auth_bp.route('/organization/', methods=['POST'])
 def organization_update():
 	json_req = request.get_json()
+	name = json_req.get('name')
+	address = json_req.get('address')
+
 	if not json_req:
 		return jsonify({'message': 'No input data provided'}), 400
-	organization_user_query = db.session.query(Organization, User).join(User).all()
-	permission = User.is_superuser and User.organization == Organization.id
-	if permission:
-		organization_filtered = user_query.filter(Organization.id == json_req.get('id'))
-    	organization_filtered.update({'name': json_req.get('name'), 'address': json_req.get('address')})
-    	db.session.commit()
-	return jsonify({'id': Organization.id }), 201
+		
+	new_organization = Organization(name, address)
+	db.session.add(new_organization)
+	db.session.commit()
+	return jsonify({'id': new_organization.id }), 201
 	
 	
 
