@@ -70,4 +70,4 @@ def save_issues():
     db.session.commit()
     issue_id = new_issue.id
 		
-    return jsonify({'id' : issue_id, 'g_user': reporter_id })
+    return jsonify({'id' : issue_id})
