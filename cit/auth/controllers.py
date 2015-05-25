@@ -12,7 +12,6 @@ from ..db import db
 auth_bp = Blueprint('auth', __name__)
 
 
-
 def _session_saver():
     session.modified = True
 
@@ -71,6 +70,20 @@ def profile_update():
     return jsonify({}), 201
 
 
+@auth_bp.route('/organizations/', methods=['GET'])
+def organizations_info():
+    organization_query = db.session.query(Organization)
+    organization_dict = {}
+    organization_names = []
+    if organization_query:
+        for org in organization_query:
+            organization_names.append(org.name)
+            organization_dict['name'] = sorted(organization_names)
+        return jsonify(organization_dict)
+    else:
+        return jsonify({})
+
+
 @auth_bp.route('/organization/', methods=['POST'])
 def organization_update():
 	json_req = request.get_json()
@@ -84,8 +97,4 @@ def organization_update():
 	db.session.add(new_organization)
 	db.session.commit()
 	return jsonify({'id': new_organization.id }), 201
-	
-	
-
-
 	
