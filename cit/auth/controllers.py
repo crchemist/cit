@@ -69,9 +69,9 @@ def profile_update():
     db.session.commit()
     return jsonify({}), 201
 
-@auth_bp.route('/user/organization/', methods=['GET'])
-def get_organization():
-    organization_query = db.session.query(Organization).all()
+@auth_bp.route('/organizations/', methods=['GET'])
+def organizations_info():
+    organization_query = db.session.query(Organization)
     organization_dict = {}
     organization_names = []
     if organization_query:

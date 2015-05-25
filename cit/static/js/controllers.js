@@ -25,8 +25,9 @@ app.controller('GalleryCtrl',['$scope','$location',function($scope, $location) {
 
 app.controller('OrganizationCtrl', ['$scope', '$http', '$location', getOrganization]);
 function getOrganization($scope, $http) {
-				$http.get('/auth/user/organization/').
+				$http.get('/auth/organizations/').
 				success(function(data) {
 					$scope.ogranization = data
+					console.log($scope.ogranization);
        			});
 		}
