@@ -54,8 +54,8 @@ def generate_test_data():
                             coordinates='POINT(49 22)')
         db.session.add(issue)
         comment = mixer.blend(Comment,
-                              author_id='1',
-                              issue_id='1',
+                              author=user,
+                              issue=issue,
                               message=mixer.RANDOM)
         db.session.add(comment)
         organization = mixer.blend(Organization,
