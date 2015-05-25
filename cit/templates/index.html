@@ -104,43 +104,43 @@
           </div>
       </div>  
   </nav>
-<!--/.nav-collapse -->   
+  <!--/.nav-collapse -->   
 
-<div ng-view> </div>
+  <div ng-view> </div>
 
-<div ng-controller="UserNS">
-  <div ng-show="user_data.fullUserName">
-  <div ng-controller="GalleryCtrl">
-  	<div  class="col-lg-12" ng-show="showContext">
-          <div class="col-lg-7" ng-controller="MarkerController">
-              <leaflet id="map" center="center" geojson="geojson"></leaflet>
-          </div>
-          <div class="col-lg-5">
-            <div class="col-lg-12" id="full_right_map">
-              <div id="general">
-              </div><!--general end -->
-              <div id="location_info">
-              </div><!--location_info end -->
-              <div id="slider">
-                <div class="slider-nav">
-                  <div><img src="/static/images/carousel/thumbs/1.jpg" alt="img_1"></div>
-                  <div><img src="/static/images/carousel/thumbs/2.jpg" alt="img_2"></div>
-                  <div><img src="/static/images/carousel/thumbs/3.jpg" alt="img_3"></div>
-                  <div><img src="/static/images/carousel/thumbs/4.jpg" alt="img_4"></div>
+  <div ng-controller="UserNS">
+    <div ng-show="user_data.fullUserName">
+      <div ng-controller="GalleryCtrl">
+      	<div  class="col-lg-12" ng-show="showContext">
+              <div class="col-lg-7" ng-controller="MarkerController">
+                  <leaflet id="map" center="center" geojson="geojson"></leaflet>
+              </div>
+              <div class="col-lg-5">
+                <div class="col-lg-12" id="full_right_map">
+                  <div id="general">
+                  </div><!--general end -->
+                  <div id="location_info">
+                  </div><!--location_info end -->
+                  <div id="slider">
+                    <div class="slider-nav">
+                      <div><img src="/static/images/carousel/thumbs/1.jpg" alt="img_1"></div>
+                      <div><img src="/static/images/carousel/thumbs/2.jpg" alt="img_2"></div>
+                      <div><img src="/static/images/carousel/thumbs/3.jpg" alt="img_3"></div>
+                      <div><img src="/static/images/carousel/thumbs/4.jpg" alt="img_4"></div>
+                    </div>
+                    <div class="slider-for">
+                      <div><img src="/static/images/carousel/1.jpg" alt="img_1"></div>
+                      <div><img src="/static/images/carousel/2.jpg" alt="img_2"></div>
+                      <div><img src="/static/images/carousel/3.jpg" alt="img_3"></div>
+                      <div><img src="/static/images/carousel/4.jpg" alt="img_4"></div>
+                    </div>
+                  </div><!--slider end -->
                 </div>
-                <div class="slider-for">
-                  <div><img src="/static/images/carousel/1.jpg" alt="img_1"></div>
-                  <div><img src="/static/images/carousel/2.jpg" alt="img_2"></div>
-                  <div><img src="/static/images/carousel/3.jpg" alt="img_3"></div>
-                  <div><img src="/static/images/carousel/4.jpg" alt="img_4"></div>
-                </div>
-              </div><!--slider end -->
-            </div>
-          </div>
-      </div> 
+              </div>
+          </div> 
+      </div>
+    </div>
   </div>
-</div>
-</div>
   
-  </body>
+</body>
 </html>
