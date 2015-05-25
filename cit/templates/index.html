@@ -105,10 +105,10 @@
       </div>  
   </nav>
 <!--/.nav-collapse -->   
+
+<div ng-view> </div>
+
 <div ng-controller="GalleryCtrl">
-
-	<div ng-view> </div>
-
 	<div class="col-lg-12" ng-show="showContext">
         <div class="col-lg-7" ng-controller="MarkerController">
             <leaflet id="map" center="center" geojson="geojson"></leaflet>

@@ -7,22 +7,23 @@ app.controller('LogoutCtrl', ['$scope', '$http', '$location', LogoutController])
   				});
 			};			
 		}
+
+
 app.controller('GalleryCtrl',['$scope','$location',function($scope, $location) {
 	$scope.showContext = true;
 	$scope.$watch(function() { 
 					return $location.url(); 
 			}, 
 			function() {
-				if($location.url() != '/') {
-					 $scope.showContext = false;
+				if($location.url() == '/' || $location.path() == '/_=_') {
+					 $scope.showContext = true;
 				}
 				else
-					 $scope.showContext = true;
-     		});
-	
+					 $scope.showContext = false;
+     		});	
 }]);
 
-
+//Get Names of organizations and from show them in profile form
 app.controller('OrganizationCtrl', ['$scope', '$http', '$location', getOrganization]);
 function getOrganization($scope, $http) {
 				$http.get('/auth/organizations/').
