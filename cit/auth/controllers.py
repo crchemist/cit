@@ -74,18 +74,21 @@ def profile_update():
 @auth_bp.route('/organization/', methods=['POST'])
 def organization_update():
 	json_req = request.get_json()
-	name = json_req.get('name')
-	address = json_req.get('address')
 
 	if not json_req:
 		return jsonify({'message': 'No input data provided'}), 400
-		
-	new_organization = Organization(name, address)
-	db.session.add(new_organization)
-	db.session.commit()
-	return jsonify({'id': new_organization.id }), 201
 	
-	
+	orginzation_id = 0
+	if g.user.is_superuser:	
+		orginzation_id  =  new_organization.id
+		name = json_req.get('name')
+		address = json_req.get('address')
+		new_organization = Organization(name, address)
+		db.session.add(new_organization)
+    	db.session.commit()		
+		 
+	if 	orginzation_id != 0:
+		return jsonify({'id': orginzation_id }), 201
 
+	return jsonify({'message': 'You are nit super user'}), 400
 
-	
