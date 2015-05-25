@@ -6,10 +6,11 @@ import authomatic
 from authomatic.adapters import WerkzeugAdapter
 from authomatic import Authomatic
 
-from .models import User
+from .models import User, Organization
 from ..db import db
 
 auth_bp = Blueprint('auth', __name__)
+
 
 
 def _session_saver():
@@ -68,3 +69,23 @@ def profile_update():
     user_filtered.update({'fb_first_name': json_req.get('name'), 'fb_last_name': json_req.get('surname')})
     db.session.commit()
     return jsonify({}), 201
+
+
+@auth_bp.route('/organization/', methods=['POST'])
+def organization_update():
+	json_req = request.get_json()
+	name = json_req.get('name')
+	address = json_req.get('address')
+
+	if not json_req:
+		return jsonify({'message': 'No input data provided'}), 400
+		
+	new_organization = Organization(name, address)
+	db.session.add(new_organization)
+	db.session.commit()
+	return jsonify({'id': new_organization.id }), 201
+	
+	
+
+
+	
