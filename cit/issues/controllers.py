@@ -1,4 +1,4 @@
-import os
+import os, json
 from flask import g
 from ..db import db
 from .models import Issue
@@ -52,3 +52,22 @@ def upload_file():
         error = 2 
 
     return jsonify({'filename': filename, 'error': error})
+
+
+@issues_bp.route('/make-issue/', methods=['POST'])
+def save_issues():
+    request_data = request.get_json()
+    issue_description = request_data.get('description')
+    issue_coordinates = request_data.get('address')
+
+    if g.user:
+        reporter_id = g.user.id
+    else:
+        reporter_id = None
+
+    new_issue = Issue(issue_description, issue_coordinates, reporter_id)
+    db.session.add(new_issue)
+    db.session.commit()
+    issue_id = new_issue.id
+		
+    return jsonify({'id' : issue_id})
