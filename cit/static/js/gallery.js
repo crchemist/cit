@@ -1,4 +1,4 @@
-$(document).ready(function() {
+	 $(document).ready(function() {
 	 $('.slider-for').slick({
 	  slidesToShow: 1,
 	  slidesToScroll: 1,
@@ -15,3 +15,4 @@ $(document).ready(function() {
 	  focusOnSelect: true
 	});
 });
+      

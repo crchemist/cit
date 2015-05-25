@@ -1,4 +1,4 @@
-<div ng-if="user_data.fullUserName != null">
+<div ng-show="user_data.fullUserName">
 	<!--Map starts -->
 	<div class="col-lg-7" ng-controller="MarkerController">
         <leaflet id="map" center="center" geojson="geojson"></leaflet>
