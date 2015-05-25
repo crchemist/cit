@@ -8,6 +8,7 @@ from authomatic import Authomatic
 
 from .models import User, Organization
 from ..db import db
+from cit.utils import admin_required
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -71,6 +72,7 @@ def profile_update():
     return jsonify({}), 201
 
 
+@admin_required
 @auth_bp.route('/organization/', methods=['POST'])
 def organization_update():
 	json_req = request.get_json()
