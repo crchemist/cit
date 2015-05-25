@@ -31,3 +31,4 @@ function getOrganization($scope, $http) {
 					console.log($scope.ogranization);
        			});
 		}
+		
