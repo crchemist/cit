@@ -15,7 +15,7 @@ app.controller('GalleryCtrl',['$scope','$location',function($scope, $location) {
 					return $location.url(); 
 			}, 
 			function() {
-				if($location.url() == '/' || $location.path() == '/_=_') {
+				if($location.path() == '' || $location.path() == '/_=_' || $location.path() == '/auth/logout/') {
 					 $scope.showContext = true;
 				}
 				else
