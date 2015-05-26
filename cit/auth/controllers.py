@@ -1,3 +1,4 @@
+from cit.utils import admin_required
 from flask import redirect, render_template, request, make_response, g
 from flask import Blueprint, session, jsonify
 from urllib import quote
@@ -8,7 +9,6 @@ from authomatic import Authomatic
 
 from .models import User, Organization
 from ..db import db
-from cit.utils import admin_required
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -72,25 +72,18 @@ def profile_update():
     return jsonify({}), 201
 
 
+@auth_bp.route('/organizations/', methods=['POST'])
 @admin_required
-@auth_bp.route('/organization/', methods=['POST'])
 def organization_update():
-	json_req = request.get_json()
+    json_req = request.get_json()
 
-	if not json_req:
-		return jsonify({'message': 'No input data provided'}), 400
-	
-	orginzation_id = 0
-	if g.user.is_superuser:	
-		orginzation_id  =  new_organization.id
-		name = json_req.get('name')
-		address = json_req.get('address')
-		new_organization = Organization(name, address)
-		db.session.add(new_organization)
-    	db.session.commit()		
-		 
-	if 	orginzation_id != 0:
-		return jsonify({'id': orginzation_id }), 201
+    if not json_req:
+        return jsonify({'message': 'No input data provided'}), 400
 
-	return jsonify({'message': 'You are nit super user'}), 400
+    name = json_req.get('name')
+    address = json_req.get('address')
+    new_organization = Organization(name, address)
+    db.session.add(new_organization)
+    db.session.commit()
 
+    return jsonify({'id': new_organization.id}), 201
