@@ -32,4 +32,14 @@ function getOrganization($scope, $http) {
 					console.log($scope.ogranization);
        			});
 		}
+
+app.controller('IssueController', function(){
+	this.issue = {}
+
+	function addIssue(){
+		console.log(this.issue.description);
+		console.log(this.issue.address);
+
+	};
+});
 		
