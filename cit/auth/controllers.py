@@ -64,7 +64,7 @@ def profile_update():
     if not json_req:
         return jsonify({'message': 'No input data provided'}), 400
     user_query = db.session.query(User)
-    user_filtered = user_query.filter(User.id == json_req.get('id'))
+    user_filtered = user_query.filter(User.id == g.user.id)
     user_filtered.update({'fb_first_name': json_req.get('name'), 'fb_last_name': json_req.get('surname')})
     db.session.commit()
     return jsonify({}), 201
@@ -86,15 +86,14 @@ def organizations_info():
 
 @auth_bp.route('/organization/', methods=['POST'])
 def organization_update():
-	json_req = request.get_json()
-	name = json_req.get('name')
-	address = json_req.get('address')
+    json_req = request.get_json()
+    name = json_req.get('name')
+    address = json_req.get('address')
 
-	if not json_req:
-		return jsonify({'message': 'No input data provided'}), 400
-		
-	new_organization = Organization(name, address)
-	db.session.add(new_organization)
-	db.session.commit()
-	return jsonify({'id': new_organization.id }), 201
-	
+    if not json_req:
+        return jsonify({'message': 'No input data provided'}), 400
+
+    new_organization = Organization(name, address)
+    db.session.add(new_organization)
+    db.session.commit()
+    return jsonify({'id': new_organization.id}), 201
