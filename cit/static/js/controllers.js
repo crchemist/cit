@@ -41,8 +41,8 @@ app.controller('IssueController',['$http', '$scope', function($http,$scope){
 	}
 	
 	function addIssue($http, $scope){
-		$http.post('/issue/make-issue/', this.issue).
-		success(function(data, status) {
+        $http.post('/issue/make-issue/', this.issue).
+        success(function(data, status) {
           $scope.status = status;
           $scope.data = data;
         }).
