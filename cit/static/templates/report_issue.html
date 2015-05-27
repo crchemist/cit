@@ -9,11 +9,11 @@
 		<form name="issueForm" ng-controller="IssueController as IssueCtrl" >
 			<div class="form-group">
 			    <label for="subject" translate="SUBJECT">Subject</label>
-			    <input type="text" class="form-control" id="subject" placeholder="{{'WRITE_SUBJECT' | translate}}">
+			    <input ng-model="IssueCtrl.issue.subject"  type="text" class="form-control" id="subject" placeholder="{{'WRITE_SUBJECT' | translate}}">
 			</div>
 			<div class="form-group">
 			    <label for="comment" translate="COMMENT">Comment</label>
-			    <textarea class="form-control" rows="4" id="comment" placeholder="{{'WRITE_COMMENT' | translate}}"></textarea>
+			    <textarea ng-model="IssueCtrl.issue.descript" class="form-control" rows="4" id="comment" placeholder="{{'WRITE_COMMENT' | translate}}"></textarea>
 			</div>
 		    <button type="submit" class="btn btn-default">{{'SUBMIT' | translate }}</button>
 		</form>
