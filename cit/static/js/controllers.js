@@ -33,13 +33,25 @@ function getOrganization($scope, $http) {
        			});
 		}
 
-app.controller('IssueController', function(){
-	this.issue = {}
-
-	function addIssue(){
-		console.log(this.issue.description);
-		console.log(this.issue.address);
+app.controller('IssueController',['$http', '$scope', function($http,$scope){
+	this.issue = {
+		'descript': '',
+		'subject': '',
+		'address': 'POINT(49 22)'
+	}
+	
+	function addIssue($http, $scope){
+		$http.post('/issue/make-issue/', this.issue).
+		success(function(data, status) {
+          $scope.status = status;
+          $scope.data = data;
+        }).
+        error(function(data, status) {
+          $scope.data = data || "Request failed";
+          $scope.status = status;
+      });
 
 	};
-});
+
+}]);
 		
