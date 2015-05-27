@@ -6,7 +6,7 @@
 	<!--Map ends -->
 	<!--Form for report issue starts -->
 	<div id="report-issue" class="col-lg-5">
-		<form name="issueForm" ng-controller="IssueController as IssueCtrl" >
+		<form name="issueForm" ng-controller="IssueController as IssueCtrl" ng-submit="IssueCtrl.addIssue()" >
 			<div class="form-group">
 			    <label for="subject" translate="SUBJECT">Subject</label>
 			    <input ng-model="IssueCtrl.issue.subject"  type="text" class="form-control" id="subject" placeholder="{{'WRITE_SUBJECT' | translate}}">
