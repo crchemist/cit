@@ -16,7 +16,8 @@ issues_bp = Blueprint('issues', __name__)
 @issues_bp.route('/', methods=['GET', 'POST'])
 def issues_info():
     issues_user_query = db.session.query(Issue, User, Comment)\
-        .join(User).join(Comment).all()
+        .join(User, User.id == Issue.reporter )\
+        .join(Comment, Comment.issue_id == Issue.id).all()
     table_dict = []
     for issue, user, comment in issues_user_query:
         list_row = {}
