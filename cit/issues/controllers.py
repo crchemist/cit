@@ -3,6 +3,7 @@ from flask import g
 from ..db import db
 from .models import Issue
 from ..auth.models import User
+from ..comments.models import Comment
 from flask import Blueprint, request, redirect, url_for, jsonify, current_app, session, jsonify
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import FileStorage
@@ -14,9 +15,10 @@ issues_bp = Blueprint('issues', __name__)
 
 @issues_bp.route('/', methods=['GET', 'POST'])
 def issues_info():
-    issues_user_query = db.session.query(Issue, User).join(User).all()
+    issues_user_query = db.session.query(Issue, User, Comment)\
+        .join(User).join(Comment).all()
     table_dict = []
-    for issue, user in issues_user_query:
+    for issue, user, comment in issues_user_query:
         list_row = {}
         point = WKBReader(lgeos).read_hex(str(issue.coordinates))
         list_row.update({
@@ -28,7 +30,8 @@ def issues_info():
                     'surname': user.fb_last_name,
                     'fb_id': user.fb_id
                 },
-                'description': issue.description
+                'description': issue.description,
+                'comment': comment.message
             },
             "geometry": {
                 'coordinates': [point.x, point.y],
@@ -37,7 +40,8 @@ def issues_info():
         })
         table_dict.append(list_row)
 
-    return jsonify(type='FeatureCollection', features=table_dict, name='Points', keyField='GPSUserName')
+    return jsonify(type='FeatureCollection', features=table_dict,
+                   name='Points', keyField='GPSUserName')
 
 
 @issues_bp.route('/file-upload/', methods=['POST'])
@@ -49,7 +53,7 @@ def upload_file():
         file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
     else:
         filename = ''
-        error = 2 
+        error = 2
 
     return jsonify({'filename': filename, 'error': error})
 
@@ -70,4 +74,4 @@ def save_issues():
     db.session.commit()
     issue_id = new_issue.id
 		
-    return jsonify({'id' : issue_id})
+    return jsonify({'id': issue_id})
