@@ -33,3 +33,12 @@ class Organization(db.Model):
     def __init__(self, name="", address=""):
         self.name = name
         self.address = address
+
+
+class Spatial_ref_sys(db.Model):
+    srid = db.Column(db.Integer, primary_key=True)
+    auth_name = db.Column(db.String(256))
+    auth_srid  = db.Column(db.Integer)
+    srtext = db.Column(db.String(2048))
+    proj4text = db.Column(db.String(2048))
+    
