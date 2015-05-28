@@ -66,7 +66,8 @@ def profile_update():
         return jsonify({'message': 'No input data provided'}), 400
     user_query = db.session.query(User)
     user_filtered = user_query.filter(User.id == json_req.get('id'))
-    user_filtered.update({'fb_first_name': json_req.get('name'), 'fb_last_name': json_req.get('surname')})
+    user_filtered.update({'fb_first_name': json_req.get('name'),
+                          'fb_last_name': json_req.get('surname')})
     db.session.commit()
     return jsonify({}), 201
 
