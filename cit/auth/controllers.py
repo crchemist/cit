@@ -100,3 +100,13 @@ def organizations_info():
         return jsonify(organization_dict)
     else:
         return jsonify({})
+
+
+@auth_bp.route('/organizations/add-user/', methods=['POST'])
+def organizations_add():
+    user = g.user
+    org = db.session.query(Organization)
+    user.organizations.append(org.first())
+    db.session.add(user)
+    db.session.commit()
+    return jsonify({}), 201
