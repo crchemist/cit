@@ -54,8 +54,8 @@ def generate_test_data():
                             coordinates='POINT(49 22)')
         db.session.add(issue)
         comment = mixer.blend(Comment,
-                              author_id='1',
-                              issue_id='1',
+                              author=user,
+                              issue=issue,
                               message=mixer.RANDOM)
         db.session.add(comment)
         organization = mixer.blend(Organization,
@@ -79,3 +79,4 @@ if __name__ == "__main__":
         generate_test_data()
     if namespace.make_admin:
         make_user_as_admin(namespace.make_admin)
+        
