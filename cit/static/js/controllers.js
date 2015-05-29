@@ -39,24 +39,18 @@ app.controller('IssueController',['$http', '$scope', function($http,$scope){
 		'address': 'POINT(49 22)'
 	}
 	
-    var resultVarName = 'ajaxSubmitResult1';
 
-    
-	$http.post('http://localhost:8080/issues/make-issue/', this.issue, headers={'Content-Type': 'application/json'})
-        .success(function (data, status, headers, config)
+	this.addIssue = function(issue){
+      $http.post('http://localhost:8080/issues/make-issue/', issue,
+        headers={'Content-Type': 'application/json'})
+        .success(function (data)
         {
-          $scope[resultVarName] = data;
+          alert( "failure message: " + JSON.stringify({data: data}));
         })
-        .error(function (data, status, headers, config)
+        .error(function ()
         {
-          $scope[resultVarName] = "SUBMIT ERROR";
-        });
-
-	function addIssue(issue, resultVarName){
-        
-        
-
-        
+          alert("SUBMIT ERROR");
+        });       
 
 	};
 
