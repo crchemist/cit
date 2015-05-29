@@ -35,20 +35,14 @@ function getOrganization($scope, $http) {
 
 app.controller('IssueController',['$http', '$scope', function($http,$scope){
 	this.issue = {
-		'descript': '',
-		'subject': '',
+		'description': '',
 		'address': 'POINT(49 22)'
 	}
 	
-	
-	function addIssue(issue){
-        var config = {
-          params: {
-            issue: issue
-          }
-        };
+    var resultVarName = 'ajaxSubmitResult1';
 
-        $http.post('http://localhost:8080/issue/make-issue/', null, config)
+    
+	$http.post('http://localhost:8080/issues/make-issue/', this.issue, headers={'Content-Type': 'application/json'})
         .success(function (data, status, headers, config)
         {
           $scope[resultVarName] = data;
@@ -57,6 +51,12 @@ app.controller('IssueController',['$http', '$scope', function($http,$scope){
         {
           $scope[resultVarName] = "SUBMIT ERROR";
         });
+
+	function addIssue(issue, resultVarName){
+        
+        
+
+        
 
 	};
 
