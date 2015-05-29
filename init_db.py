@@ -40,6 +40,11 @@ def createParser():
 
 def generate_test_data():
     with app.app_context():
+        organization = mixer.blend(Organization,
+                                   name=mixer.RANDOM,
+                                   address='POINT(77 77)')
+        db.session.add(organization)
+        db.session.commit()
         user = mixer.blend(User,
                            organization='1',
                            fb_first_name=mixer.RANDOM,
@@ -59,10 +64,6 @@ def generate_test_data():
                               issue=issue,
                               message=mixer.RANDOM)
         db.session.add(comment)
-        organization = mixer.blend(Organization,
-                                   name=mixer.RANDOM,
-                                   address='POINT(77 77)')
-        db.session.add(organization)
         photo = mixer.blend(Photo,
                             issue=issue,
                             file_path=mixer.RANDOM)
