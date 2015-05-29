@@ -6,7 +6,7 @@ from mixer.backend.sqlalchemy import Mixer
 from mixer.backend.flask import mixer
 from cit.auth.models import User
 from cit.auth.models import Organization
-from cit.issues.models import Issue
+from cit.issues.models import Issue, Photo
 from cit.comments.models import Comment
 from random import randint
 import sys
@@ -48,6 +48,7 @@ def generate_test_data():
                            email=mixer.RANDOM,
                            about_me=mixer.RANDOM)
         db.session.add(user)
+        db.session.commit()
         issue = mixer.blend(Issue,
                             reporter='1',
                             description=mixer.RANDOM,
@@ -59,9 +60,13 @@ def generate_test_data():
                               message=mixer.RANDOM)
         db.session.add(comment)
         organization = mixer.blend(Organization,
-                            name=mixer.RANDOM,
-                            address='POINT(77 77)')
+                                   name=mixer.RANDOM,
+                                   address='POINT(77 77)')
         db.session.add(organization)
+        photo = mixer.blend(Photo,
+                            issue=issue,
+                            file_path=mixer.RANDOM)
+        db.session.add(photo)
         db.session.commit()
 
 
@@ -79,4 +84,3 @@ if __name__ == "__main__":
         generate_test_data()
     if namespace.make_admin:
         make_user_as_admin(namespace.make_admin)
-        
