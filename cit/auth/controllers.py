@@ -103,7 +103,7 @@ def organizations_info():
         return jsonify({})
 
 
-@auth_bp.route('/organization/<org_id>/add-user/', methods=['POST'])
+@auth_bp.route('/organization/<int:org_id>/add-user/', methods=['POST'])
 def organization_user_add(org_id):
     user = g.user
     org = db.session.query(Organization).filter(Organization.id == org_id)
