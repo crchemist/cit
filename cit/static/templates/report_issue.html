@@ -6,7 +6,7 @@
 	<!--Map ends -->
 	<!--Form for report issue starts -->
 	<div id="report-issue" class="col-lg-5">
-		<form name="issueForm" ng-controller="IssueController as IssueCtrl" ng-submit="IssueCtrl.addIssue(IssueCtrl.issue)" novalidate>
+		<form name="issueForm" ng-controller="IssueController as IssueCtrl" ng-submit="IssueCtrl.addIssue(IssueCtrl.issue)">
             <div class="form-group">
 			    <label for="subject" translate="SUBJECT">Subject</label>
 			    <input type="text" class="form-control" id="subject" placeholder="{{'WRITE_SUBJECT' | translate}}">
@@ -15,7 +15,7 @@
 			    <label for="comment" translate="COMMENT">Comment</label>
 			    <textarea ng-model="IssueCtrl.issue.description" class="form-control" rows="4" id="comment" placeholder="{{'WRITE_COMMENT' | translate}}"></textarea>
 			</div>
-		    <button type="submit" class="btn btn-default">{{'SUBMIT' | translate }}</button>
+			<button type="submit"  class="btn btn-default">{{'SUBMIT' | translate }}</button>
 		</form>
 	</div>
 	<!--Form for report issue ends -->
