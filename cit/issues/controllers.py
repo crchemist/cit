@@ -2,8 +2,8 @@ import os, json
 from flask import g
 from ..db import db
 from .models import Issue
-from ..auth.models import User
-from ..comments.models import Comment
+from cit.auth.models import User
+from cit.comments.models import Comment
 from flask import Blueprint, request, redirect, url_for, jsonify, current_app, session, jsonify
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import FileStorage
@@ -15,13 +15,16 @@ issues_bp = Blueprint('issues', __name__)
 
 @issues_bp.route('/', methods=['GET', 'POST'])
 def issues_info():
-    issues_user_query = db.session.query(Issue, User, Comment)\
-        .join(User, User.id == Issue.reporter )\
-        .join(Comment, Comment.issue_id == Issue.id).all()
+    issues_user_query = db.session.query(Issue, User)\
+        .join(User).all()
     table_dict = []
-    for issue, user, comment in issues_user_query:
+    for issue, user in issues_user_query:
         list_row = {}
-        point = WKBReader(lgeos).read_hex(str(issue.coordinates))
+        point = WKBReader(lgeos).read_hex(str(issue.coordinates))        
+        comments = db.session.query(Comment).filter_by(issue_id=issue.id).all()
+        list_of_comments = []
+        for comment in comments:
+            list_of_comments.append(comment.message)
         list_row.update({
             'type': 'Feature',
             'properties': {
@@ -32,7 +35,7 @@ def issues_info():
                     'fb_id': user.fb_id
                 },
                 'description': issue.description,
-                'comment': comment.message
+                'comments': list_of_comments
             },
             "geometry": {
                 'coordinates': [point.x, point.y],

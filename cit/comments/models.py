@@ -16,4 +16,4 @@ class Comment(db.Model):
         self.message = message
 
     def __repr__(self):
-        return '<message %r>' % self.message
+        return '%r' % self.message
