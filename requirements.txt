@@ -19,6 +19,6 @@ psycopg2==2.6
 pytz==2015.2
 six==1.9.0
 wsgiref==0.1.2
-alembic==0.6.5
+alembic==0.7.0
 GeoAlchemy2==0.2.4
 Shapely==1.5.8
