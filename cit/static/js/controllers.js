@@ -41,7 +41,6 @@ app.controller('IssueController',['$http', '$scope', '$rootScope', function($htt
     
     $scope.$on('leafletDirectiveMap.click', function (e, wrap) {
          $rootScope.coord = "POINT(" + wrap.leafletEvent.latlng.lat + " " + wrap.leafletEvent.latlng.lng + ")";
-         alert("Issue's coordinates: (" + wrap.leafletEvent.latlng.lat + " " + wrap.leafletEvent.latlng.lng + ")" );
     });
 
 	this.addIssue = function(issue){
@@ -53,7 +52,7 @@ app.controller('IssueController',['$http', '$scope', '$rootScope', function($htt
         headers={'Content-Type': 'application/json'})
         .success(function (data)
         {
-          alert( "failure message: " + JSON.stringify(data));
+          return data;
         })
         .error(function ()
         {
