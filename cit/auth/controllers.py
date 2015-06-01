@@ -1,4 +1,3 @@
-from cit.utils import admin_required
 from flask import redirect, render_template, request, make_response, g
 from flask import Blueprint, session, jsonify
 from urllib import quote
@@ -9,6 +8,7 @@ from authomatic import Authomatic
 
 from .models import User, Organization
 from ..db import db
+from ..utils import owner_required
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -73,7 +73,6 @@ def profile_update():
 
 
 @auth_bp.route('/organizations/', methods=['POST'])
-@admin_required
 def organization_update():
     json_req = request.get_json()
 
@@ -103,7 +102,8 @@ def organizations_info():
         return jsonify({})
 
 
-@auth_bp.route('/organization/<int:org_id>/add-user/', methods=['POST'])
+@auth_bp.route('/organizations/<int:org_id>/add-user/', methods=['POST'])
+@owner_required
 def organization_user_add(org_id):
     user = g.user
     org = db.session.query(Organization).filter(Organization.id == org_id)
