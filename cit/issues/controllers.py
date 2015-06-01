@@ -22,9 +22,7 @@ def issues_info():
         list_row = {}
         point = WKBReader(lgeos).read_hex(str(issue.coordinates))
         comments = db.session.query(Comment).filter_by(issue_id=issue.id).all()
-        list_of_comments = []
-        for comment in comments:
-            list_of_comments.append(comment.message)
+        list_of_comments = [comment.message for comment in comments]
         photos = db.session.query(Photo).filter_by(issue_id=issue.id).all()
         list_of_photos = [photo.file_path for photo in photos]
         list_row.update({
