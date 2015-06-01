@@ -1,7 +1,7 @@
 import os, json
 from flask import g
 from ..db import db
-from .models import Issue
+from .models import Issue, Photo
 from ..auth.models import User
 from flask import Blueprint, request, redirect, url_for, jsonify, current_app, session, jsonify
 from werkzeug.utils import secure_filename
@@ -44,9 +44,15 @@ def issues_info():
 def upload_file():
     error = 0
     file = request.files['file']
+    request_data = request.values
     if file:
         filename = secure_filename(file.filename)
-        file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
+        file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+        file.save(file_path)
+        if request_data.has_key('issue_id'):
+            issue = Issue.query.filter_by(id=int(request_data['issue_id'])).first()
+            db.session.add(Photo(issue, file_path))
+            db.session.commit()
     else:
         filename = ''
         error = 2 
@@ -69,5 +75,5 @@ def save_issues():
     db.session.add(new_issue)
     db.session.commit()
     issue_id = new_issue.id
-		
-    return jsonify({'id' : issue_id})
+
+    return jsonify({'issue_id': issue_id})
