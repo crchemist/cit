@@ -110,4 +110,4 @@ def organization_user_add(org_id):
     user.organizations.append(org.first())
     db.session.add(user)
     db.session.commit()
-    return jsonify({}), 201
+    return jsonify({'status': 0}), 201
