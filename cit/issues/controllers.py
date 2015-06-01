@@ -19,6 +19,8 @@ def issues_info():
     for issue, user in issues_user_query:
         list_row = {}
         point = WKBReader(lgeos).read_hex(str(issue.coordinates))
+        photos = db.session.query(Photo).filter_by(issue_id=issue.id).all()
+        list_of_photos = [photo.file_path for photo in photos]
         list_row.update({
             'type': 'Feature',
             'properties': {
@@ -28,9 +30,10 @@ def issues_info():
                     'surname': user.fb_last_name,
                     'fb_id': user.fb_id
                 },
-                'description': issue.description
+                'description': issue.description,
+                'photos': list_of_photos
             },
-            "geometry": {
+            'geometry': {
                 'coordinates': [point.x, point.y],
                 'type': 'Point'
             }
