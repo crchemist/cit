@@ -1,3 +1,4 @@
+from cit.utils import admin_required
 from flask import redirect, render_template, request, make_response, g
 from flask import Blueprint, session, jsonify
 from urllib import quote
@@ -70,6 +71,23 @@ def profile_update():
     return jsonify({}), 201
 
 
+@auth_bp.route('/organizations/', methods=['POST'])
+@admin_required
+def organization_update():
+    json_req = request.get_json()
+
+    if not json_req:
+        return jsonify({'message': 'No input data provided'}), 400
+
+    name = json_req.get('name')
+    address = json_req.get('address')
+    new_organization = Organization(name, address)
+    db.session.add(new_organization)
+    db.session.commit()
+
+    return jsonify({'id': new_organization.id}), 201
+
+
 @auth_bp.route('/organizations/', methods=['GET'])
 def organizations_info():
     organization_query = db.session.query(Organization)
@@ -82,19 +100,3 @@ def organizations_info():
         return jsonify(organization_dict)
     else:
         return jsonify({})
-
-
-@auth_bp.route('/organization/', methods=['POST'])
-def organization_update():
-	json_req = request.get_json()
-	name = json_req.get('name')
-	address = json_req.get('address')
-
-	if not json_req:
-		return jsonify({'message': 'No input data provided'}), 400
-		
-	new_organization = Organization(name, address)
-	db.session.add(new_organization)
-	db.session.commit()
-	return jsonify({'id': new_organization.id }), 201
-	

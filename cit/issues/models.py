@@ -12,3 +12,15 @@ class Issue(db.Model):
         self.description = description
         self.coordinates = coordinates
         self.reporter = reporter
+
+
+class Photo(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    issue_id = db.Column(db.Integer, db.ForeignKey("issue.id"))
+    file_path = db.Column(db.String(200))
+
+    issue = db.relationship("Issue")
+
+    def __init__(self, issue="", file_path=""):
+        self.issue = issue
+        self.file_path = file_path
