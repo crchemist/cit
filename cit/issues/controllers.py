@@ -1,7 +1,7 @@
 import os, json
 from flask import g
 from ..db import db
-from .models import Issue
+from .models import Issue, Photo
 from cit.auth.models import User
 from cit.comments.models import Comment
 from flask import Blueprint, request, redirect, url_for, jsonify, current_app, session, jsonify
@@ -20,11 +20,11 @@ def issues_info():
     table_dict = []
     for issue, user in issues_user_query:
         list_row = {}
-        point = WKBReader(lgeos).read_hex(str(issue.coordinates))        
+        point = WKBReader(lgeos).read_hex(str(issue.coordinates))
         comments = db.session.query(Comment).filter_by(issue_id=issue.id).all()
-        list_of_comments = []
-        for comment in comments:
-            list_of_comments.append(comment.message)
+        list_of_comments = [comment.message for comment in comments]
+        photos = db.session.query(Photo).filter_by(issue_id=issue.id).all()
+        list_of_photos = [photo.file_path for photo in photos]
         list_row.update({
             'type': 'Feature',
             'properties': {
@@ -35,9 +35,10 @@ def issues_info():
                     'fb_id': user.fb_id
                 },
                 'description': issue.description,
+                'photos': list_of_photos,
                 'comments': list_of_comments
             },
-            "geometry": {
+            'geometry': {
                 'coordinates': [point.x, point.y],
                 'type': 'Point'
             }
