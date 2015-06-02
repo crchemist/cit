@@ -8,7 +8,7 @@ from authomatic import Authomatic
 
 from .models import User, Organization
 from ..db import db
-from ..utils import owner_required
+from ..utils import login_required
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -103,7 +103,7 @@ def organizations_info():
 
 
 @auth_bp.route('/organizations/<int:org_id>/add-user/', methods=['POST'])
-@owner_required
+@login_required
 def organization_user_add(org_id):
     user = g.user
     org = db.session.query(Organization).filter(Organization.id == org_id)

@@ -12,7 +12,7 @@ def admin_required(fn):
     return decorated
 
 
-def owner_required(fn):
+def login_required(fn):
 
     def decorated(*args, **kw):
         if not g.user or not (g.user.id or g.user.is_superuser):
