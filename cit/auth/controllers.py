@@ -1,4 +1,3 @@
-from cit.utils import admin_required
 from flask import redirect, render_template, request, make_response, g
 from flask import Blueprint, session, jsonify
 from urllib import quote
@@ -9,6 +8,7 @@ from authomatic import Authomatic
 
 from .models import User, Organization
 from ..db import db
+from ..utils import login_required
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -65,14 +65,14 @@ def profile_update():
     if not json_req:
         return jsonify({'message': 'No input data provided'}), 400
     user_query = db.session.query(User)
-    user_filtered = user_query.filter(User.id == json_req.get('id'))
-    user_filtered.update({'fb_first_name': json_req.get('name'), 'fb_last_name': json_req.get('surname')})
+    user_filtered = user_query.filter(User.id == g.user.id)
+    user_filtered.update({'fb_first_name': json_req.get('name'),
+                          'fb_last_name': json_req.get('surname')})
     db.session.commit()
     return jsonify({}), 201
 
 
 @auth_bp.route('/organizations/', methods=['POST'])
-@admin_required
 def organization_update():
     json_req = request.get_json()
 
@@ -100,3 +100,14 @@ def organizations_info():
         return jsonify(organization_dict)
     else:
         return jsonify({})
+
+
+@auth_bp.route('/organizations/<int:org_id>/add-user/', methods=['POST'])
+@login_required
+def organization_user_add(org_id):
+    user = g.user
+    org = db.session.query(Organization).filter(Organization.id == org_id)
+    user.organizations.append(org.first())
+    db.session.add(user)
+    db.session.commit()
+    return jsonify({'status': 0}), 201
