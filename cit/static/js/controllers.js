@@ -26,7 +26,7 @@ app.controller('GalleryCtrl',['$scope','$location',function($scope, $location) {
 //Get Names of organizations and from show them in profile form
 app.controller('OrganizationCtrl', ['$scope', '$http', '$location', getOrganization]);
 function getOrganization($scope, $http) {
-				$http.get('/auth/organizations/').
+				$http.get('/organizations/').
 				success(function(data) {
 					$scope.ogranization = data
 					console.log($scope.ogranization);
@@ -49,7 +49,7 @@ app.controller('IssueController',['$http', '$scope', '$rootScope', function($htt
     	this.issue.address = $rootScope.coord
       };
 
-      $http.post('http://localhost:8080/issues/make-issue/', issue,
+      $http.post('/issues/make-issue/', issue,
         headers={'Content-Type': 'application/json'})
         .success(function (data)
         {

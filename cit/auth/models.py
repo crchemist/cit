@@ -37,19 +37,6 @@ class User(db.Model):
         return '<User %r>' % self.email
 
 
-class Organization(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120))
-    address = db.Column(Geography(geometry_type='GEOMETRY'))
-
-    def __init__(self, name="", address=""):
-        self.name = name
-        self.address = address
-
-    def __repr__(self):
-        return '%s' % self.name
-
-
 class Spatial_ref_sys(db.Model):
     srid = db.Column(db.Integer, primary_key=True)
     auth_name = db.Column(db.String(256))
