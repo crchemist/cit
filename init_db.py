@@ -42,7 +42,7 @@ def generate_test_data():
     with app.app_context():
         organization = mixer.blend(Organization,
                                    name=mixer.RANDOM,
-                                   address='POINT(77 77)')
+                                   address='POINT(49.836134 24.023151)')
         db.session.add(organization)
         db.session.commit()
         user = mixer.blend(User,
@@ -56,7 +56,7 @@ def generate_test_data():
         issue = mixer.blend(Issue,
                             reporter='1',
                             description=mixer.RANDOM,
-                            coordinates='POINT(49 39)')
+                            coordinates='POINT(49.838564 24.026781)')
         db.session.add(issue)
         comment = mixer.blend(Comment,
                               author=user,
