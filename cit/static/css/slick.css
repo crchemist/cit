@@ -224,6 +224,6 @@
 
 /* Change cursor when over entire map */
 .leaflet-container {
-  cursor: url(../images/marker-icon.png), auto ;
+  cursor: url(../images/marker-icon.png);
 }
 
