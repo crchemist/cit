@@ -33,7 +33,7 @@ function getOrganization($scope, $http) {
        			});
 		}
 
-app.controller('IssueController',['$http', '$scope', '$rootScope', function($http,$scope,$rootScope){
+app.controller('IssueController',['$http', '$scope', '$rootScope', '$location', function($http,$scope,$rootScope){
 	this.issue = {
 		'description': '',
 		'address': ''
@@ -43,16 +43,16 @@ app.controller('IssueController',['$http', '$scope', '$rootScope', function($htt
          $rootScope.coord = "POINT(" + wrap.leafletEvent.latlng.lng + " " + wrap.leafletEvent.latlng.lat + ")";
     });
 
-	this.addIssue = function(issue){
+  this.addIssue = function(issue){
       if ($rootScope.coord !== ''){
     	this.issue.address = $rootScope.coord
       };
 
-      $http.post('http://localhost:8080/issues/make-issue/', issue,
+      $http.post('/issues/make-issue/', issue,
         headers={'Content-Type': 'application/json'})
         .success(function (data)
         {
-          return data;
+          $location.path('/issues/')
         })
         .error(function ()
         {
