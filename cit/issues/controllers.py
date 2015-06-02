@@ -38,7 +38,7 @@ def issues_info():
                 'comments': list_of_comments
             },
             "geometry": {
-                'coordinates': [point.x, point.y],
+                'coordinates': [point.y, point.x],
                 'type': 'Point'
             }
         })
