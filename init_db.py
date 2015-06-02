@@ -46,7 +46,6 @@ def generate_test_data():
         db.session.add(organization)
         db.session.commit()
         user = mixer.blend(User,
-                           organization='1',
                            fb_first_name=mixer.RANDOM,
                            fb_last_name=mixer.RANDOM,
                            fb_id=mixer.RANDOM,
