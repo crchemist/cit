@@ -221,3 +221,9 @@
     background: #000;
     padding: 6px 5px;
 }
+
+/* Change cursor when over entire map */
+.leaflet-container {
+  cursor: url(../images/marker-icon.png), auto ;
+}
+
