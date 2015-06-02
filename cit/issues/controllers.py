@@ -38,8 +38,8 @@ def issues_info():
                 'photos': list_of_photos,
                 'comments': list_of_comments
             },
-            'geometry': {
-                'coordinates': [point.x, point.y],
+            "geometry": {
+                'coordinates': [point.y, point.x],
                 'type': 'Point'
             }
         })

@@ -46,7 +46,6 @@ def generate_test_data():
         db.session.add(organization)
         db.session.commit()
         user = mixer.blend(User,
-                           organization='1',
                            fb_first_name=mixer.RANDOM,
                            fb_last_name=mixer.RANDOM,
                            fb_id=mixer.RANDOM,
@@ -57,7 +56,7 @@ def generate_test_data():
         issue = mixer.blend(Issue,
                             reporter='1',
                             description=mixer.RANDOM,
-                            coordinates='POINT(49 22)')
+                            coordinates='POINT(49 39)')
         db.session.add(issue)
         comment = mixer.blend(Comment,
                               author=user,
