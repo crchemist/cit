@@ -40,7 +40,7 @@ app.controller('IssueController',['$http', '$scope', '$rootScope', function($htt
 	}
     
     $scope.$on('leafletDirectiveMap.click', function (e, wrap) {
-         $rootScope.coord = "POINT(" + wrap.leafletEvent.latlng.lat + " " + wrap.leafletEvent.latlng.lng + ")";
+         $rootScope.coord = "POINT(" + wrap.leafletEvent.latlng.lng + " " + wrap.leafletEvent.latlng.lat + ")";
     });
 
 	this.addIssue = function(issue){
