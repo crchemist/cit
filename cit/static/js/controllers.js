@@ -40,9 +40,10 @@ app.controller('IssueController',['$http', '$scope', '$rootScope', '$location', 
 	}
     
     $scope.$on('leafletDirectiveMap.click', function (e, wrap) {
-         $rootScope.coord = "POINT(" + wrap.leafletEvent.latlng.lng + " " + wrap.leafletEvent.latlng.lat + ")";
+      $rootScope.coord = "POINT(" + wrap.leafletEvent.latlng.lat + " " + wrap.leafletEvent.latlng.lng + ")";
     });
 
+    
   this.addIssue = function(issue){
       if ($rootScope.coord !== ''){
     	this.issue.address = $rootScope.coord
@@ -52,7 +53,7 @@ app.controller('IssueController',['$http', '$scope', '$rootScope', '$location', 
         headers={'Content-Type': 'application/json'})
         .success(function (data)
         {
-          $location.path('/issues/')
+          return data
         })
         .error(function ()
         {
