@@ -1,4 +1,5 @@
 import os, json
+from sqlalchemy.orm import load_only
 from flask import g
 from ..db import db
 from .models import Issue, Photo
@@ -22,7 +23,23 @@ def issues_info():
         list_row = {}
         point = WKBReader(lgeos).read_hex(str(issue.coordinates))
         comments = db.session.query(Comment).filter_by(issue_id=issue.id).all()
-        list_of_comments = [comment.message for comment in comments]
+        list_of_comments = []
+
+        for comment in comments:
+            res = {
+                'author': '',
+                'author_id': None,
+                'msg': ''
+                }
+
+            res['msg'] = comment.message
+            res['author_id'] = comment.author_id
+            user = db.session.query(User).\
+            options(load_only("fb_first_name", "fb_last_name")).\
+            filter_by(id=comment.author_id).first()
+            res['author'] = user.fb_first_name + ' ' + user.fb_last_name
+            list_of_comments.append(res)
+
         photos = db.session.query(Photo).filter_by(issue_id=issue.id).all()
         list_of_photos = [photo.file_path for photo in photos]
         list_row.update({
