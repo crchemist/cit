@@ -12,9 +12,11 @@ from .db import db
 from cit.auth.controllers import auth_bp
 from cit.issues.controllers import issues_bp
 from cit.comments.controllers import comments_bp
-from cit.auth.models import User, Organization
+from cit.organizations.controllers import organizations_bp
+from cit.auth.models import User
 from cit.issues.models import Issue
 from cit.comments.models import Comment
+from cit.organizations.models import Organization
 
 from mixer.backend.flask import mixer
 
@@ -68,6 +70,7 @@ def create_app():
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(issues_bp, url_prefix='/issues')
     app.register_blueprint(comments_bp, url_prefix='/comments')
+    app.register_blueprint(organizations_bp, url_prefix='/organizations')
 
     admin = Admin(app)
 

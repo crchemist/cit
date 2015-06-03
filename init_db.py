@@ -5,7 +5,7 @@ from cit.db import db
 from mixer.backend.sqlalchemy import Mixer
 from mixer.backend.flask import mixer
 from cit.auth.models import User
-from cit.auth.models import Organization
+from cit.organizations.models import Organization
 from cit.issues.models import Issue, Photo
 from cit.comments.models import Comment
 from random import randint

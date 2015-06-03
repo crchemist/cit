@@ -6,9 +6,8 @@ import authomatic
 from authomatic.adapters import WerkzeugAdapter
 from authomatic import Authomatic
 
-from .models import User, Organization
+from .models import User
 from ..db import db
-from ..utils import login_required
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -71,43 +70,3 @@ def profile_update():
     db.session.commit()
     return jsonify({}), 201
 
-
-@auth_bp.route('/organizations/', methods=['POST'])
-def organization_update():
-    json_req = request.get_json()
-
-    if not json_req:
-        return jsonify({'message': 'No input data provided'}), 400
-
-    name = json_req.get('name')
-    address = json_req.get('address')
-    new_organization = Organization(name, address)
-    db.session.add(new_organization)
-    db.session.commit()
-
-    return jsonify({'id': new_organization.id}), 201
-
-
-@auth_bp.route('/organizations/', methods=['GET'])
-def organizations_info():
-    organization_query = db.session.query(Organization)
-    organization_dict = {}
-    organization_names = []
-    if organization_query:
-        for org in organization_query:
-            organization_names.append(org.name)
-            organization_dict['name'] = sorted(organization_names)
-        return jsonify(organization_dict)
-    else:
-        return jsonify({})
-
-
-@auth_bp.route('/organizations/<int:org_id>/add-user/', methods=['POST'])
-@login_required
-def organization_user_add(org_id):
-    user = g.user
-    org = db.session.query(Organization).filter(Organization.id == org_id)
-    user.organizations.append(org.first())
-    db.session.add(user)
-    db.session.commit()
-    return jsonify({'status': 0}), 201
