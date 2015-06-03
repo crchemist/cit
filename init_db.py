@@ -13,12 +13,6 @@ import sys
 import argparse
 
 app = create_app()
-with app.app_context():
-    db.create_all()
-
-
-# Generate a random user by calling argument "--init-data"
-
 
 class MyOwnMixer(Mixer):
     def populate_target(self, values):
@@ -31,7 +25,6 @@ mixer = MyOwnMixer()
 
 def createParser():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--init-data', action='store_true')
     parser.add_argument('--make-admin', action='store', default='')
     args = parser.parse_args()
 
@@ -80,7 +73,8 @@ if __name__ == "__main__":
     parser = createParser()
     namespace = parser.parse_args(sys.argv[1:])
 
-    if namespace.init_data:
-        generate_test_data()
     if namespace.make_admin:
         make_user_as_admin(namespace.make_admin)
+    else:
+        generate_test_data()
+        
