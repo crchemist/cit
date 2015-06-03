@@ -1,4 +1,4 @@
-app.controller("MarkerController", [ '$scope', '$http', function($scope, $http) {
+app.controller("MarkerController", [ '$scope', '$http','$rootScope', function($scope, $http, $rootScope) {
 
     angular.extend($scope, {
         center: {
@@ -13,6 +13,7 @@ app.controller("MarkerController", [ '$scope', '$http', function($scope, $http) 
         };
 
         angular.extend($scope, {
+            markers: $rootScope.markers,
             geojson: {
                 data: data,
                 pointToLayer: function(feature, latlng) {
