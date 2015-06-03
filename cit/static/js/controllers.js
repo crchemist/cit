@@ -38,7 +38,7 @@ app.controller('IssueController',['$http', '$scope', '$rootScope', '$location', 
 		'description': '',
 		'address': ''
 	}
-    
+            
     $rootScope.markers = new Array();
 
     $scope.$on('leafletDirectiveMap.click', function (event, wrap) {
@@ -61,11 +61,12 @@ app.controller('IssueController',['$http', '$scope', '$rootScope', '$location', 
         headers={'Content-Type': 'application/json'})
         .success(function (data)
         {
+          $scope.success = true;
           return data
         })
         .error(function ()
         {
-          alert("SUBMIT ERROR");
+          $scope.faile = true;
         });       
 
 	};
