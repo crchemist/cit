@@ -16,7 +16,7 @@ app.controller("MarkerController", [ '$scope', '$http', function($scope, $http) 
 
             $scope.$on("leafletDirectiveMap.click", function(event, args){
                 var leafEvent = args.leafletEvent;
-
+                $scope.markers.length = 0;
                 $scope.markers.push({
                     lat: leafEvent.latlng.lat,
                     lng: leafEvent.latlng.lng,
