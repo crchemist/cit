@@ -33,18 +33,18 @@ function getOrganization($scope, $http) {
        			});
 		}
 
-app.controller('IssueController',['$http', '$scope', '$rootScope', function($http,$scope,$rootScope){
+app.controller('IssueController',['$http', '$scope', '$rootScope', '$location', function($http,$scope,$rootScope){
 	this.issue = {
 		'description': '',
 		'address': ''
 	}
     
     $scope.$on('leafletDirectiveMap.click', function (e, wrap) {
-         $rootScope.coord = "POINT(" + wrap.leafletEvent.latlng.lat + " " + wrap.leafletEvent.latlng.lng + ")";
-         alert("Issue's coordinates: (" + wrap.leafletEvent.latlng.lat + " " + wrap.leafletEvent.latlng.lng + ")" );
+      $rootScope.coord = "POINT(" + wrap.leafletEvent.latlng.lat + " " + wrap.leafletEvent.latlng.lng + ")";
     });
 
-	this.addIssue = function(issue){
+    
+  this.addIssue = function(issue){
       if ($rootScope.coord !== ''){
     	this.issue.address = $rootScope.coord
       };
@@ -53,7 +53,7 @@ app.controller('IssueController',['$http', '$scope', '$rootScope', function($htt
         headers={'Content-Type': 'application/json'})
         .success(function (data)
         {
-          alert( "failure message: " + JSON.stringify(data));
+          return data
         })
         .error(function ()
         {

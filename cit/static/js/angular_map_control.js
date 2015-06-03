@@ -11,6 +11,17 @@ app.controller("MarkerController", [ '$scope', '$http', function($scope, $http) 
             iconUrl: 'static/images/marker-icon.png',
             shadowUrl: 'static/images/marker-shadow.png'
         };
+        
+        $scope.markers = new Array();
+
+            $scope.$on("leafletDirectiveMap.click", function(event, args){
+                var leafEvent = args.leafletEvent;
+
+                $scope.markers.push({
+                    lat: leafEvent.latlng.lat,
+                    lng: leafEvent.latlng.lng,
+                });
+            });
 
         angular.extend($scope, {
             geojson: {
