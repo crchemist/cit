@@ -8,4 +8,5 @@ Installation
   * Create `cituser:citpasswd@cit` database.
   * Create plv8 extension in psql: `create extension plv8;`
   * Create postgis extension in psql: `CREATE EXTENSION postgis;`
+  * `alembic upgrade head`
   * `python init_db.py`
