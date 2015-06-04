@@ -1,5 +1,6 @@
 from flask import g
 from werkzeug.exceptions import Unauthorized
+from functools import wraps
 
 
 def admin_required(fn):
@@ -14,6 +15,7 @@ def admin_required(fn):
 
 def login_required(fn):
 
+    @wraps(fn)
     def decorated(*args, **kw):
         if not g.user or not (g.user.id or g.user.is_superuser):
             raise Unauthorized('Permission denied')
