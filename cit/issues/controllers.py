@@ -26,17 +26,12 @@ def issues_info():
         list_of_comments = []
 
         for comment in comments:
-            res = {
-                'author': '',
-                'author_id': None,
-                'msg': ''
-                }
-
+            res = {}
             res['msg'] = comment.message
             res['author_id'] = comment.author_id
             user = db.session.query(User).\
-            options(load_only("fb_first_name", "fb_last_name")).\
-            filter_by(id=comment.author_id).first()
+                options(load_only("fb_first_name", "fb_last_name")).\
+                filter_by(id=comment.author_id).first()
             res['author'] = user.fb_first_name + ' ' + user.fb_last_name
             list_of_comments.append(res)
 
