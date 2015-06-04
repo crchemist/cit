@@ -4,13 +4,13 @@ from urllib import quote
 
 from .models import Organization
 from ..db import db
-from ..utils import login_required
+from ..utils import login_required, admin_required
 
 organizations_bp = Blueprint('organizations', __name__)
 
-
 @organizations_bp.route('/', methods=['POST'])
-def organization_update():
+@admin_required
+def organization_create():
     json_req = request.get_json()
 
     if not json_req:
