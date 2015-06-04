@@ -27,8 +27,9 @@ app.controller("MarkerController", [ '$scope', '$http', function($scope, $http) 
             geojson: {
                 data: data,
                 pointToLayer: function(feature, latlng) {
+                    console.log(feature.properties.photos);
                     var customPopup = feature.properties.description + 
-                                       '<br/><img src="/static/images/carousel/' + feature.properties.photos + '" alt="photo of issue" width="200px"/>';
+                                       '<br/><img src=' + feature.properties.photos + ' alt="photo of issue" width="200px"/>';
                     marker = new L.marker(latlng, {icon: L.icon(leafIcon)}).bindPopup(customPopup );
                     return marker;
                 }
