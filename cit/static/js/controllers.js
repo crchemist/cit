@@ -33,7 +33,7 @@ function getOrganization($scope, $http) {
        			});
 		}
 
-app.controller('IssueController',['$http', '$scope', '$rootScope', '$location', function($http,$scope,$rootScope){
+app.controller('IssueController',['$http', '$scope', '$rootScope','$route', function($http,$scope,$rootScope, $route){
 	this.issue = {
 		'description': '',
 		'address': ''
@@ -61,12 +61,14 @@ app.controller('IssueController',['$http', '$scope', '$rootScope', '$location', 
         headers={'Content-Type': 'application/json'})
         .success(function (data)
         {
-          $scope.success = true;
-          return data
+          $rootScope.success = true;
+          $rootScope.faile = false;
+          $route.reload()  
         })
         .error(function ()
         {
-          $scope.faile = true;
+          $rootScope.faile = true;
+          $rootScope.success = false;
         });       
 
 	};
