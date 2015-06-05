@@ -52,12 +52,16 @@ app.filter('translate', ['$rootScope', function($rootScope) {
   var translations = {
     'uk': { 'SUBMIT': 'Підтвердити',
             'WRITE_SUBJECT': 'Задайте тему тут...',
-            'WRITE_COMMENT': 'Залиште коментар тут...'
+            'WRITE_COMMENT': 'Залиште коментар тут...',
+            'SELECT': 'Вибрати організацію...',
+            'FILTER': 'Фільтрувати за..'
 
            },
     'en': { 'SUBMIT': 'Submit',
             'WRITE_SUBJECT': 'Type subject here...',
-            'WRITE_COMMENT': 'Type comment here...'
+            'WRITE_COMMENT': 'Type comment here...',
+            'SELECT': 'Select organization...',
+            'FILTER': 'Filter'
           }
     };
   $rootScope.currentLanguage = userLanguage;
