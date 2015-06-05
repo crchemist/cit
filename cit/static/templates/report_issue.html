@@ -1,9 +1,4 @@
 <div ng-show="user_data.fullUserName">
-	<!--Map starts -->
-	<div class="col-lg-7" ng-controller="MarkerController">
-        <leaflet id="map"  center="center" geojson="geojson" markers="markers"></leaflet>
-    </div>
-	<!--Map ends -->
 	<!--Form for report issue starts -->
 	<div id="report-issue" class="col-lg-5">
 		<form name="issueForm" ng-controller="IssueController as IssueCtrl" ng-submit="IssueCtrl.addIssue(IssueCtrl.issue)">

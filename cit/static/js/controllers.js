@@ -9,17 +9,28 @@ app.controller('LogoutCtrl', ['$scope', '$http', '$location', LogoutController])
 		}
 
 
-app.controller('GalleryCtrl',['$scope','$location',function($scope, $location) {
-	$scope.showContext = true;
+app.controller('ContextCtrl',['$scope','$location',function($scope, $location) {
+	$scope.showGallery = true;
+	$scope.showMap = true;
+
 	$scope.$watch(function() { 
-					return $location.url(); 
+					return $location.path(); 
 			}, 
 			function() {
 				if($location.path() == '' || $location.path() == '/_=_' || $location.path() == '/auth/logout/') {
-					 $scope.showContext = true;
+					$scope.showMap = true;
+					$scope.showGallery = true;
 				}
-				else
-					 $scope.showContext = false;
+				else {
+					$scope.showMap = true;
+					$scope.showGallery = false;
+				}
+
+				if($location.path() == '/profile') {
+					$scope.showMap = false;
+					$scope.showGallery = false;
+				}
+				
      		});	
 }]);
 
