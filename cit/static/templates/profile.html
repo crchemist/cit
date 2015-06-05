@@ -22,16 +22,11 @@
 				</div>
 				<div class="form-group"  >
 					<label for="sel1" class="col-sm-2 control-label" translate="ORGANIZATION">Organization</label>
-					
-						<multiselect class="input" multiple="true"
-					        ng-model="selectOrganization"
-					        ng-model="organizationByID"
-					        options="org.name for org in organization"
-					        change="selected()" >
-					    </multiselect>
-					    <div>{{selectOrganization}}</div>
-					    
-
+					<multiselect class="input" multiple="true"
+				        ng-model="selectedOrganization"
+				        options="org.name for org in organization"
+				        change="selected()" >
+				    </multiselect>		    			    
 				</div>
 			    <div class="form-group">
 			        <div class="col-sm-offset-2 col-sm-10">
