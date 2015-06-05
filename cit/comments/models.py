@@ -10,9 +10,9 @@ class Comment(db.Model):
     author = db.relationship("User")
     issue = db.relationship("Issue")
 
-    def __init__(self, author="", issue="", message=""):
+    def __init__(self, author="", issue_id=None, message=""):
         self.author = author
-        self.issue = issue
+        self.issue_id = issue_id
         self.message = message
 
     def __repr__(self):
