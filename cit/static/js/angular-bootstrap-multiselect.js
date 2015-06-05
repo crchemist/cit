@@ -306,12 +306,12 @@ angular.module("ui.multiselect", ["multiselect.tpl.html"])
 angular.module("multiselect.tpl.html", ['pascalprecht.translate']).run(["$templateCache", function($templateCache) {
 	$templateCache.put("multiselect.tpl.html",
 			"<div class=\"btn-group\" style=\"margin-left: 16px;\">\n" +
-			"  <button type=\"button\" class=\"btn btn-default dropdown-toggle\" ng-click=\"toggleSelect()\" ng-disabled=\"disabled\" ng-class=\"{'error': !valid()}\" style=\"max-width: 236px;\">\n" +
-			"    <span style=\"margin-right: 6px;\">{{'SELECT' | translate}}<span> <span class=\"caret\" style=\" margin-left: 48px;\"></span>\n" +
+			"  <button type=\"button\" class=\"btn btn-default dropdown-toggle\" ng-click=\"toggleSelect()\" ng-disabled=\"disabled\" ng-class=\"{'error': !valid()}\" style=\"max-width: 220px;\">\n" +
+			"    <span style=\"margin-right: 6px;\">{{'SELECT' | translate}}<span> <span class=\"caret\" style=\" margin-left: 8px;\"></span>\n" +
 			"  </button>\n" +
-			"  <ul class=\"dropdown-menu\" style=\"margin-bottom:30px;padding-left:5px;padding-right:5px; width: 236px;\" ng-style=\"ulStyle\">\n" +
+			"  <ul class=\"dropdown-menu\" style=\"margin-bottom:30px;padding-left:5px;padding-right:5px; max-width: 200px;\" ng-style=\"ulStyle\">\n" +
 			"    <li>\n" +
-            "       <input class=\"input-block-level\" type=\"text\" ng-model=\"searchText.label\" autofocus=\"autofocus\" placeholder=\"{{'FILTER' | translate}}\" style=\"width: 220px;\"/>\n" +  
+            "       <input class=\"input-block-level\" type=\"text\" ng-model=\"searchText.label\" autofocus=\"autofocus\" placeholder=\"{{'FILTER' | translate}}\" style=\"width: 180px;\"/>\n" +  
             "    </li>\n" + 
 			"	<li data-stopPropagation=\"true\" ng-repeat=\"i in items | filter:searchText\" >\n" +
 			"      <a ng-click=\"select($event, i)\" style=\"padding:3px 10px;cursor:pointer;\">\n" +
