@@ -56,36 +56,37 @@ app.controller('GalleryCtrl',['$scope','$location',function($scope, $location) {
      		});	
 }]);
 
-//Get Names of organizations and from show them in profile form
-app.controller('OrganizationCtrl', ['$scope', '$http', '$location', getOrganization]);
+//make possible for user select several organizations  
+app.controller('OrganizationCtrl', ['$scope', '$http', getOrganization]);
 function getOrganization($scope, $http) {
-		$http.get('/organizations/').
-		success(function(data) {
-			$scope.organizationsData = data
-			$scope.selectOrganization = [];
-			$scope.organization = [];
-			
-			for (var i=0; i< $scope.organizationsData.organizations.length; i++){
-				$scope.organization.push($scope.organizationsData.organizations[i]);
-				
-				console.log($scope.organization);
-				
-			}
-			
-		});
+	//get names of organizations from database and show them in profile form
+	$http.get('/organizations/').
+	success(function(data) {
+		$scope.organizationsData = data
+		$scope.selectedOrganization = [];
+		$scope.organization = [];
+		
+		for (var i=0; i< $scope.organizationsData.organizations.length; i++){
+			//take all names of organizations from  database
+			$scope.organization.push($scope.organizationsData.organizations[i]); 
+		}
+	});
 
-			$scope.pushOrganization = function(){
-   			    for (var j=0; j< $scope.selectOrganization.length; j++){
-					$http.post('/organizations/organizations/' + $scope.selectOrganization[j].id + '/add-user/').
-						success(function(data, status){
-							console.log('organization ADDED');
-						}).
-						error(function(data, status){
-							console.log('adding organization FAILD');
-						});
-			};
-	};
-
+	$scope.pushOrganization = function(){
+		// go through each selectedOrganization
+		//p.s. selectedOrganization gets data from ng-model in profile.html on submit button
+	    for (var j=0; j< $scope.selectedOrganization.length; j++){
+	    	//post each organization's id from selectOrganization into url and 
+	    	//add user - organization dependency into database
+			$http.post('/organizations/organizations/' + $scope.selectedOrganization[j].id + '/add-user/').
+				success(function(data, status){
+					console.log('Organization added successfully');
+				}).
+				error(function(data, status){
+					console.log('Adding organization faild');
+				});
+        };
+    };
 }
 
 app.controller('IssueController',['$http', '$scope', '$rootScope', '$location', function($http,$scope,$rootScope){
