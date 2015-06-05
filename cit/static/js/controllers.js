@@ -28,6 +28,21 @@ app.controller('UserNS', ['$scope', '$http', '$window', function($scope, $http, 
 					$scope.hideSuccessMessage = true;
 				});
 		};
+		
+        //Get Names of organizations and from show them in profile form
+		   $http.get('/organizations/').
+				success(function(data) {
+					$scope.organizationsData = data
+					$scope.selectOrganization = [];
+					$scope.organization = [];
+					for (var i=0; i< $scope.organizationsData.organizations.length; i++){
+						$scope.organization.push($scope.organizationsData.organizations[i].name);
+						console.log($scope.organization);
+					}
+					console.log($scope.organizationsData.organizations.length);
+					console.log($scope.organizationsData.organizations);
+					console.log($scope.selectOrganization);
+       			});
 
     }]);
 
@@ -57,23 +72,6 @@ app.controller('GalleryCtrl',['$scope','$location',function($scope, $location) {
 }]);
 
 //Get Names of organizations and from show them in profile form
-app.controller('OrganizationCtrl', ['$scope', '$http', '$location', getOrganization]);
-function getOrganization($scope, $http) {
-				$http.get('/organizations/').
-				success(function(data) {
-					$scope.organizationsData = data
-					$scope.selectOrganization = [];
-					$scope.organization = [];
-					for (var i=0; i< $scope.organizationsData.organizations.length; i++){
-						$scope.organization.push($scope.organizationsData.organizations[i].name);
-						console.log($scope.organization);
-					}
-					console.log($scope.organizationsData.organizations.length);
-					console.log($scope.organizationsData.organizations);
-					console.log($scope.selectOrganization);
-       			});
-
-		}
 
 
 app.controller('IssueController',['$http', '$scope', '$rootScope', '$location', function($http,$scope,$rootScope){
