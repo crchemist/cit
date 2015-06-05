@@ -33,7 +33,8 @@ function getOrganization($scope, $http) {
        			});
 		}
 
-app.controller('IssueController',['$http', '$scope', '$rootScope','$route', function($http,$scope,$rootScope, $route){
+app.controller('IssueController',['$http', '$scope', '$rootScope','$route', 
+	function($http,$scope,$rootScope, $route){
 	$rootScope.coord = '';
 	this.issue = {
 		'description': '',
