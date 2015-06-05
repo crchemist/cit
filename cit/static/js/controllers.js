@@ -34,6 +34,7 @@ function getOrganization($scope, $http) {
 		}
 
 app.controller('IssueController',['$http', '$scope', '$rootScope','$route', function($http,$scope,$rootScope, $route){
+	$rootScope.coord = '';
 	this.issue = {
 		'description': '',
 		'address': ''
@@ -55,22 +56,29 @@ app.controller('IssueController',['$http', '$scope', '$rootScope','$route', func
   this.addIssue = function(issue){
       if ($rootScope.coord !== ''){
     	this.issue.address = $rootScope.coord
-      };
-
+      
       $http.post('/issues/make-issue/', issue,
         headers={'Content-Type': 'application/json'})
         .success(function (data)
         {
           $rootScope.success = true;
           $rootScope.faile = false;
-          $route.reload()  
+          $rootScope.noCoord = false;
+          $rootScope.coord = '';
+          $route.reload();  
         })
         .error(function ()
         {
           $rootScope.faile = true;
           $rootScope.success = false;
         });       
-
+       
+       }
+      else{
+        $rootScope.noCoord = true;
+        $rootScope.success = false;
+      } 
+	
 	};
 
 }]);
