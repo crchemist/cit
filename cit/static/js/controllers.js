@@ -28,9 +28,15 @@ app.controller('OrganizationCtrl', ['$scope', '$http', '$location', getOrganizat
 function getOrganization($scope, $http) {
 				$http.get('/organizations/').
 				success(function(data) {
-					$scope.organization = data
+					$scope.organizationsData = data
 					$scope.selectOrganization = [];
-					console.log($scope.organization);
+					$scope.organization = [];
+					for (var i=0; i< $scope.organizationsData.organizations.length; i++){
+						$scope.organization.push($scope.organizationsData.organizations[i].name);
+						console.log($scope.organization);
+					}
+					console.log($scope.organizationsData.organizations.length);
+					console.log($scope.organizationsData.organizations);
 					console.log($scope.selectOrganization);
        			});
 
