@@ -8,6 +8,7 @@
 	<div id="report-issue" class="col-lg-5">
 		<form name="issueForm" ng-controller="IssueController as IssueCtrl" ng-submit="IssueCtrl.addIssue(IssueCtrl.issue)">
 		<div ng-show="success" class="alert alert-success" role="alert">Well done! You successfully create issue.</div>
+		<div ng-show="noCoord" class="alert alert-danger" role="alert">Please, add marker</div>
 		<div ng-show="faile" class="alert alert-danger" role="alert">Oh snap! Change a few things up and try submitting again.</div>
             <div class="form-group">
 			    <label for="subject" translate="SUBJECT">Subject</label>
