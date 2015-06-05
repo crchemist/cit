@@ -23,10 +23,16 @@
 				<div class="form-group" ng-controller="OrganizationCtrl ">
 					<label for="sel1" class="col-sm-2 control-label" translate="ORGANIZATION">Organization</label>
 					<div class="col-sm-10">
-						<select class="form-control select" id="sel1">
-							<option ng-repeat="org in ogranization.name">{{org}}</option>
+						<select class="form-control selectpicker" multiple data-selected-text-format="count" id="sel1">
+							<option ng-repeat="org in organization.name">{{org}}</option>
 			            </select>
 					</div>
+						<multiselect class="input" multiple="true"
+					        ng-model="selectOrganization"
+					        options="org for org in organization.name"
+					        change="selected()" >
+					    </multiselect>
+
 				</div>
 			    <div class="form-group">
 			        <div class="col-sm-offset-2 col-sm-10">

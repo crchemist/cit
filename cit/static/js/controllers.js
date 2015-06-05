@@ -28,10 +28,14 @@ app.controller('OrganizationCtrl', ['$scope', '$http', '$location', getOrganizat
 function getOrganization($scope, $http) {
 				$http.get('/organizations/').
 				success(function(data) {
-					$scope.ogranization = data
-					console.log($scope.ogranization);
+					$scope.organization = data
+					$scope.selectOrganization = [];
+					console.log($scope.organization);
+					console.log($scope.selectOrganization);
        			});
+
 		}
+
 
 app.controller('IssueController',['$http', '$scope', '$rootScope', '$location', function($http,$scope,$rootScope){
 	this.issue = {

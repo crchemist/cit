@@ -49,7 +49,7 @@ def generate_test_data():
         issue = mixer.blend(Issue,
                             reporter='1',
                             description=mixer.RANDOM,
-                            coordinates='POINT(49.839357 24.028398)')
+                            coordinates='POINT(49.539357 24.528398)')
         db.session.add(issue)
         comment = mixer.blend(Comment,
                               author=user,
