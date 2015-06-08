@@ -1,4 +1,4 @@
-app.controller("MarkerController", [ '$scope', '$http', function($scope, $http) {
+app.controller("MarkerController", [ '$scope', '$http','$rootScope', function($scope, $http, $rootScope) {
 
     angular.extend($scope, {
         center: {
@@ -11,19 +11,9 @@ app.controller("MarkerController", [ '$scope', '$http', function($scope, $http) 
             iconUrl: 'static/images/marker-icon.png',
             shadowUrl: 'static/images/marker-shadow.png'
         };
-        
-        $scope.markers = new Array();
-
-            $scope.$on("leafletDirectiveMap.click", function(event, args){
-                var leafEvent = args.leafletEvent;
-
-                $scope.markers.push({
-                    lat: leafEvent.latlng.lat,
-                    lng: leafEvent.latlng.lng,
-                });
-            });
 
         angular.extend($scope, {
+            markers: $rootScope.markers,
             geojson: {
                 data: data,
                 pointToLayer: function(feature, latlng) {

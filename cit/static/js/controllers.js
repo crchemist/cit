@@ -89,33 +89,53 @@ function getOrganization($scope, $http) {
     };
 }
 
-app.controller('IssueController',['$http', '$scope', '$rootScope', '$location', function($http,$scope,$rootScope){
+app.controller('IssueController',['$http', '$scope', '$rootScope','$route', 
+	function($http,$scope,$rootScope, $route){
+	$rootScope.coord = '';
 	this.issue = {
 		'description': '',
 		'address': ''
 	}
-    
-    $scope.$on('leafletDirectiveMap.click', function (e, wrap) {
+            
+    $rootScope.markers = new Array();
+
+    $scope.$on('leafletDirectiveMap.click', function (event, wrap) {
       $rootScope.coord = "POINT(" + wrap.leafletEvent.latlng.lat + " " + wrap.leafletEvent.latlng.lng + ")";
+      
+      $rootScope.markers.length = 0;
+      $rootScope.markers.push({
+        lat: wrap.leafletEvent.latlng.lat,
+        lng: wrap.leafletEvent.latlng.lng,
+        });
     });
 
     
   this.addIssue = function(issue){
       if ($rootScope.coord !== ''){
     	this.issue.address = $rootScope.coord
-      };
-
+      
       $http.post('/issues/make-issue/', issue,
         headers={'Content-Type': 'application/json'})
         .success(function (data)
         {
-          return data
+          $rootScope.success = true;
+          $rootScope.faile = false;
+          $rootScope.noCoord = false;
+          $rootScope.coord = '';
+          $route.reload();  
         })
         .error(function ()
         {
-          alert("SUBMIT ERROR");
+          $rootScope.faile = true;
+          $rootScope.success = false;
         });       
-
+       
+       }
+      else{
+        $rootScope.noCoord = true;
+        $rootScope.success = false;
+      } 
+	
 	};
 
 }]);
