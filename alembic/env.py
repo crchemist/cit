@@ -9,7 +9,12 @@ sys.path.append(os.getcwd())
 
 from cit.db import db
 from cit import create_app
-app = create_app()
+
+# choose correct config depending on mode (Development or Production)
+# you are in
+config = 'config.DevelopmentConfig'
+#config = 'config.ProductionConfig'
+app = create_app(config)
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
