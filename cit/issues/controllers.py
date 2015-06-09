@@ -51,7 +51,7 @@ def issues_info():
                 'comments': list_of_comments
             },
             "geometry": {
-                'coordinates': [point.y, point.x],
+                'coordinates': [point.y - 0.00006, point.x + 0.00013],
                 'type': 'Point'
             }
         })
