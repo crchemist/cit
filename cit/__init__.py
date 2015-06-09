@@ -54,16 +54,10 @@ def load_user():
         g.user = User.query.filter_by(id=session['user_id']).first()
 
 
-def create_app():
+def create_app(config):
     app = Flask(__name__)
 
-    app.config.from_object('config.DevelopmentConfig')
-
-    # comment the previous string and uncomment the following one
-    # if cit service is released into production
-
-    #app.config.from_object('config.ProductionConfig')
-
+    app.config.from_object(config)
 
     db.init_app(app)
 

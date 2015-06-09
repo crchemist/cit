@@ -46,7 +46,6 @@ try:
 
         #Define database connection parameters
         __host = os.environ['OPENSHIFT_POSTGRESQL_DB_HOST']
-        __port = os.environ['OPENSHIFT_POSTGRESQL_DB_PORT']
         __username = os.environ['OPENSHIFT_POSTGRESQL_DB_USERNAME']
         __password = os.environ['OPENSHIFT_POSTGRESQL_DB_PASSWORD']
         __db_name = os.environ['OPENSHIFT_APP_NAME']
@@ -110,7 +109,6 @@ class TestingConfig(DevelopmentConfig):
 
     #Define database connection parameters
     __host = 'localhost'
-    __port = '5432'
     __username = 'cituser'
     __password = 'citpasswd'
     __db_name = 'cit_test'
