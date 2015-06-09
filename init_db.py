@@ -12,7 +12,11 @@ from random import randint
 import sys
 import argparse
 
-app = create_app()
+# choose correct config depending on mode (Development or Production)
+# you are in
+config = 'config.DevelopmentConfig'
+#config = 'config.ProductionConfig'
+app = create_app(config)
 
 class MyOwnMixer(Mixer):
     def populate_target(self, values):
@@ -23,7 +27,7 @@ class MyOwnMixer(Mixer):
 mixer = MyOwnMixer()
 
 
-def createParser():
+def create_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('--make-admin', action='store', default='')
     args = parser.parse_args()
@@ -65,16 +69,16 @@ def generate_test_data():
 
 def make_user_as_admin(user_id):
     with app.app_context():
-        db.session.query(User).filter(User.fb_id == user_id).update({"is_superuser": True})
+        db.session.query(User).filter(User.fb_id == user_id).\
+            update({"is_superuser": True})
         db.session.commit()
 
 
 if __name__ == "__main__":
-    parser = createParser()
+    parser = create_parser()
     namespace = parser.parse_args(sys.argv[1:])
 
     if namespace.make_admin:
         make_user_as_admin(namespace.make_admin)
     else:
         generate_test_data()
-        
