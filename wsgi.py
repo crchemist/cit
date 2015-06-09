@@ -13,7 +13,7 @@ if __name__ == '__main__':
     from wsgiref.simple_server import make_server
     ip = os.environ['OPENSHIFT_PYTHON_IP']
     port = int(os.getenv('OPENSHIFT_PYTHON_PORT'))
-    application = create_app()
+    application = create_app('config.ProductionConfig')
     httpd = make_server(ip, port, application)
     #Wait for a single request, serve it and quit.
     httpd.serve_forever()
