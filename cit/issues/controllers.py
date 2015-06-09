@@ -1,9 +1,11 @@
 import os, json
+from sqlalchemy import and_
 from sqlalchemy.orm import load_only
 from flask import g
+from ..utils import login_required
 from ..db import db
 from .models import Issue, Photo
-from cit.auth.models import User
+from cit.auth.models import User, Vote
 from cit.comments.models import Comment
 from flask import Blueprint, request, redirect, url_for, jsonify, current_app, session, jsonify
 from werkzeug.utils import secure_filename
@@ -98,3 +100,34 @@ def save_issues():
     issue_id = new_issue.id
 
     return jsonify({'issue_id': issue_id})
+
+
+@issues_bp.route('/<int:issue_id>/vote/', methods=['POST'])
+@login_required
+def voting(issue_id):
+    issue = Issue()
+    vote_filter = db.session.query(Vote). \
+        filter(and_(Vote.target_id == issue_id, Vote.author_id == g.user.id)
+               ).all()
+    if vote_filter:
+        return jsonify({'msg': 'Already voted'})
+    else:
+        vote = Vote(author=g.user, vote=True, target=issue)
+        vote.target_id = issue_id
+        db.session.add(vote)
+        db.session.commit()
+        return jsonify({}), 201
+
+
+@issues_bp.route('/<int:issue_id>/unvote/', methods=['DELETE'])
+@login_required
+def remove_vote(issue_id):
+    vote_filter = db.session.query(Vote). \
+        filter(and_(Vote.target_id == issue_id, Vote.author_id == g.user.id))
+    result = vote_filter.delete(synchronize_session='fetch')
+    if result:
+        db.session.commit()
+        return jsonify({'status': 0})
+    else:
+        db.session.rollback()
+        return jsonify({'msg': 'vote not found', 'status': 1})
