@@ -56,7 +56,14 @@ def load_user():
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_object('config')
+
+    app.config.from_object('config.DevelopmentConfig')
+
+    # comment the previous string and uncomment the following one
+    # if cit service is released into production
+
+    #app.config.from_object('config.ProductionConfig')
+
 
     db.init_app(app)
 

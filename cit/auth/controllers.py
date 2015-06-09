@@ -27,8 +27,10 @@ def login():
             result.user.update()
             user = User.query.filter_by(fb_id=result.user.id).first()
             if not user:
-                db.create_all()
-                db.session.add(User(result.user.first_name, result.user.last_name, result.user.id, result.user.email))
+                db.session.add(User(result.user.first_name,
+                                    result.user.last_name,
+                                    result.user.id,
+                                    result.user.email))
                 db.session.commit()
                 user = User.query.filter_by(fb_id=result.user.id).first()
             session['user_id'] = user.id
@@ -45,7 +47,8 @@ def user_info():
     res = {}
     if g.user:
         res = (
-            {'id': g.user.id, 'first_name': g.user.fb_first_name, 'last_name': g.user.fb_last_name,
+            {'id': g.user.id, 'first_name': g.user.fb_first_name,
+             'last_name': g.user.fb_last_name,
              'fb_id': g.user.fb_id,
              'email': g.user.email})
     return jsonify(res)
@@ -69,4 +72,3 @@ def profile_update():
                           'fb_last_name': json_req.get('surname')})
     db.session.commit()
     return jsonify({}), 201
-
