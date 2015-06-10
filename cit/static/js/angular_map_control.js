@@ -17,8 +17,15 @@ app.controller("MarkerController", [ '$scope', '$http','$rootScope', function($s
             geojson: {
                 data: data,
                 pointToLayer: function(feature, latlng) {
-                    var customPopup = feature.properties.description + 
-                                       '<br/><img src=' + feature.properties.photos + ' alt="photo of issue" width="200px"/>';
+                    if (feature.properties.description == false) {
+                        feature.properties.description = 'No description'
+                    }
+                    var customPopup = feature.properties.description;
+                    
+                    if (feature.properties.photos != false) {
+                       customPopup += '<br/><img src=' + feature.properties.photos + ' alt="photo of issue" width="200px"/>';
+                    }
+                                       
                     marker = new L.marker(latlng, {icon: L.icon(leafIcon)}).bindPopup(customPopup );
                     return marker;
                 }
