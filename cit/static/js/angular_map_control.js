@@ -1,5 +1,5 @@
 app.controller("MarkerController", [ '$scope', '$http','$rootScope', function($scope, $http, $rootScope) {
-
+    $rootScope.markers = new Array();
     angular.extend($scope, {
         center: {
             autoDiscover: true
