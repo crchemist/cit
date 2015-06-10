@@ -108,7 +108,6 @@ app.controller('IssueController',['$http', '$scope', '$rootScope','$route',
 		'address': ''
 	}
             
-    $rootScope.markers = new Array();
 
     $scope.$on('leafletDirectiveMap.click', function (event, wrap) {
       $rootScope.coord = "POINT(" + wrap.leafletEvent.latlng.lat + " " + wrap.leafletEvent.latlng.lng + ")";
