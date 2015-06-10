@@ -1,4 +1,5 @@
 from flask import g
+from sqlalchemy_utils import generic_relationship
 from geoalchemy2 import Geography
 from ..db import db
 
@@ -34,7 +35,7 @@ class User(db.Model):
         self.is_superuser = is_superuser
 
     def __repr__(self):
-        return '<User %r>' % self.email
+        return '%s' % self.fb_first_name
 
 
 class Spatial_ref_sys(db.Model):
@@ -43,3 +44,24 @@ class Spatial_ref_sys(db.Model):
     auth_srid = db.Column(db.Integer)
     srtext = db.Column(db.String(2048))
     proj4text = db.Column(db.String(2048))
+
+
+class Vote(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    author_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    vote = db.Column(db.Boolean)
+
+    # This is used to discriminate between the linked tables.
+    target_type = db.Column(db.Unicode(255))
+
+    # This is used to point to the primary key of the linked row.
+    target_id = db.Column(db.Integer, nullable=False)
+
+    target = generic_relationship(target_type, target_id)
+
+    author = db.relationship("User")
+
+    def __init__(self, author="", vote="", target=""):
+        self.author = author
+        self.vote = vote
+        self.target = target
