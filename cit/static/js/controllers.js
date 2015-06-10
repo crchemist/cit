@@ -18,7 +18,7 @@ app.controller('UserNS', ['$scope', '$http', '$window','Profile', function($scop
 				'surname' : $scope.user_data.last_name
 			};
 				
-			Profile.all(dataObj).
+			Profile.changesProfile(dataObj).
 				success(function(data, status) {
 					$scope.hideSuccessMessage = false;
 					$scope.hideErrorMessage = true;
