@@ -52,21 +52,17 @@
     height: 120px;
 }
 
-/*Slider CSS*/
-#slider .slider-nav {
-    height: 140px;
+/*Flex slider CSS*/
+.gallery {
+    width: 300px;
 }
-
-#slider .slider-nav div img {
-    width: 111px;
-    height: 111px;
+.carousel li img{
+    margin: 0 auto;
 }
-
-#slider .slider-for div img {
-    width: 100%;
-    height: 100%;
+.carousel li  #carouselPhotos {
+    height:150px; 
+    width:auto;
 }
-
 /*Modal window*/
 div #modalWindow {
     display:block;
@@ -96,3 +92,4 @@ div #modalWindow {
 #report-issue textarea {
   resize: none;
 }
+

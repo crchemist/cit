@@ -13,7 +13,7 @@ app.controller('UserNS', ['$scope', '$http', '$window', function($scope, $http, 
 		$scope.hideErrorMessage = true;
 
 		$scope.pushData = function() {
-			var dataObj = {
+			var dataObj = { 
 				'name' : $scope.user_data.first_name,
 				'surname' : $scope.user_data.last_name
 			};

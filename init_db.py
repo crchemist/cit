@@ -35,7 +35,7 @@ def generate_test_data():
     with app.app_context():
         organization = mixer.blend(Organization,
                                    name=mixer.RANDOM,
-                                   address='POINT(49.836134 24.023151)')
+                                   address='POINT(49.831900 23.997740)')
         db.session.add(organization)
         db.session.commit()
         user = mixer.blend(User,
@@ -49,7 +49,8 @@ def generate_test_data():
         issue = mixer.blend(Issue,
                             reporter='1',
                             description=mixer.RANDOM,
-                            coordinates='POINT(49.539357 24.528398)')
+                            coordinates='POINT(49.832868 24.001136)'
+                            )
         db.session.add(issue)
         comment = mixer.blend(Comment,
                               author=user,
@@ -58,7 +59,7 @@ def generate_test_data():
         db.session.add(comment)
         photo = mixer.blend(Photo,
                             issue=issue,
-                            file_path=mixer.RANDOM)
+                            file_path='/static/images/carousel/1.jpg')
         db.session.add(photo)
         db.session.commit()
 

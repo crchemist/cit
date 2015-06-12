@@ -19,7 +19,7 @@ app.config(function ($translateProvider) {
     PROFILE: 'Профіль',
     REPRT_ISSUE: 'Повідомити про забруднення',
     SUBJECT: 'Тема',
-    DESCRIPTION: 'опис',
+    DESCRIPTION: 'Опис',
     SUBMIT: 'Повідомити',
   });
    $translateProvider.translations('en', {
