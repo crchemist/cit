@@ -20,8 +20,8 @@ mixer = MyOwnMixer()
 
 
 class InitDB():
-    def __init__(self, config):
-        self.config = config
+    def __init__(self, app):
+        self.app = app
 
     def create_parser(self):
         parser = argparse.ArgumentParser()
@@ -31,18 +31,20 @@ class InitDB():
         return parser
 
     def generate_test_data(self):
-        with app.app_context():
+        with self.app.app_context():
             organization = mixer.blend(Organization,
                                        name=mixer.RANDOM,
                                        address='POINT(49.836134 24.023151)')
             db.session.add(organization)
-            db.session.commit()
             user = mixer.blend(User,
                                fb_first_name=mixer.RANDOM,
                                fb_last_name=mixer.RANDOM,
                                fb_id=mixer.RANDOM,
                                email=mixer.RANDOM,
                                about_me=mixer.RANDOM)
+            user = User(user.fb_first_name, user.fb_last_name, user.fb_id,
+                        user.email, user.about_me)
+            user.organizations.append(organization)
             db.session.add(user)
             db.session.commit()
             issue = mixer.blend(Issue,
@@ -62,19 +64,15 @@ class InitDB():
             db.session.commit()
 
     def make_user_as_admin(self, user_id):
-        with app.app_context():
+        with self.app.app_context():
             db.session.query(User).filter(User.fb_id == user_id).\
                 update({'is_superuser': True})
             db.session.commit()
 
 
 if __name__ == '__main__':
-    # choose correct config depending on mode (Development or Production)
-    # you are in
-    config = 'config.DevelopmentConfig'
-    #config = 'config.ProductionConfig'
-    app = create_app(config)
-    init_db = InitDB(config)
+    app = create_app()
+    init_db = InitDB(app)
     parser = init_db.create_parser()
     namespace = parser.parse_args(sys.argv[1:])
 
