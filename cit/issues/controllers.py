@@ -32,7 +32,7 @@ def issues_info():
             res['msg'] = comment.message
             res['author_id'] = comment.author_id
             user = db.session.query(User).\
-                options(load_only("fb_first_name", "fb_last_name")).\
+                options(load_only('fb_first_name', 'fb_last_name')).\
                 filter_by(id=comment.author_id).first()
             res['author'] = user.fb_first_name + ' ' + user.fb_last_name
             list_of_comments.append(res)
@@ -73,7 +73,8 @@ def upload_file():
         file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
         file.save(file_path)
         if request_data.has_key('issue_id'):
-            issue = Issue.query.filter_by(id=int(request_data['issue_id'])).first()
+            issue = Issue.query.filter_by(id=int(request_data['issue_id'])).\
+                first()
             db.session.add(Photo(issue, file_path))
             db.session.commit()
     else:
