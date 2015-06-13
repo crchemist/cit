@@ -59,7 +59,7 @@ def generate_test_data():
         db.session.add(comment)
         photo = mixer.blend(Photo,
                             issue=issue,
-                            file_path='/static/images/carousel/1.jpg')
+                            file_path='1.jpg')
         db.session.add(photo)
         db.session.commit()
 
