@@ -33,7 +33,6 @@ def upgrade():
                     sa.Column('email', sa.String(length=120), nullable=True),
                     sa.Column('about_me', sa.String(length=120), nullable=True),
                     sa.Column('is_superuser', sa.Boolean(), nullable=True),
-                    sa.ForeignKeyConstraint(['organization'], ['organization.id'], ),
                     sa.PrimaryKeyConstraint('id'),
                     sa.UniqueConstraint('email'),
                     sa.UniqueConstraint('fb_id')
