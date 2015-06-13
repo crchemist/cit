@@ -27,14 +27,17 @@ def organization_create():
 
 @organizations_bp.route('/', methods=['GET'])
 def organizations_info():
-    organization_query = db.session.query(Organization)
-    organization_dict = {}
-    organization_names = []
+    organization_query = db.session.query(Organization)    
+    organization_names = []    
     if organization_query:
-        for org in organization_query:
-            organization_names.append(org.name)
-            organization_dict['name'] = sorted(organization_names)
-        return jsonify(organization_dict)
+        for org in organization_query:            
+            organization_dict = {}
+            organization_dict.update({
+                'id': org.id,
+                'name': org.name
+                })
+            organization_names.append(organization_dict)              
+        return jsonify(organizations=organization_names)
     else:
         return jsonify({})
 

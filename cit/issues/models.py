@@ -13,6 +13,9 @@ class Issue(db.Model):
         self.coordinates = coordinates
         self.reporter = reporter
 
+    def __repr__(self):
+        return '%s' % self.description
+
 
 class Photo(db.Model):
     id = db.Column(db.Integer, primary_key=True)

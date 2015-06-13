@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, g
-from sqlalchemy import or_
+from ..utils import login_required
 
 from .models import Comment
 from ..issues.models import Issue
@@ -27,13 +27,10 @@ def comment_add():
 
 
 @comments_bp.route('/comments/<int:comment_id>/', methods=['DELETE'])
+@login_required
 def delete_comment(comment_id):
     comment_query = db.session.query(Comment)
-    user_sq = comment_query.join(User).filter(Comment.author_id == User.id).\
-        filter(Comment.author_id == g.user.id).subquery()
-    filter_user = comment_query.filter(or_(g.user.is_superuser is True,
-                                           user_sq))
-    comment_filtered = filter_user.filter(Comment.id == comment_id)
+    comment_filtered = comment_query.filter(Comment.id == comment_id)
     result = comment_filtered.delete(synchronize_session='fetch')
     if result:
         db.session.commit()

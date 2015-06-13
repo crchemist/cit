@@ -1,18 +1,12 @@
 <div ng-show="user_data.fullUserName">
-	<!--Map starts -->
-	<div class="col-lg-7" ng-controller="MarkerController">
-        <leaflet id="map"  center="center" geojson="geojson" markers="markers"></leaflet>
-    </div>
-	<!--Map ends -->
 	<!--Form for report issue starts -->
 	<div id="report-issue" class="col-lg-5">
 		<form name="issueForm" ng-controller="IssueController as IssueCtrl" ng-submit="IssueCtrl.addIssue(IssueCtrl.issue)">
+		<div ng-show="success" class="alert alert-success" role="alert">Well done! You have successfully created an issue.</div>
+		<div ng-show="noCoord" class="alert alert-danger" role="alert">Please add marker</div>
+		<div ng-show="faile" class="alert alert-danger" role="alert">Oh snap! Change few things up and try submitting again.</div>
             <div class="form-group">
-			    <label for="subject" translate="SUBJECT">Subject</label>
-			    <input type="text" class="form-control" id="subject" placeholder="{{'WRITE_SUBJECT' | translate}}">
-			</div>
-			<div class="form-group">
-			    <label for="comment" translate="COMMENT">Comment</label>
+			    <label for="comment" translate="DESCRIPTION">Description</label>
 			    <textarea ng-model="IssueCtrl.issue.description" class="form-control" rows="4" id="comment" placeholder="{{'WRITE_COMMENT' | translate}}"></textarea>
 			</div>
 			<button type="submit"  class="btn btn-default">{{'SUBMIT' | translate }}</button>

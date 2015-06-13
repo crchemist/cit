@@ -13,7 +13,7 @@ from cit.auth.controllers import auth_bp
 from cit.issues.controllers import issues_bp
 from cit.comments.controllers import comments_bp
 from cit.organizations.controllers import organizations_bp
-from cit.auth.models import User
+from cit.auth.models import User, Vote
 from cit.issues.models import Issue
 from cit.comments.models import Comment
 from cit.organizations.models import Organization
@@ -80,5 +80,6 @@ def create_app(config='config.ProductionDevelopmentConfig'):
     admin.add_view(AdminView(Issue, db.session))
     admin.add_view(AdminView(Comment, db.session))
     admin.add_view(AdminView(Organization, db.session))
+    admin.add_view(AdminView(Vote, db.session))
 
     return app
