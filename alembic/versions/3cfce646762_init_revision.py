@@ -27,7 +27,6 @@ def upgrade():
                     )
     op.create_table('user',
                     sa.Column('id', sa.Integer(), nullable=False),
-                    sa.Column('organization', sa.Integer(), nullable=True),
                     sa.Column('fb_first_name', sa.String(length=120), nullable=True),
                     sa.Column('fb_last_name', sa.String(length=120), nullable=True),
                     sa.Column('fb_id', sa.String(length=40), nullable=True),
