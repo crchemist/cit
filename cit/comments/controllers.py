@@ -10,11 +10,11 @@ comments_bp = Blueprint('comments', __name__)
 
 
 @comments_bp.route('/', methods=['POST'])
+@login_required
 def comment_add():
     comment_id = 0
     error = 400
     json_req = request.get_json()
-
     if json_req:
         comment = Comment(author=g.user, issue_id=json_req.get('issue_id'),
                           message=json_req.get('msg'))
@@ -22,7 +22,6 @@ def comment_add():
         db.session.commit()
         comment_id = comment.id
         error = 201
-
     return jsonify({'id': comment_id}), error
 
 
