@@ -39,7 +39,7 @@ def setup_authomatic(app):
                 'consumer_secret': app.config['CONSUMER_SECRET'],
                 'class_': oauth2.Facebook,
                 'scope': [], }},
-        '5ecRe$', report_errors=False)
+        app.config['SECRET_KEY'], report_errors=False)
 
     def func():
         g.authomatic = authomatic
@@ -54,7 +54,7 @@ def load_user():
         g.user = User.query.filter_by(id=session['user_id']).first()
 
 
-def create_app(config):
+def create_app(config='config.ProductionDevelopmentConfig'):
     app = Flask(__name__)
 
     app.config.from_object(config)

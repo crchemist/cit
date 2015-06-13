@@ -9,6 +9,7 @@ def database_uri(host, username, password, db_name):
 
 
 class Config(object):
+    # Statement for enabling the development environment
     DEBUG = False
     TESTING = False
 
@@ -22,18 +23,6 @@ class Config(object):
     BASE_DIR = os.path.abspath(os.path.dirname(__file__))
     UPLOAD_FOLDER = os.path.join(BASE_DIR, 'media')
 
-    # From the one hand documentation
-    # "https://pythonhosted.org/Flask-Testing/#testing-with-sqlalchemy"
-    # says
-    # "Another gotcha is that Flask-SQLAlchemy also removes the session
-    # instance at the end of every request (as should any thread safe
-    # application using SQLAlchemy with scoped_session). "
-    #
-    # On the other hand the default value of SQLALCHEMY_COMMIT_ON_TEARDOWN
-    # is False.
-    # See  https://github.com/mitsuhiko/flask-sqlalchemy/blob/master/flask_sqlalchemy/__init__.py#L791
-    # or https://github.com/danjac/Flask-Testing/blob/master/docs/index.rst
-    # Explicit setting this configuration key to True is made for reliability.
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
 
     DATABASE_CONNECT_OPTIONS = {}
@@ -41,71 +30,49 @@ class Config(object):
     # Enable protection against *Cross-site Request Forgery (CSRF)*
     CSRF_ENABLED = True
 
-try:
-    class ProductionConfig(Config):
 
-        #Define database connection parameters
-        __host = os.environ['OPENSHIFT_POSTGRESQL_DB_HOST']
-        __username = os.environ['OPENSHIFT_POSTGRESQL_DB_USERNAME']
-        __password = os.environ['OPENSHIFT_POSTGRESQL_DB_PASSWORD']
-        __db_name = os.environ['OPENSHIFT_APP_NAME']
+class ProductionDevelopmentConfig(Config):
 
-        # Define production database
-        SQLALCHEMY_DATABASE_URI = \
-            database_uri(__host, __username, __password, __db_name)
+    #Define database connection parameters
+    __host = os.getenv('OPENSHIFT_POSTGRESQL_DB_HOST', 'localhost')
+    __username = os.getenv('OPENSHIFT_POSTGRESQL_DB_USERNAME', 'cituser')
+    __password = os.getenv('OPENSHIFT_POSTGRESQL_DB_PASSWORD', 'citpasswd')
+    __db_name = os.getenv('OPENSHIFT_APP_NAME', 'cit')
 
-        # Use a secure, unique and absolutely secret key for
-        # signing the data.
-        # for details see http://flask.pocoo.org/snippets/3/
-        # and http://en.wikipedia.org/wiki/CSRF
-        CSRF_SESSION_KEY = os.environ['OPENSHIFT_CSRF_SESSION_KEY']
-
-        # Secret key for signing cookies
-        SECRET_KEY = os.environ['OPENSHIFT_SECRET_KEY']
-
-        SITE_TITLE = os.environ['OPENSHIFT_SITE_TITLE']
-
-        # Facebook settings
-        CONSUMER_KEY = os.environ['OPENSHIFT_CONSUMER_KEY']
-        CONSUMER_SECRET = os.environ['OPENSHIFT_CONSUMER_SECRET']
-except KeyError:
-    print('You are not in Production mode')
-    # For entering production mode please comment the string
-    # app.config.from_object('config.DevelopmentConfig')
-    # and uncomment the string
-    # app.config.from_object('config.ProductionConfig')
-    # in cit/__init__.py
-
-
-class DevelopmentConfig(Config):
-    # Statement for enabling the development environment
-    DEBUG = True
-
-    # Disable protection against *Cross-site Request Forgery (CSRF)*
-    CSRF_ENABLED = False
-
-    # Define database connection parameters
-    __host = 'localhost'
-    __username = 'cituser'
-    __password = 'citpasswd'
-    __db_name = 'cit'
-
-    # Define the database - we are working with
+    # Define production database
     SQLALCHEMY_DATABASE_URI = \
         database_uri(__host, __username, __password, __db_name)
 
-    # Secret key for signing cookies
-    SECRET_KEY = "5e3r1t"
+    # Use a secure, unique and absolutely secret key for
+    # signing the data.
+    CSRF_SESSION_KEY = os.getenv('OPENSHIFT_CSRF_SESSION_KEY', None)
 
-    SITE_TITLE = "Hi:)"
+    # Secret key for signing cookies
+    SECRET_KEY = os.getenv('OPENSHIFT_SECRET_KEY', 'jd&%G#43WG~dn6')
+
+    SITE_TITLE = os.getenv('OPENSHIFT_SITE_TITLE', 'Hi, Developer :)')
 
     # Facebook settings
-    CONSUMER_KEY = '597071850435446'
-    CONSUMER_SECRET = 'c0e023b09461c502cd3cd7121d205735'
+    CONSUMER_KEY = os.getenv('OPENSHIFT_CONSUMER_KEY', '597071850435446')
+    CONSUMER_SECRET = os.getenv('OPENSHIFT_CONSUMER_SECRET',
+                                'c0e023b09461c502cd3cd7121d205735')
+
+    if 'OPENSHIFT_POSTGRESQL_DB_HOST' not in os.environ.keys():
+
+        # Statement for enabling the development environment
+        DEBUG = True
+
+        # Enable protection against *Cross-site Request Forgery (CSRF)*
+        CSRF_ENABLED = False
 
 
-class TestingConfig(DevelopmentConfig):
+class TestingConfig(Config):
+    # Statement for enabling the development environment
+    DEBUG = True
     TESTING = True
+
+    # Disable protection against *Cross-site Request Forgery (CSRF)*
+    CSRF_ENABLED = False
 
     #Define database connection parameters
     __host = 'localhost'
@@ -116,3 +83,12 @@ class TestingConfig(DevelopmentConfig):
     # Define the database - we are working with
     SQLALCHEMY_DATABASE_URI = \
         database_uri(__host, __username, __password, __db_name)
+
+    # Secret key for signing cookies
+    SECRET_KEY = "jd&%G#43WG~dn6"
+
+    SITE_TITLE = "TEST"
+
+    # Facebook settings
+    CONSUMER_KEY = '597071850435446'
+    CONSUMER_SECRET = 'c0e023b09461c502cd3cd7121d205735'
