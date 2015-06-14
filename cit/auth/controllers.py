@@ -28,11 +28,10 @@ def login():
             user = User.query.filter_by(fb_id=result.user.id).first()
             if not user:
                 user = User(result.user.first_name,
-                                    result.user.last_name,
-                                    result.user.id,
-                                    result.user.email)
+                            result.user.last_name,
+                            result.user.id,
+                            result.user.email)
                 db.session.add(user)
-                db.session.flush()
                 db.session.commit()
             session['user_id'] = user.id
             return redirect('/')
