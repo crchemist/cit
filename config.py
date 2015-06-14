@@ -30,18 +30,21 @@ class Config(object):
     # Enable protection against *Cross-site Request Forgery (CSRF)*
     CSRF_ENABLED = True
 
+    host = 'localhost'
+    username = 'cituser'
+    password = 'citpasswd'
 
 class ProductionDevelopmentConfig(Config):
 
     #Define database connection parameters
-    __host = os.getenv('OPENSHIFT_POSTGRESQL_DB_HOST', 'localhost')
-    __username = os.getenv('OPENSHIFT_POSTGRESQL_DB_USERNAME', 'cituser')
-    __password = os.getenv('OPENSHIFT_POSTGRESQL_DB_PASSWORD', 'citpasswd')
-    __db_name = os.getenv('OPENSHIFT_APP_NAME', 'cit')
+    host = os.getenv('OPENSHIFT_POSTGRESQL_DB_HOST', Config.host)
+    username = os.getenv('OPENSHIFT_POSTGRESQL_DB_USERNAME', Config.username)
+    password = os.getenv('OPENSHIFT_POSTGRESQL_DB_PASSWORD', Config.password)
+    db_name = os.getenv('OPENSHIFT_APP_NAME', 'cit')
 
     # Define production database
     SQLALCHEMY_DATABASE_URI = \
-        database_uri(__host, __username, __password, __db_name)
+        database_uri(host, username, password, db_name)
 
     # Use a secure, unique and absolutely secret key for
     # signing the data.
@@ -75,14 +78,11 @@ class TestingConfig(Config):
     CSRF_ENABLED = False
 
     #Define database connection parameters
-    __host = 'localhost'
-    __username = 'cituser'
-    __password = 'citpasswd'
-    __db_name = 'cit_test'
+    db_name = 'cit_test'
 
     # Define the database - we are working with
     SQLALCHEMY_DATABASE_URI = \
-        database_uri(__host, __username, __password, __db_name)
+        database_uri(Config.host, Config.username, Config.password, db_name)
 
     # Secret key for signing cookies
     SECRET_KEY = "jd&%G#43WG~dn6"
