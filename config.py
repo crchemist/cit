@@ -34,6 +34,13 @@ class Config(object):
     username = 'cituser'
     password = 'citpasswd'
 
+    # Secret key for signing cookies
+    SECRET_KEY = "jd&%G#43WG~dn6"
+
+    # Facebook settings
+    CONSUMER_KEY = '597071850435446'
+    CONSUMER_SECRET = 'c0e023b09461c502cd3cd7121d205735'
+
 class ProductionDevelopmentConfig(Config):
 
     #Define database connection parameters
@@ -51,14 +58,14 @@ class ProductionDevelopmentConfig(Config):
     CSRF_SESSION_KEY = os.getenv('OPENSHIFT_CSRF_SESSION_KEY', None)
 
     # Secret key for signing cookies
-    SECRET_KEY = os.getenv('OPENSHIFT_SECRET_KEY', 'jd&%G#43WG~dn6')
+    SECRET_KEY = os.getenv('OPENSHIFT_SECRET_KEY', Config.SECRET_KEY)
 
     SITE_TITLE = os.getenv('OPENSHIFT_SITE_TITLE', 'Hi, Developer :)')
 
     # Facebook settings
-    CONSUMER_KEY = os.getenv('OPENSHIFT_CONSUMER_KEY', '597071850435446')
+    CONSUMER_KEY = os.getenv('OPENSHIFT_CONSUMER_KEY', Config.CONSUMER_KEY)
     CONSUMER_SECRET = os.getenv('OPENSHIFT_CONSUMER_SECRET',
-                                'c0e023b09461c502cd3cd7121d205735')
+                                Config.CONSUMER_SECRET)
 
     if 'OPENSHIFT_POSTGRESQL_DB_HOST' not in os.environ.keys():
 
@@ -85,10 +92,10 @@ class TestingConfig(Config):
         database_uri(Config.host, Config.username, Config.password, db_name)
 
     # Secret key for signing cookies
-    SECRET_KEY = "jd&%G#43WG~dn6"
+    SECRET_KEY = Config.SECRET_KEY
 
     SITE_TITLE = "TEST"
 
     # Facebook settings
-    CONSUMER_KEY = '597071850435446'
-    CONSUMER_SECRET = 'c0e023b09461c502cd3cd7121d205735'
+    CONSUMER_KEY = Config.CONSUMER_KEY
+    CONSUMER_SECRET = Config.CONSUMER_SECRET
