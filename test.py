@@ -5,7 +5,10 @@ import init_db
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy_utils import drop_database
 from sqlalchemy import create_engine
-from config import database_uri, Config
+from config import database_uri, Config, TestingConfig
+import sqlalchemy.exc as sqlalchemy_exc
+from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT,\
+    ISOLATION_LEVEL_READ_COMMITTED
 
 engine = create_engine(database_uri(Config.host, Config.username,
                                     Config.password, 'postgres'))
@@ -21,9 +24,26 @@ class TestCase(Base):
 
         session = sessionmaker(bind=engine)()
 
-        session.connection().connection.set_isolation_level(0)
-        session.execute('CREATE DATABASE cit_test')
-        session.connection().connection.set_isolation_level(1)
+        try:
+            session.connection().connection.\
+                set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+            session.execute('DROP DATABASE ' + TestingConfig.db_name)
+            session.connection().connection.\
+                set_isolation_level(ISOLATION_LEVEL_READ_COMMITTED)
+        except sqlalchemy_exc.DBAPIError:
+            print('Testing DB "cit_test" is absent. New DB "cit_test" \
+will be created')
+        finally:
+            session.commit()
+            session.rollback()
+            session.close_all()
+            engine.dispose()
+
+        session.connection().connection.\
+            set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+        session.execute('CREATE DATABASE ' + TestingConfig.db_name)
+        session.connection().connection.\
+            set_isolation_level(ISOLATION_LEVEL_READ_COMMITTED)
 
         db.engine.execute('CREATE EXTENSION postgis;')
         db.engine.execute('CREATE EXTENSION plv8;')
@@ -46,6 +66,7 @@ class TestCase(Base):
         db.session.rollback()
         db.session.close()
         self._ctx.pop()
+
 
 class TestModel(TestCase):
 
