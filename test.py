@@ -9,6 +9,8 @@ from config import database_uri, Config, TestingConfig
 import sqlalchemy.exc as sqlalchemy_exc
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT,\
     ISOLATION_LEVEL_READ_COMMITTED
+from cit import Comment
+import json
 
 engine = create_engine(database_uri(Config.host, Config.username,
                                     Config.password, 'postgres'))
@@ -76,6 +78,24 @@ class TestModel(TestCase):
         response = self.client.post('/comments/', data=comment)
 
         assert response.status_code == 401
+
+    def test_adding_comments_logged_user(self):
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess['user_id'] = 1
+            comment = dict(issue_id=1, msg='test test')
+            response = self.client.post('/comments/', data=comment)
+            with c.session_transaction() as sess:
+                sess.pop('user_id', None)
+
+        response_in_json = json.loads(response.data)
+        comment_id = response_in_json['id']
+        comment_from_db = Comment.query.filter_by(id=comment_id).first()
+
+        assert response.status_code == 201
+
+        assert (str(comment['issue_id']) == comment_from_db.issue_id) and\
+               (comment['msg'] == comment_from_db.message)
 
 if __name__ == "__main__":
     import unittest

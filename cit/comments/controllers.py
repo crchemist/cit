@@ -14,10 +14,9 @@ comments_bp = Blueprint('comments', __name__)
 def comment_add():
     comment_id = 0
     error = 400
-    json_req = request.get_json()
-    if json_req:
-        comment = Comment(author=g.user, issue_id=json_req.get('issue_id'),
-                          message=json_req.get('msg'))
+    if request.form['issue_id']:
+        comment = Comment(author=g.user, issue_id=request.form['issue_id'],
+                          message=request.form['msg'])
         db.session.add(comment)
         db.session.commit()
         comment_id = comment.id
