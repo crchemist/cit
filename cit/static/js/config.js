@@ -9,4 +9,11 @@ app.config(
 				controller: 'UserNS'
 			});			
 	}
-)
+);
+
+app.config(
+	function ($interpolateProvider) {
+    	$interpolateProvider.startSymbol('[[');
+    	$interpolateProvider.endSymbol(']]');
+	}
+);

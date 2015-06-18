@@ -8,7 +8,7 @@ class Issue(db.Model):
     description = db.Column(db.String(120))
     coordinates = db.Column(Geography(geometry_type='GEOMETRY'))
 
-    def __init__(self, description="", coordinates="", reporter=None):
+    def __init__(self, description="", coordinates="", reporter=1):
         self.description = description
         self.coordinates = coordinates
         self.reporter = reporter
