@@ -1,6 +1,6 @@
-app.controller('UserNS', ['$scope', '$http', '$window', function($scope, $http, $window) {
-
-        $http.get('/auth/user-info/').success(function(data) {
+app.controller('UserNS', ['$scope', '$http', '$window','Profile', function($scope, $http, $window, Profile) {
+		Profile.all()
+		.success(function(data) {
             $scope.user_data = data;
             if (Object.keys($scope.user_data).length > 0) {
                 $scope.user_data.fullUserName = $scope.user_data.first_name + ' ' + $scope.user_data.last_name;
@@ -13,12 +13,12 @@ app.controller('UserNS', ['$scope', '$http', '$window', function($scope, $http, 
 		$scope.hideErrorMessage = true;
 
 		$scope.pushData = function() {
-			var dataObj = {
+			var dataObj = { 
 				'name' : $scope.user_data.first_name,
 				'surname' : $scope.user_data.last_name
 			};
 				
-			$http.post('/auth/user/profile/',dataObj).
+			Profile.changesProfile(dataObj).
 				success(function(data, status) {
 					$scope.hideSuccessMessage = false;
 					$scope.hideErrorMessage = true;

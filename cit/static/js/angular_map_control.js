@@ -10,6 +10,17 @@ app.controller("MarkerController", [ '$scope', '$http','$rootScope', function($s
         var leafIcon = {
             iconUrl: 'static/images/marker-icon.png',
             shadowUrl: 'static/images/marker-shadow.png'
+        }; 
+
+        $scope.issueDescriptionShow = false;
+        $scope.custom = true;
+
+        markerClick = function(feature) {
+            $scope.issueDescription = feature.target.feature.properties.description;
+            $scope.issueDes = feature.target.feature.properties.photos;
+           
+            $scope.issueDescriptionShow = true;
+            $scope.custom = false
         };
 
         angular.extend($scope, {
@@ -21,16 +32,11 @@ app.controller("MarkerController", [ '$scope', '$http','$rootScope', function($s
                         feature.properties.description = 'No description'
                     }
                     var customPopup = feature.properties.description;
-                    
-                    if (feature.properties.photos != false) {
-                       customPopup += '<br/><img src=' + feature.properties.photos + ' alt="photo of issue" width="200px"/>';
-                    }
-                                       
-                    marker = new L.marker(latlng, {icon: L.icon(leafIcon)}).bindPopup(customPopup );
+                    marker = new L.marker(latlng, {icon: L.icon(leafIcon)}).bindPopup(customPopup).on('click', markerClick);
                     return marker;
                 }
-            }
-            
+            }           
         });
     });
 }]);
+

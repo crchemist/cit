@@ -2,7 +2,6 @@
 from cit import create_app
 from cit.db import db
 from mixer.backend.sqlalchemy import Mixer
-from mixer.backend.flask import mixer
 from cit.auth.models import User
 from cit.organizations.models import Organization
 from cit.issues.models import Issue, Photo
@@ -16,6 +15,7 @@ class MyOwnMixer(Mixer):
         target = self.__scheme(**values)
         return target
 
+
 mixer = MyOwnMixer()
 
 
@@ -26,7 +26,6 @@ class InitDB():
     def create_parser(self):
         parser = argparse.ArgumentParser()
         parser.add_argument('--make-admin', action='store', default='')
-        args = parser.parse_args()
 
         return parser
 
@@ -59,7 +58,8 @@ class InitDB():
             db.session.add(comment)
             photo = mixer.blend(Photo,
                                 issue=issue,
-                                file_path=mixer.RANDOM)
+                                file_path=self.app.config.get('UPLOAD_FOLDER')
+                                + '/sample_1.jpg')
             db.session.add(photo)
             db.session.commit()
 

@@ -13,11 +13,12 @@
     <link href="/static/css/bootstrap-select.min.css" type = "text/css" rel="stylesheet">
     <link href="/static/css/font-awesome.min.css" type = "text/css" rel="stylesheet">
     <link href="/static/css/general-styles.css" type = "text/css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/static/css/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/flexslider.css"/>
 
     <!-- JS files -->
     <script src="/static/js/jquery.js" ></script>
-    <script src="/static/js/gallery.js"></script>
+    
+    <script src="/static/js/jquery.flexslider.js"></script>
 
     <script src="/static/js/angular.js"></script>
     <script src="/static/js/app.js"></script>    
@@ -26,6 +27,7 @@
     <script src="/static/js/controllers.js"></script>
     <script src="/static/js/directives.js"></script>
     <script src="/static/js/config.js"></script>
+    <script src="/static/js/services.js"></script>
     <script src="/static/js/angular-route.min.js"></script>
     <script src="/static/js/angular-bootstrap-multiselect.js"></script>
      
@@ -34,7 +36,7 @@
     <script src="/static/js/angular-leaflet-directive.js"></script>
     <script src="/static/js/user_directive.js"></script>
     <script src="/static/js/angular_map_control.js"></script>
-    <script src="/static/js/slick.min.js"></script> 
+    <script src="/static/js/angular-flexslider.js"></script>
 
     <!--Search location on a map -->
     <script src="/static/js/l.control.geosearch.js"></script>
@@ -106,47 +108,30 @@
           </div>
       </div>  
   </nav>
-  <!--/.nav-collapse -->   
-
-  
+  <!--/.nav-collapse --> 
    	<div ng-controller="ContextCtrl">		 
-    	<div  class="col-lg-12" >
-          
-			<div class="col-lg-7" ng-controller="MarkerController" ng-show="showMap">
-                <leaflet id="map" center="center" geojson="geojson" markers="markers" ></leaflet>
-            </div>
-
-		        <div class="col-lg-5"  ng-show="showGallery">
-		          <div class="col-lg-12" id="full_right_map">
-		            <div id="general">
-		            </div><!--general end -->
-		            <div id="location_info">
-		            </div><!--location_info end -->
-		            <div id="slider">
-		              <div class="slider-nav">
-		                <div><img src="/static/images/carousel/thumbs/1.jpg" alt="img_1"></div>
-		                <div><img src="/static/images/carousel/thumbs/2.jpg" alt="img_2"></div>
-		                <div><img src="/static/images/carousel/thumbs/3.jpg" alt="img_3"></div>
-		                <div><img src="/static/images/carousel/thumbs/4.jpg" alt="img_4"></div>
-		              </div>
-		              <div class="slider-for">
-		                <div><img src="/static/images/carousel/1.jpg" alt="img_1"></div>
-		                <div><img src="/static/images/carousel/2.jpg" alt="img_2"></div>
-		                <div><img src="/static/images/carousel/3.jpg" alt="img_3"></div>
-		                <div><img src="/static/images/carousel/4.jpg" alt="img_4"></div>
-		              </div>
-		            </div><!--slider end -->
-		          </div>
-			</div> 
-	 		
-			<div ng-view> </div>
+    	<div  class="col-lg-12" ng-controller="MarkerController" >          
+  			<div class="col-lg-7" ng-show="showMap" >
+            <leaflet  id="map" center="center" geojson="geojson" markers="markers" ></leaflet>
         </div>
+		        <div class="col-lg-5 "  ng-show="showGallery">
+		          <div class="col-lg-12 " id="full_right_map">             
+		            <div id="general" >
+		            </div><!--general end -->		           
+                <div  class="gallery" ng-show="issueDescriptionShow" ng-hide="custom">
+                <div class="form-control" id="comment"> [[issueDescription]]</div>          		   
+                 <div>  
+                  <flex-slider class="carousel" slide="image in issueDes" animation-loop="false"  item-margin="3">                    
+                    <li >
+                      <img ng-src="/static/images/carousel/thumbs/[[image]]" id="carouselPhotos">
+                    </li>                    
+                  </flex-slider>                 
+                </div>
+		          </div>
+			     </div> 
+	 		</div>
+			<div ng-view> </div>
+    </div>
 
-
-        
-
-   
-  
-  
 </body>
 </html>
