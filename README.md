@@ -10,3 +10,4 @@ Installation
   * Create postgis extension in psql: `CREATE EXTENSION postgis;`
   * `alembic upgrade head`
   * `python init_db.py`
+  * Give superuser rights to cituser in psql: `ALTER USER cituser WITH SUPERUSER;`
