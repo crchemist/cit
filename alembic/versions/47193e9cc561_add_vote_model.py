@@ -1,9 +1,7 @@
 """add Vote model
-
 Revision ID: 47193e9cc561
 Revises: eac750d860b
 Create Date: 2015-06-10 00:17:22.466285
-
 """
 
 # revision identifiers, used by Alembic.

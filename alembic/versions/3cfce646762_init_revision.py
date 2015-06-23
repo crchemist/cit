@@ -1,9 +1,7 @@
 """init revision
-
 Revision ID: 3cfce646762
-Revises: 
+Revises:
 Create Date: 2015-05-28 01:27:05.407436
-
 """
 
 # revision identifiers, used by Alembic.
@@ -27,12 +25,14 @@ def upgrade():
                     )
     op.create_table('user',
                     sa.Column('id', sa.Integer(), nullable=False),
+                    sa.Column('organization', sa.Integer(), nullable=True),
                     sa.Column('fb_first_name', sa.String(length=120), nullable=True),
                     sa.Column('fb_last_name', sa.String(length=120), nullable=True),
                     sa.Column('fb_id', sa.String(length=40), nullable=True),
                     sa.Column('email', sa.String(length=120), nullable=True),
                     sa.Column('about_me', sa.String(length=120), nullable=True),
                     sa.Column('is_superuser', sa.Boolean(), nullable=True),
+                    sa.ForeignKeyConstraint(['organization'], ['organization.id'], ),
                     sa.PrimaryKeyConstraint('id'),
                     sa.UniqueConstraint('email'),
                     sa.UniqueConstraint('fb_id')
