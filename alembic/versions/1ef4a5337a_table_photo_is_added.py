@@ -1,9 +1,7 @@
 """table Photo is added
-
 Revision ID: 1ef4a5337a
 Revises: 3cfce646762
 Create Date: 2015-05-30 19:54:35.502475
-
 """
 
 # revision identifiers, used by Alembic.

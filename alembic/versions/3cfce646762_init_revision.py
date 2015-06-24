@@ -1,9 +1,7 @@
 """init revision
-
 Revision ID: 3cfce646762
-Revises: 
+Revises:
 Create Date: 2015-05-28 01:27:05.407436
-
 """
 
 # revision identifiers, used by Alembic.

@@ -1,9 +1,7 @@
 """adding user/organization relationship table
-
 Revision ID: eac750d860b
 Revises: 1ef4a5337a
 Create Date: 2015-06-01 15:44:50.323810
-
 """
 
 # revision identifiers, used by Alembic.

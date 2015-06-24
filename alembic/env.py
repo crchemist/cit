@@ -9,6 +9,7 @@ sys.path.append(os.getcwd())
 
 from cit.db import db
 from cit import create_app
+
 app = create_app()
 
 # this is the Alembic Config object, which provides
