@@ -1,6 +1,6 @@
 -e git+git@github.com:peterhudec/authomatic.git@a3058fac78827d66f4d3a2e4e5739ee95cff0261#egg=Authomatic-master
 Flask==0.10.1
-Flask-Admin==1.1.0
+Flask-Admin==1.2.0
 Flask-Login==0.2.11
 Flask-RESTful==0.3.2
 Flask-SQLAlchemy==2.0

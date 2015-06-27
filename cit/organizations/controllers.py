@@ -27,22 +27,16 @@ def organization_create():
 
 @organizations_bp.route('/', methods=['GET'])
 def organizations_info():
-    organization_query = db.session.query(Organization)    
-    organization_names = []    
+    organization_query = db.session.query(Organization)
+    organizations_list = []
     if organization_query:
-        for org in organization_query:            
-            organization_dict = {}
-            organization_dict.update({
-                'id': org.id,
-                'name': org.name
-                })
-            organization_names.append(organization_dict)              
-        return jsonify(organizations=organization_names)
-    else:
-        return jsonify({})
+        organizations_list = \
+            [{'id': org.id, 'name': org.name} for org in organization_query]
+    return jsonify(organizations=organizations_list)
 
 
-@organizations_bp.route('/organizations/<int:org_id>/add-user/', methods=['POST'])
+@organizations_bp.route('/organizations/<int:org_id>/add-user/',
+                        methods=['POST'])
 @login_required
 def organization_user_add(org_id):
     user = g.user

@@ -19,7 +19,7 @@ class MyOwnMixer(Mixer):
 mixer = MyOwnMixer()
 
 
-class InitDB():
+class InitDB:
     def __init__(self, app):
         self.app = app
 
