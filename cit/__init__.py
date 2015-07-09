@@ -2,7 +2,7 @@
 from flask import Flask, render_template, request, g, session
 
 from flask.ext.admin import Admin, BaseView, expose
-from flask.ext.admin.contrib.sqla import ModelView
+from flask.ext.admin.contrib.geoa import ModelView
 
 from authomatic.providers import oauth2
 from authomatic import Authomatic
@@ -48,9 +48,8 @@ def setup_authomatic(app):
 
 
 def load_user():
-    if 'user_id' not in session.keys():
-        g.user = None
-    else:
+    g.user = None
+    if 'user_id' in session.keys():
         g.user = User.query.filter_by(id=session['user_id']).first()
 
 
@@ -73,7 +72,7 @@ def create_app(config='config.ProductionDevelopmentConfig'):
     app.register_blueprint(comments_bp, url_prefix='/comments')
     app.register_blueprint(organizations_bp, url_prefix='/organizations')
 
-    admin = Admin(app)
+    admin = Admin(app, name='CIT-Admin')
 
     # add admin views.
     admin.add_view(AdminView(User, db.session))

@@ -50,7 +50,7 @@ class Spatial_ref_sys(db.Model):
 
 class Vote(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    author_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     vote = db.Column(db.Boolean)
 
     # This is used to discriminate between the linked tables.
@@ -61,9 +61,9 @@ class Vote(db.Model):
 
     target = generic_relationship(target_type, target_id)
 
-    author = db.relationship("User")
+    author = db.relationship('User')
 
-    def __init__(self, author="", vote="", target=""):
+    def __init__(self, author='', vote='', target=''):
         self.author = author
         self.vote = vote
         self.target = target

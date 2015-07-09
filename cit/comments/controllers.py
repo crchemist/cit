@@ -2,8 +2,6 @@ from flask import Blueprint, request, jsonify, g
 from ..utils import login_required
 
 from .models import Comment
-from ..issues.models import Issue
-from ..auth.models import User
 from ..db import db
 
 comments_bp = Blueprint('comments', __name__)
@@ -13,26 +11,33 @@ comments_bp = Blueprint('comments', __name__)
 @login_required
 def comment_add():
     comment_id = 0
-    error = 400
-    if request.form['issue_id']:
-        comment = Comment(author=g.user, issue_id=request.form['issue_id'],
+    status = 400
+
+    if request.form['issue_id'] and request.form['msg']:
+        comment = Comment(author_id=g.user.id,
+                          issue_id=request.form['issue_id'],
                           message=request.form['msg'])
         db.session.add(comment)
         db.session.commit()
         comment_id = comment.id
-        error = 201
-    return jsonify({'id': comment_id}), error
+        status = 201
+    return jsonify({'id': comment_id}), status
 
 
-@comments_bp.route('/comments/<int:comment_id>/', methods=['DELETE'])
+@comments_bp.route('/<int:comment_id>/', methods=['DELETE'])
 @login_required
 def delete_comment(comment_id):
+    db.session.begin_nested()
     comment_query = db.session.query(Comment)
     comment_filtered = comment_query.filter(Comment.id == comment_id)
     result = comment_filtered.delete(synchronize_session='fetch')
     if result:
         db.session.commit()
-        return jsonify({'status': 0})
+        status = 204
+        message = 'comment was successfully deleted'
     else:
         db.session.rollback()
-        return jsonify({'msg': 'comment not found', 'status': 1})
+        status = 404
+        message = 'comment not found'
+
+    return jsonify({'msg': message}), status
