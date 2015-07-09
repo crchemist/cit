@@ -48,9 +48,8 @@ def setup_authomatic(app):
 
 
 def load_user():
-    if 'user_id' not in session.keys():
-        g.user = None
-    else:
+    g.user = None
+    if 'user_id' in session.keys():
         g.user = User.query.filter_by(id=session['user_id']).first()
 
 
