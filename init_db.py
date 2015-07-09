@@ -51,9 +51,10 @@ class InitDB:
                                 description=mixer.RANDOM,
                                 coordinates='POINT(49.839357 24.028398)')
             db.session.add(issue)
+            db.session.flush()
             comment = mixer.blend(Comment,
-                                  author=user,
-                                  issue=issue,
+                                  author_id=user.id,
+                                  issue_id=issue.id,
                                   message=mixer.RANDOM)
             db.session.add(comment)
             photo = mixer.blend(Photo,
