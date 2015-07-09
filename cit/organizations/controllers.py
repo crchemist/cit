@@ -1,10 +1,11 @@
-from flask import redirect, render_template, request, make_response, g
-from flask import Blueprint, session, jsonify
-from urllib import quote
+from flask import request, g
+from flask import Blueprint, jsonify
 
 from .models import Organization
 from ..db import db
 from ..utils import login_required, admin_required
+import sqlalchemy.exc as sqlalchemy_exc
+import sqlalchemy.orm.exc as sqlalchemy_orm_exc
 
 organizations_bp = Blueprint('organizations', __name__)
 
@@ -35,13 +36,33 @@ def organizations_info():
     return jsonify(organizations=organizations_list)
 
 
-@organizations_bp.route('/organizations/<int:org_id>/add-user/',
+@organizations_bp.route('/<int:org_id>/add-user/',
                         methods=['POST'])
 @login_required
 def organization_user_add(org_id):
     user = g.user
-    org = db.session.query(Organization).filter(Organization.id == org_id)
-    user.organizations.append(org.first())
-    db.session.add(user)
-    db.session.commit()
-    return jsonify({'status': 0}), 201
+    try:
+        db.session.begin_nested()
+        org = db.session.query(Organization).filter(Organization.id == org_id)
+        user.organizations.append(org.first())
+        db.session.add(user)
+        db.session.commit()
+        status = 201
+        message = 'user-organization relationship was established'
+    except sqlalchemy_exc.IntegrityError:
+        db.session.rollback()
+        status = 409
+        message = 'user-organization relationship was not established ' + \
+            'due to the IntegrityError transaction committing.\n' + \
+            'Please check whether the specific relationship is' + \
+            'already present in database.'
+    except sqlalchemy_orm_exc.FlushError:
+        db.session.rollback()
+        status = 404
+        message = 'user-organization relationship was not established ' + \
+            'due to the FlushError transaction committing.\n' + \
+            'Please check whether the specific organization is' + \
+            'present in database.'
+
+    return jsonify({'user_id': user.id, 'org_id': org_id,
+                    'message': message}), status
