@@ -3,7 +3,7 @@ from cit.db import db
 from unittest import TestCase as Base
 import init_db
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy_utils import drop_database, database_exists
+from sqlalchemy_utils import drop_database
 from sqlalchemy import create_engine
 from config import database_uri, Config, TestingConfig
 import sqlalchemy.exc as sqlalchemy_exc
@@ -98,7 +98,7 @@ class TestModel(TestCase):
         TestCase.assertIn(self, 'Permission denied',
                           response.data, msg=message)
 
-    def test_add_comment_auth_user(self):
+    def test_add_comment_auth_user_1(self):
         user_id = 2  # this user doesn't have superuser rights
         issue_id = 1
         with self.client as c:
@@ -113,14 +113,36 @@ class TestModel(TestCase):
         comment_id = response_in_json['id']
         comment_from_db = Comment.query.filter_by(id=comment_id).first()
 
-        message = 'A problem with adding comment by authorised user.\n' \
-                  "response.status_code isn't equal to 201."
+        message = 'A problem with adding comment by authorised user.\n' + \
+            "response.status_code isn't equal to 201."
         TestCase.assertEqual(self, response.status_code, 201, msg=message)
 
         message = 'A problem with adding comment by authorised user to DB.'
         expr = (str(comment['issue_id']) == comment_from_db.issue_id) and\
                (comment['msg'] == comment_from_db.message)
         TestCase.assertTrue(self, expr, msg=message)
+
+    def test_add_comment_auth_user_2(self):
+        user_id = 1
+        issue_id = 3  # this issue doesn't exist
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess['user_id'] = user_id
+            comment = dict(issue_id=issue_id, msg="this issue doesn't exist")
+            response = c.post('/comments/', data=comment)
+            with c.session_transaction() as sess:
+                sess.pop('user_id', None)
+
+        message_init = 'A problem with comment making on nonexistent issue.\n'
+
+        message = message_init + "response.status_code isn't equal to 205."
+        TestCase.assertEqual(self, response.status_code, 205, msg=message)
+
+        message = message_init + \
+            "response.data doesn't contain substring " + \
+            "'issue doesn't exist'"
+        TestCase.assertIn(self, "'issue doesn't exist'",
+                          response.data, msg=message)
 
     def test_del_comment_unauth_user(self):
         comment_id = 2
@@ -359,8 +381,7 @@ class TestModel(TestCase):
 
         message = message_init + \
             "response.data doesn't contain substring 'IntegrityError'"
-        TestCase.assertIn(self, 'IntegrityError',
-                          response.data, msg=message)
+        TestCase.assertIn(self, 'IntegrityError', response.data, msg=message)
 
         message = message_init + \
             "response.status_code isn't equal to 409."
@@ -381,8 +402,7 @@ class TestModel(TestCase):
 
         message = message_init + \
             "response.data doesn't contain substring 'FlushError'"
-        TestCase.assertIn(self, 'FlushError',
-                          response.data, msg=message)
+        TestCase.assertIn(self, 'FlushError', response.data, msg=message)
 
         message = message_init + \
             "response.status_code isn't equal to 404."

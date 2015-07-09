@@ -58,7 +58,7 @@ def user_info():
 def logout():
     session.pop('authomatic:fb:state', None)
     session.pop('user_id', None)
-    return jsonify({'status': 0})
+    return jsonify({}), 200
 
 
 @auth_bp.route('/user/profile/', methods=['POST'])
